@@ -1,0 +1,10 @@
+# ninja log v6
+22	1463	7652144119301467	CMakeFiles/ImageProcessing_autogen	aa2a91f2c62dfa0d
+22	1463	7652144119301467	ImageProcessing_autogen/mocs_compilation.cpp	aa2a91f2c62dfa0d
+22	1463	7652144119301467	ImageProcessing_autogen/include/ui_mainwindowqt.h	aa2a91f2c62dfa0d
+22	1463	7652144119301467	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/out/build/x64-Debug/CMakeFiles/ImageProcessing_autogen	aa2a91f2c62dfa0d
+22	1463	7652144119301467	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/out/build/x64-Debug/ImageProcessing_autogen/mocs_compilation.cpp	aa2a91f2c62dfa0d
+22	1463	7652144119301467	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/out/build/x64-Debug/ImageProcessing_autogen/include/ui_mainwindowqt.h	aa2a91f2c62dfa0d
+1465	2943	7652144133725475	CMakeFiles/ImageProcessing.dir/ImageProcessing_autogen/mocs_compilation.cpp.obj	6abec75de8720b6c
+1488	3101	7652144133955182	CMakeFiles/ImageProcessing.dir/main.cpp.obj	6bffd538f5448197
+1503	3364	7652144134103889	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	cac32a740654e0c7

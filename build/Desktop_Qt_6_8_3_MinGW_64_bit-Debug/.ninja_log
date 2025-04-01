@@ -1,0 +1,36 @@
+# ninja log v6
+7	1252	7652144590967090	ImageProcessing_autogen/timestamp	31074a0b7588c6df
+7	1252	7652144590967090	ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+7	1252	7652144590967090	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/timestamp	31074a0b7588c6df
+7	1252	7652144590967090	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+1266	4966	7652144593247100	CMakeFiles/ImageProcessing.dir/ImageProcessing_autogen/mocs_compilation.cpp.obj	64ed803c81e91fd2
+1291	5121	7652144593497094	CMakeFiles/ImageProcessing.dir/main.cpp.obj	6b4a0e8526ef971
+1309	5210	7652144593677105	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	4490fd88fe70e186
+5210	5759	7652144632687104	ImageProcessing.exe	ba472807c582301d
+14	329	7652165979436603	ImageProcessing_autogen/timestamp	31074a0b7588c6df
+14	329	7652165979436603	ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+14	329	7652165979436603	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/timestamp	31074a0b7588c6df
+14	329	7652165979436603	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+331	3357	7652165982603381	CMakeFiles/ImageProcessing.dir/main.cpp.obj	6b4a0e8526ef971
+347	3432	7652165982773302	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	4490fd88fe70e186
+3433	3847	7652166013623440	ImageProcessing.exe	ba472807c582301d
+37	349	7652167633389683	ImageProcessing_autogen/timestamp	31074a0b7588c6df
+37	349	7652167633389683	ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+37	349	7652167633389683	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/timestamp	31074a0b7588c6df
+37	349	7652167633389683	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+351	3550	7652167636519254	CMakeFiles/ImageProcessing.dir/main.cpp.obj	6b4a0e8526ef971
+369	3608	7652167636709636	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	4490fd88fe70e186
+3608	4014	7652167669089273	ImageProcessing.exe	ba472807c582301d
+34	357	7652226406630802	ImageProcessing_autogen/timestamp	31074a0b7588c6df
+34	357	7652226406630802	ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+34	357	7652226406630802	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/timestamp	31074a0b7588c6df
+34	357	7652226406630802	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+358	3333	7652226409884599	CMakeFiles/ImageProcessing.dir/main.cpp.obj	6b4a0e8526ef971
+377	3380	7652226410065060	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	4490fd88fe70e186
+3380	3781	7652226440098612	ImageProcessing.exe	ba472807c582301d
+34	364	7652234675303841	ImageProcessing_autogen/timestamp	31074a0b7588c6df
+34	364	7652234675303841	ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+34	364	7652234675303841	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/timestamp	31074a0b7588c6df
+34	364	7652234675303841	C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/mocs_compilation.cpp	31074a0b7588c6df
+366	3461	7652234678627668	CMakeFiles/ImageProcessing.dir/mainwindowqt.cpp.obj	4490fd88fe70e186
+3461	3845	7652234709576775	ImageProcessing.exe	ba472807c582301d
