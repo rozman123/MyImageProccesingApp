@@ -4,6 +4,7 @@
 #include<QMessageBox>
 MainWindowQt::MainWindowQt(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindowQt)
 {
+    scene = new QGraphicsScene(this);
     ui->setupUi(this);
 }
 
