@@ -14,7 +14,7 @@
    <string>MainWindowQt</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="ImageSlot">
+   <widget class="QGraphicsView" name="imageSlot">
     <property name="geometry">
      <rect>
       <x>125</x>
@@ -24,11 +24,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="Negative">
+   <widget class="QPushButton" name="negative">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>70</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -37,7 +37,7 @@
      <string>Negative</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="GreyScale">
+   <widget class="QPushButton" name="greyScale">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -50,7 +50,7 @@
      <string>Grey Scale</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Correction">
+   <widget class="QPushButton" name="correction">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -61,6 +61,19 @@
     </property>
     <property name="text">
      <string>Correction</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="loadImage">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Load Image</string>
     </property>
    </widget>
   </widget>

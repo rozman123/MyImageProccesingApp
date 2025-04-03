@@ -2,6 +2,8 @@
 #define MAINWINDOWQT_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
+#include <QImage>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -13,11 +15,20 @@ class MainWindowQt : public QMainWindow
 {
     Q_OBJECT
 
+private:
+    Ui::MainWindowQt *ui;
+    QGraphicsScene *scene;
+    QImage image;  // stores image data
+
 public:
     MainWindowQt(QWidget *parent = nullptr);
     ~MainWindowQt();
 
-private:
-    Ui::MainWindowQt *ui;
+
+private slots:
+    void on_loadImage_clicked();
+    void loadImage(QString pathToImage);
+
+
 };
 #endif // MAINWINDOWQT_H

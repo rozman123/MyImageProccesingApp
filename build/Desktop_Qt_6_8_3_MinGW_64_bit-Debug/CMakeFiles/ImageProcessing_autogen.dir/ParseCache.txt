@@ -124,6 +124,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qversiontagging.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qxptype_traits.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qyieldcpu.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/QImage
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qaction.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qbitmap.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qbrush.h
@@ -137,6 +138,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qkeysequence.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpaintdevice.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpalette.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpixelformat.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpixmap.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpolygon.h
@@ -149,7 +151,9 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qtransform.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qwindowdefs.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qwindowdefs_win.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qtabwidget.h

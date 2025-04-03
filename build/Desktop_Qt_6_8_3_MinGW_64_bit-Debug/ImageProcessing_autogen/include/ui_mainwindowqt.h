@@ -24,10 +24,11 @@ class Ui_MainWindowQt
 {
 public:
     QWidget *centralwidget;
-    QGraphicsView *ImageSlot;
-    QPushButton *Negative;
-    QPushButton *GreyScale;
-    QPushButton *Correction;
+    QGraphicsView *imageSlot;
+    QPushButton *negative;
+    QPushButton *greyScale;
+    QPushButton *correction;
+    QPushButton *loadImage;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -38,18 +39,21 @@ public:
         MainWindowQt->resize(800, 600);
         centralwidget = new QWidget(MainWindowQt);
         centralwidget->setObjectName("centralwidget");
-        ImageSlot = new QGraphicsView(centralwidget);
-        ImageSlot->setObjectName("ImageSlot");
-        ImageSlot->setGeometry(QRect(125, 11, 671, 531));
-        Negative = new QPushButton(centralwidget);
-        Negative->setObjectName("Negative");
-        Negative->setGeometry(QRect(10, 20, 101, 31));
-        GreyScale = new QPushButton(centralwidget);
-        GreyScale->setObjectName("GreyScale");
-        GreyScale->setGeometry(QRect(10, 120, 101, 31));
-        Correction = new QPushButton(centralwidget);
-        Correction->setObjectName("Correction");
-        Correction->setGeometry(QRect(10, 210, 101, 31));
+        imageSlot = new QGraphicsView(centralwidget);
+        imageSlot->setObjectName("imageSlot");
+        imageSlot->setGeometry(QRect(125, 11, 671, 531));
+        negative = new QPushButton(centralwidget);
+        negative->setObjectName("negative");
+        negative->setGeometry(QRect(10, 70, 101, 31));
+        greyScale = new QPushButton(centralwidget);
+        greyScale->setObjectName("greyScale");
+        greyScale->setGeometry(QRect(10, 120, 101, 31));
+        correction = new QPushButton(centralwidget);
+        correction->setObjectName("correction");
+        correction->setGeometry(QRect(10, 210, 101, 31));
+        loadImage = new QPushButton(centralwidget);
+        loadImage->setObjectName("loadImage");
+        loadImage->setGeometry(QRect(10, 20, 101, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
@@ -67,9 +71,10 @@ public:
     void retranslateUi(QMainWindow *MainWindowQt)
     {
         MainWindowQt->setWindowTitle(QCoreApplication::translate("MainWindowQt", "MainWindowQt", nullptr));
-        Negative->setText(QCoreApplication::translate("MainWindowQt", "Negative", nullptr));
-        GreyScale->setText(QCoreApplication::translate("MainWindowQt", "Grey Scale", nullptr));
-        Correction->setText(QCoreApplication::translate("MainWindowQt", "Correction", nullptr));
+        negative->setText(QCoreApplication::translate("MainWindowQt", "Negative", nullptr));
+        greyScale->setText(QCoreApplication::translate("MainWindowQt", "Grey Scale", nullptr));
+        correction->setText(QCoreApplication::translate("MainWindowQt", "Correction", nullptr));
+        loadImage->setText(QCoreApplication::translate("MainWindowQt", "Load Image", nullptr));
     } // retranslateUi
 
 };
