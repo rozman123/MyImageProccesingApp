@@ -6,6 +6,7 @@ MainWindowQt::MainWindowQt(QWidget *parent): QMainWindow(parent), ui(new Ui::Mai
 {
     scene = new QGraphicsScene(this);
     ui->setupUi(this);
+    ui->imageSlot->setScene(scene);
 }
 
 MainWindowQt::~MainWindowQt()
@@ -19,16 +20,12 @@ void MainWindowQt::on_loadImage_clicked()
 
     if(pathToFile.isEmpty())
     {
-        QMessageBox::warning(this,"No File was Given!!","No fiel was given or given file does not exist","OK");
+        QMessageBox::warning(this,"No File was Given!!","No file was given or given file does not exist","OK");
     }
     else
     {
         loadImage(pathToFile);
     }
-
-
-
-
 
 }
 
@@ -39,7 +36,7 @@ void MainWindowQt::loadImage(QString pathToImage)
     image.load(pathToImage);
     if (!image.isNull())
     {
-        QPixmap pixmap(pathToImage);
+        QPixmap pixmap = QPixmap::fromImage(image);
 
         scene->addPixmap(pixmap);
         ui->imageSlot->fitInView(scene->itemsBoundingRect(), Qt::KeepAspectRatio);
@@ -53,10 +50,5 @@ void MainWindowQt::loadImage(QString pathToImage)
 
 
 }
-
-
-
-
-
 
 

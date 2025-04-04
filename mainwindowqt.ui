@@ -14,16 +14,6 @@
    <string>MainWindowQt</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="imageSlot">
-    <property name="geometry">
-     <rect>
-      <x>125</x>
-      <y>11</y>
-      <width>671</width>
-      <height>531</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="negative">
     <property name="geometry">
      <rect>
@@ -74,6 +64,16 @@
     </property>
     <property name="text">
      <string>Load Image</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="imageSlot">
+    <property name="geometry">
+     <rect>
+      <x>135</x>
+      <y>11</y>
+      <width>661</width>
+      <height>531</height>
+     </rect>
     </property>
    </widget>
   </widget>

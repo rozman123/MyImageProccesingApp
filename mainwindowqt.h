@@ -30,5 +30,6 @@ private slots:
     void loadImage(QString pathToImage);
 
 
+    void on_imageSlot_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint);
 };
 #endif // MAINWINDOWQT_H

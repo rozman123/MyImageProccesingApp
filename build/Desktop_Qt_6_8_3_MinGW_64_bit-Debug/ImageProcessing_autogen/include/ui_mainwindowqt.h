@@ -24,11 +24,11 @@ class Ui_MainWindowQt
 {
 public:
     QWidget *centralwidget;
-    QGraphicsView *imageSlot;
     QPushButton *negative;
     QPushButton *greyScale;
     QPushButton *correction;
     QPushButton *loadImage;
+    QGraphicsView *imageSlot;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -39,9 +39,6 @@ public:
         MainWindowQt->resize(800, 600);
         centralwidget = new QWidget(MainWindowQt);
         centralwidget->setObjectName("centralwidget");
-        imageSlot = new QGraphicsView(centralwidget);
-        imageSlot->setObjectName("imageSlot");
-        imageSlot->setGeometry(QRect(125, 11, 671, 531));
         negative = new QPushButton(centralwidget);
         negative->setObjectName("negative");
         negative->setGeometry(QRect(10, 70, 101, 31));
@@ -54,6 +51,9 @@ public:
         loadImage = new QPushButton(centralwidget);
         loadImage->setObjectName("loadImage");
         loadImage->setGeometry(QRect(10, 20, 101, 31));
+        imageSlot = new QGraphicsView(centralwidget);
+        imageSlot->setObjectName("imageSlot");
+        imageSlot->setGeometry(QRect(135, 11, 661, 531));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
