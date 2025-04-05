@@ -19,6 +19,8 @@ private:
     Ui::MainWindowQt *ui;
     QGraphicsScene *scene;
     QImage image;  // stores image data
+    int imageWidth=0;
+    int imageHeight=0;
 
 public:
     MainWindowQt(QWidget *parent = nullptr);
@@ -28,8 +30,7 @@ public:
 private slots:
     void on_loadImage_clicked();
     void loadImage(QString pathToImage);
-
-
-    void on_imageSlot_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint);
+    void loadModifiedImage(QImage image_to_load);
+    void on_negative_clicked();
 };
 #endif // MAINWINDOWQT_H
