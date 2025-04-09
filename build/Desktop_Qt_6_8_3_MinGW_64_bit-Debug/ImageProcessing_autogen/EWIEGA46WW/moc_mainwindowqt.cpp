@@ -44,7 +44,11 @@ static constexpr auto qt_meta_stringdata_ZN12MainWindowQtE = QtMocHelpers::strin
     "pathToImage",
     "loadModifiedImage",
     "image_to_load",
-    "on_negative_clicked"
+    "on_negative_clicked",
+    "on_greyScale_clicked",
+    "on_Contrast_clicked",
+    "on_Gamma_clicked",
+    "on_Brightnes_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -56,7 +60,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,15 +68,23 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x08,    1 /* Private */,
-       3,    1,   39,    2, 0x08,    2 /* Private */,
-       5,    1,   42,    2, 0x08,    4 /* Private */,
-       7,    0,   45,    2, 0x08,    6 /* Private */,
+       1,    0,   62,    2, 0x08,    1 /* Private */,
+       3,    1,   63,    2, 0x08,    2 /* Private */,
+       5,    1,   66,    2, 0x08,    4 /* Private */,
+       7,    0,   69,    2, 0x08,    6 /* Private */,
+       8,    0,   70,    2, 0x08,    7 /* Private */,
+       9,    0,   71,    2, 0x08,    8 /* Private */,
+      10,    0,   72,    2, 0x08,    9 /* Private */,
+      11,    0,   73,    2, 0x08,   10 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,    4,
     QMetaType::Void, QMetaType::QImage,    6,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -96,6 +108,14 @@ Q_CONSTINIT const QMetaObject MainWindowQt::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<QImage, std::false_type>,
         // method 'on_negative_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_greyScale_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_Contrast_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_Gamma_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_Brightnes_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -110,6 +130,10 @@ void MainWindowQt::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 1: _t->loadImage((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 2: _t->loadModifiedImage((*reinterpret_cast< std::add_pointer_t<QImage>>(_a[1]))); break;
         case 3: _t->on_negative_clicked(); break;
+        case 4: _t->on_greyScale_clicked(); break;
+        case 5: _t->on_Contrast_clicked(); break;
+        case 6: _t->on_Gamma_clicked(); break;
+        case 7: _t->on_Brightnes_clicked(); break;
         default: ;
         }
     }
@@ -134,14 +158,14 @@ int MainWindowQt::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 8;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 4;
+        _id -= 8;
     }
     return _id;
 }

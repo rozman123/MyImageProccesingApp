@@ -82,3 +82,136 @@ void MainWindowQt::on_negative_clicked()
     loadModifiedImage(imagemap);
 }
 
+
+void MainWindowQt::on_greyScale_clicked()
+{
+    QImage imagemap = image;
+    for (int i=0;i<imageWidth;++i)
+    {
+        for (int j=0;j<imageHeight;++j)
+        {
+            QColor givenPixelColor=imagemap.pixelColor(i,j);
+            double greydPixelColor=(givenPixelColor.red()+
+                                      givenPixelColor.green()+
+                                      givenPixelColor.blue())/3;
+            QColor graySclePixelColor= QColor(greydPixelColor,greydPixelColor,greydPixelColor);
+
+
+            imagemap.setPixelColor(i,j,graySclePixelColor);
+        }
+    }
+    loadModifiedImage(imagemap);
+}
+
+
+
+void MainWindowQt::on_Brightnes_clicked()
+{
+    int lut[256];
+    bool ok=false;
+    double numberX=ui->numberEditor->text().toDouble(&ok);
+    if (ok)
+    {
+        for (int i=0;i<256;++i)
+        {
+            if (i+numberX>=256)
+                lut[i] = 255;
+            else if (i+numberX<0)
+                lut[i] = 0;
+            else
+                lut[i] = i+numberX;
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "You must give a number for this operation!");
+    }
+
+    QImage imagemap = image;
+    for (int i=0;i<imageWidth;++i)
+    {
+        for (int j=0;j<imageHeight;++j)
+        {
+            QColor givenPixelColor=imagemap.pixelColor(i,j);
+            QColor pixelBrightnesColor= QColor(lut[givenPixelColor.red()],lut[givenPixelColor.green()],lut[givenPixelColor.blue()]);
+
+
+            imagemap.setPixelColor(i,j,pixelBrightnesColor);
+        }
+    }
+    loadModifiedImage(imagemap);
+
+}
+
+
+void MainWindowQt::on_Contrast_clicked()
+{
+    int lut[256];
+    bool ok=false;
+    double numberX=ui->numberEditor->text().toDouble(&ok);
+    if (ok)
+    {
+        for (int i=0;i<256;++i)
+        {
+            if (i*numberX>=256)
+                lut[i] = 255;
+            else if (i*numberX<0)
+                lut[i] = 0;
+            else
+                lut[i] = i*numberX;
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "You must give a number for this operation!");
+    }
+
+    QImage imagemap = image;
+    for (int i=0;i<imageWidth;++i)
+    {
+        for (int j=0;j<imageHeight;++j)
+        {
+            QColor givenPixelColor=imagemap.pixelColor(i,j);
+            QColor pixelContrastColor= QColor(lut[givenPixelColor.red()],lut[givenPixelColor.green()],lut[givenPixelColor.blue()]);
+
+
+            imagemap.setPixelColor(i,j,pixelContrastColor);
+        }
+    }
+    loadModifiedImage(imagemap);
+
+}
+
+
+void MainWindowQt::on_Gamma_clicked()
+{
+    int lut[256];
+    bool ok=false;
+    double numberX=ui->numberEditor->text().toDouble(&ok);
+    if (ok)
+    {
+        for (int i=0;i<256;++i)
+        {
+            lut[i] = (pow(i,numberX)>=256) ? lut[i] = 255 : pow(i,numberX);
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "You must give a number for this operation!");
+    }
+
+    QImage imagemap = image;
+    for (int i=0;i<imageWidth;++i)
+    {
+        for (int j=0;j<imageHeight;++j)
+        {
+            QColor givenPixelColor=imagemap.pixelColor(i,j);
+            QColor pixelContrastColor= QColor(lut[givenPixelColor.red()],lut[givenPixelColor.green()],lut[givenPixelColor.blue()]);
+
+
+            imagemap.setPixelColor(i,j,pixelContrastColor);
+        }
+    }
+    loadModifiedImage(imagemap);
+}
+

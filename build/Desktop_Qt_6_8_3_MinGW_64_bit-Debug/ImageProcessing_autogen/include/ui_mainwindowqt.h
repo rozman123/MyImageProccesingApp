@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -29,6 +30,10 @@ public:
     QPushButton *correction;
     QPushButton *loadImage;
     QGraphicsView *imageSlot;
+    QPushButton *Brightnes;
+    QPushButton *Contrast;
+    QPushButton *Gamma;
+    QLineEdit *numberEditor;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -36,7 +41,7 @@ public:
     {
         if (MainWindowQt->objectName().isEmpty())
             MainWindowQt->setObjectName("MainWindowQt");
-        MainWindowQt->resize(800, 600);
+        MainWindowQt->resize(1227, 600);
         centralwidget = new QWidget(MainWindowQt);
         centralwidget->setObjectName("centralwidget");
         negative = new QPushButton(centralwidget);
@@ -47,17 +52,29 @@ public:
         greyScale->setGeometry(QRect(10, 120, 101, 31));
         correction = new QPushButton(centralwidget);
         correction->setObjectName("correction");
-        correction->setGeometry(QRect(10, 210, 101, 31));
+        correction->setGeometry(QRect(10, 490, 101, 31));
         loadImage = new QPushButton(centralwidget);
         loadImage->setObjectName("loadImage");
         loadImage->setGeometry(QRect(10, 20, 101, 31));
         imageSlot = new QGraphicsView(centralwidget);
         imageSlot->setObjectName("imageSlot");
-        imageSlot->setGeometry(QRect(135, 11, 661, 531));
+        imageSlot->setGeometry(QRect(295, 11, 921, 531));
+        Brightnes = new QPushButton(centralwidget);
+        Brightnes->setObjectName("Brightnes");
+        Brightnes->setGeometry(QRect(160, 20, 101, 31));
+        Contrast = new QPushButton(centralwidget);
+        Contrast->setObjectName("Contrast");
+        Contrast->setGeometry(QRect(160, 70, 101, 31));
+        Gamma = new QPushButton(centralwidget);
+        Gamma->setObjectName("Gamma");
+        Gamma->setGeometry(QRect(160, 120, 101, 31));
+        numberEditor = new QLineEdit(centralwidget);
+        numberEditor->setObjectName("numberEditor");
+        numberEditor->setGeometry(QRect(162, 170, 91, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 800, 27));
+        menubar->setGeometry(QRect(0, 0, 1227, 27));
         MainWindowQt->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowQt);
         statusbar->setObjectName("statusbar");
@@ -75,6 +92,9 @@ public:
         greyScale->setText(QCoreApplication::translate("MainWindowQt", "Grey Scale", nullptr));
         correction->setText(QCoreApplication::translate("MainWindowQt", "Correction", nullptr));
         loadImage->setText(QCoreApplication::translate("MainWindowQt", "Load Image", nullptr));
+        Brightnes->setText(QCoreApplication::translate("MainWindowQt", "Brightnes", nullptr));
+        Contrast->setText(QCoreApplication::translate("MainWindowQt", "Contrast", nullptr));
+        Gamma->setText(QCoreApplication::translate("MainWindowQt", "Gamma", nullptr));
     } // retranslateUi
 
 };
