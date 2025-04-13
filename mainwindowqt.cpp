@@ -215,3 +215,9 @@ void MainWindowQt::on_Gamma_clicked()
     loadModifiedImage(imagemap);
 }
 
+
+void MainWindowQt::on_histogram_clicked()
+{
+
+}
+

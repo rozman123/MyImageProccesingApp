@@ -35,5 +35,6 @@ private slots:
     void on_Contrast_clicked();
     void on_Gamma_clicked();
     void on_Brightnes_clicked();
+    void on_histogram_clicked();
 };
 #endif // MAINWINDOWQT_H
