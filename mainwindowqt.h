@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
+#include "histogram.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,6 +22,7 @@ private:
     QImage image;  // stores image data
     int imageWidth=0;
     int imageHeight=0;
+    Histogram histogram;
 
 public:
     MainWindowQt(QWidget *parent = nullptr);
