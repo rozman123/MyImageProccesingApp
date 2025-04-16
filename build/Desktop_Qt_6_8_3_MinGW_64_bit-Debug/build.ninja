@@ -176,7 +176,7 @@ build ImageProcessing_autogen_timestamp_deps: phony
 #############################################
 # Utility command for ImageProcessing_autogen
 
-build ImageProcessing_autogen: phony CMakeFiles/ImageProcessing_autogen ImageProcessing_autogen/include/ui_mainwindowqt.h ImageProcessing_autogen/timestamp ImageProcessing_autogen/mocs_compilation.cpp ImageProcessing_autogen_timestamp_deps
+build ImageProcessing_autogen: phony CMakeFiles/ImageProcessing_autogen ImageProcessing_autogen/include/ui_mainwindowqt.h ImageProcessing_autogen/include/ui_histogram.h ImageProcessing_autogen/timestamp ImageProcessing_autogen/mocs_compilation.cpp ImageProcessing_autogen_timestamp_deps
 
 
 #############################################
@@ -193,7 +193,7 @@ build ImageProcessing_autogen/timestamp ImageProcessing_autogen/mocs_compilation
 #############################################
 # Phony custom command for CMakeFiles\ImageProcessing_autogen
 
-build CMakeFiles/ImageProcessing_autogen ImageProcessing_autogen/include/ui_mainwindowqt.h | ${cmake_ninja_workdir}CMakeFiles/ImageProcessing_autogen ${cmake_ninja_workdir}ImageProcessing_autogen/include/ui_mainwindowqt.h: phony ImageProcessing_autogen/timestamp || ImageProcessing_autogen_timestamp_deps
+build CMakeFiles/ImageProcessing_autogen ImageProcessing_autogen/include/ui_mainwindowqt.h ImageProcessing_autogen/include/ui_histogram.h | ${cmake_ninja_workdir}CMakeFiles/ImageProcessing_autogen ${cmake_ninja_workdir}ImageProcessing_autogen/include/ui_mainwindowqt.h ${cmake_ninja_workdir}ImageProcessing_autogen/include/ui_histogram.h: phony ImageProcessing_autogen/timestamp || ImageProcessing_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.

@@ -219,7 +219,7 @@ void MainWindowQt::on_Gamma_clicked()
 void MainWindowQt::on_histogram_clicked()
 {
 
-
+    Histogram::showHistogram(image);
 
 }
 

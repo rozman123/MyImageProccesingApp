@@ -2,6 +2,7 @@
 C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mmc:Q_OBJECT
  mdp:C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/build/Desktop_Qt_6_8_3_MinGW_64_bit-Debug/ImageProcessing_autogen/moc_predefs.h
+ mdp:C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/histogram.h
  mdp:C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/q20functional.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/q20iterator.h
@@ -49,6 +50,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qglobalstatic.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qhash.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qhashfunctions.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevice.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qiodevicebase.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qiterable.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qiterator.h
@@ -118,6 +120,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qtversionchecks.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qtypeinfo.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qtypes.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qurl.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qutf8stringview.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qvariant.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtCore/qvarlengtharray.h
@@ -139,12 +142,14 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpaintdevice.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpalette.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpen.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpicture.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpixelformat.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpixmap.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qpolygon.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qregion.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qrgb.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qrgba64.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qtextdocument.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qtgui-config.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qtguiexports.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qtguiglobal.h
@@ -152,8 +157,11 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qwindowdefs.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtGui/qwindowdefs_win.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/QLabel
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qframe.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h
+ mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qlabel.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qsizepolicy.h
  mdp:D:/Qt/6.8.3/mingw_64/include/QtWidgets/qtabwidget.h
@@ -370,3 +378,5 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
 C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/main.cpp
 C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.cpp
  uic:./ui_mainwindowqt.h
+C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/histogram.h
+C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/histogram.cpp

@@ -34,6 +34,7 @@ public:
     QPushButton *Contrast;
     QPushButton *Gamma;
     QLineEdit *numberEditor;
+    QPushButton *histogram;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -71,6 +72,9 @@ public:
         numberEditor = new QLineEdit(centralwidget);
         numberEditor->setObjectName("numberEditor");
         numberEditor->setGeometry(QRect(162, 170, 91, 31));
+        histogram = new QPushButton(centralwidget);
+        histogram->setObjectName("histogram");
+        histogram->setGeometry(QRect(10, 170, 101, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
@@ -95,6 +99,7 @@ public:
         Brightnes->setText(QCoreApplication::translate("MainWindowQt", "Brightnes", nullptr));
         Contrast->setText(QCoreApplication::translate("MainWindowQt", "Contrast", nullptr));
         Gamma->setText(QCoreApplication::translate("MainWindowQt", "Gamma", nullptr));
+        histogram->setText(QCoreApplication::translate("MainWindowQt", "Histogram", nullptr));
     } // retranslateUi
 
 };
