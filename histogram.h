@@ -4,21 +4,22 @@
 #include <qhash.h>
 #include <qimage.h>
 #include <QLabel>
-
+#include <QVBoxLayout>
 class Histogram
 {
 
 private:
-    static QHash<int, int> Red, Green, Blue, Lumosity;
+    static std::vector<QHash<int, int> > HistogramChanels;
     static int maxHeigntOfHistogram;
     static QDialog *histogramWindow;
     static QLabel *histogramChart;
-
+    static QVBoxLayout* layout;
 public:
     Histogram();
     static void readPixelDataFrom(QImage image);
     static void resetHistogram();
     static void showHistogram(QImage image);
+    static std::vector<QHash<int, int> > & getHistogramChanelsVector();
 };
 
 #endif // HISTOGRAM_H

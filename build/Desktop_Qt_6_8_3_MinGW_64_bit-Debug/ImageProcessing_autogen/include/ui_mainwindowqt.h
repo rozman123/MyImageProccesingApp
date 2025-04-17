@@ -27,7 +27,7 @@ public:
     QWidget *centralwidget;
     QPushButton *negative;
     QPushButton *greyScale;
-    QPushButton *correction;
+    QPushButton *Stretching;
     QPushButton *loadImage;
     QGraphicsView *imageSlot;
     QPushButton *Brightnes;
@@ -51,9 +51,9 @@ public:
         greyScale = new QPushButton(centralwidget);
         greyScale->setObjectName("greyScale");
         greyScale->setGeometry(QRect(10, 120, 101, 31));
-        correction = new QPushButton(centralwidget);
-        correction->setObjectName("correction");
-        correction->setGeometry(QRect(10, 490, 101, 31));
+        Stretching = new QPushButton(centralwidget);
+        Stretching->setObjectName("Stretching");
+        Stretching->setGeometry(QRect(10, 220, 101, 31));
         loadImage = new QPushButton(centralwidget);
         loadImage->setObjectName("loadImage");
         loadImage->setGeometry(QRect(10, 20, 101, 31));
@@ -94,7 +94,7 @@ public:
         MainWindowQt->setWindowTitle(QCoreApplication::translate("MainWindowQt", "MainWindowQt", nullptr));
         negative->setText(QCoreApplication::translate("MainWindowQt", "Negative", nullptr));
         greyScale->setText(QCoreApplication::translate("MainWindowQt", "Grey Scale", nullptr));
-        correction->setText(QCoreApplication::translate("MainWindowQt", "Correction", nullptr));
+        Stretching->setText(QCoreApplication::translate("MainWindowQt", "Stretching", nullptr));
         loadImage->setText(QCoreApplication::translate("MainWindowQt", "Load Image", nullptr));
         Brightnes->setText(QCoreApplication::translate("MainWindowQt", "Brightnes", nullptr));
         Contrast->setText(QCoreApplication::translate("MainWindowQt", "Contrast", nullptr));

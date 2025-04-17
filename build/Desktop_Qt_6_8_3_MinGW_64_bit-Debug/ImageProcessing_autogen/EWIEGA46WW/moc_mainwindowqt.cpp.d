@@ -156,9 +156,14 @@ C:/Users/erazer/Desktop/Przetwarzanie\ Obrazu/ImageProcessing/build/Desktop_Qt_6
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/QGraphicsScene \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/QLabel \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/QMainWindow \
+  D:/Qt/6.8.3/mingw_64/include/QtWidgets/QVBoxLayout \
+  D:/Qt/6.8.3/mingw_64/include/QtWidgets/qboxlayout.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qframe.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
+  D:/Qt/6.8.3/mingw_64/include/QtWidgets/qgridlayout.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qlabel.h \
+  D:/Qt/6.8.3/mingw_64/include/QtWidgets/qlayout.h \
+  D:/Qt/6.8.3/mingw_64/include/QtWidgets/qlayoutitem.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qmainwindow.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qsizepolicy.h \
   D:/Qt/6.8.3/mingw_64/include/QtWidgets/qtabwidget.h \

@@ -223,3 +223,31 @@ void MainWindowQt::on_histogram_clicked()
 
 }
 
+
+void MainWindowQt::on_Stretching_clicked()
+{
+    QImage imagemap = image;
+    std::vector<QHash<int, int> > histChanels=Histogram::getHistogramChanelsVector();
+
+        int minRed =histChanels[0][0]; // to musi być zrobione tak żeby nie dzieliło przez zero
+        int maxRed =histChanels[0][255];
+        int minGreen =histChanels[1][0];
+        int maxGreen =histChanels[1][255];
+        int minBlue =histChanels[2][0];
+        int maxBlue =histChanels[2][255];
+        int minLum =histChanels[3][0];
+        int maxLum =histChanels[3][255];
+        for (int i = 0; i < imageWidth; ++i)
+        {
+            for (int j = 0; j < imageHeight; ++j)
+            {
+                QColor givenPixelColor=imagemap.pixelColor(i,j);
+                QColor pixelContrastColor= QColor(255/(maxRed-minRed),255/(minGreen-maxGreen),255/(minBlue-maxBlue),255/(minLum-maxLum));
+
+
+                imagemap.setPixelColor(i,j,pixelContrastColor);
+            }
+        }
+
+}
+
