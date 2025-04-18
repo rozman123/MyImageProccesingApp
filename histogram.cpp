@@ -7,7 +7,10 @@ int Histogram::maxHeigntOfHistogram = 0;
 QDialog *Histogram::histogramWindow;
 QLabel *Histogram::histogramChart;
 QVBoxLayout *Histogram::layout;
-std::vector<QHash<int, int> > Histogram::HistogramChanels;
+QHash<int, int> Histogram::Red;
+QHash<int, int> Histogram::Green;
+QHash<int, int> Histogram::Blue;
+QHash<int, int> Histogram::Lumosity;
 
 
 Histogram::Histogram()
@@ -20,17 +23,10 @@ Histogram::Histogram()
 
     histogramChart = new QLabel;
 
-    QHash<int, int> temp;
 
     maxHeigntOfHistogram = 0;
-    for (int i = 0; i <= 255; ++i)
-    {
-        temp.insert(i, 0);
-    }
-    HistogramChanels.push_back(temp);
-    HistogramChanels.push_back(temp);
-    HistogramChanels.push_back(temp);
-    HistogramChanels.push_back(temp);
+    resetHistogram();
+
 }
 
 void Histogram::readPixelDataFrom(QImage image)
@@ -43,10 +39,10 @@ void Histogram::readPixelDataFrom(QImage image)
 
             QColor pixel = image.pixelColor(i, j);
 
-            HistogramChanels[0][pixel.red()]+= 1;
-            HistogramChanels[1][pixel.green()]+= 1;
-            HistogramChanels[2][pixel.blue()]+= 1;
-            HistogramChanels[3][pixel.lightness()]+= 1;
+            Red[pixel.red()]+= 1;
+            Green[pixel.green()]+= 1;
+            Blue[pixel.blue()]+= 1;
+            Lumosity[pixel.lightness()]+= 1;
         }
     }
 }
@@ -54,20 +50,23 @@ void Histogram::readPixelDataFrom(QImage image)
 void Histogram::resetHistogram()
 {
     maxHeigntOfHistogram = 0;
-    for (int i=0;i<HistogramChanels.size();++i)
-    for (int j = 0; j <= 255; ++j)
+    for (int i = 0; i <= 255; ++i)
     {
-        HistogramChanels[i][j]= 0;
+        Red.insert(i, 0);
+        Green.insert(i, 0);
+        Blue.insert(i, 0);
+        Lumosity.insert(i, 0);
     }
+
 }
 
 void Histogram::showHistogram(QImage image)
 {
     readPixelDataFrom(image);
-    unsigned int red = std::max_element(HistogramChanels[0].begin(), HistogramChanels[0].end()).value();
-    unsigned int green = std::max_element(HistogramChanels[1].begin(), HistogramChanels[1].end()).value();
-    unsigned int blue = std::max_element(HistogramChanels[2].begin(), HistogramChanels[2].end()).value();
-    unsigned int lumosity = std::max_element(HistogramChanels[3].begin(), HistogramChanels[3].end()).value();
+    unsigned int red = std::max_element(Red.begin(), Red.end()).value();
+    unsigned int green = std::max_element(Green.begin(), Green.end()).value();
+    unsigned int blue = std::max_element(Blue.begin(), Blue.end()).value();
+    unsigned int lumosity = std::max_element(Lumosity.begin(), Lumosity.end()).value();
 
     maxHeigntOfHistogram = std::max({red,green,blue,lumosity});
 
@@ -81,10 +80,10 @@ void Histogram::showHistogram(QImage image)
 
     for (int givenColorValue = 0; givenColorValue < 256; ++givenColorValue)
     {
-        int redHeightForGivenValue = HistogramChanels[0].value(givenColorValue);
-        int greenHeightForGivenValue = HistogramChanels[1].value(givenColorValue);
-        int blueHeightForGivenValue = HistogramChanels[2].value(givenColorValue);
-        int lumosityHeightForGivenValue = HistogramChanels[3].value(givenColorValue);
+        int redHeightForGivenValue = Red.value(givenColorValue);
+        int greenHeightForGivenValue = Green.value(givenColorValue);
+        int blueHeightForGivenValue = Blue.value(givenColorValue);
+        int lumosityHeightForGivenValue = Lumosity.value(givenColorValue);
 
         //pionowe linie zamiast wielkości wartości w qhash
         painter.setPen(Qt::red);
@@ -112,9 +111,9 @@ void Histogram::showHistogram(QImage image)
 }
 
 
-std::vector<QHash<int, int> > & Histogram::getHistogramChanelsVector()
+std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > Histogram::getHistogramChanels()
 {
 
-    return HistogramChanels;
+    return {Red,Green,Blue,Lumosity};
 
 }

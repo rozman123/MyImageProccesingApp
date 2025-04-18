@@ -9,7 +9,10 @@ class Histogram
 {
 
 private:
-    static std::vector<QHash<int, int> > HistogramChanels;
+    static QHash<int, int> Red;
+    static QHash<int, int> Green;
+    static QHash<int, int> Blue;
+    static QHash<int, int> Lumosity;
     static int maxHeigntOfHistogram;
     static QDialog *histogramWindow;
     static QLabel *histogramChart;
@@ -19,7 +22,7 @@ public:
     static void readPixelDataFrom(QImage image);
     static void resetHistogram();
     static void showHistogram(QImage image);
-    static std::vector<QHash<int, int> > & getHistogramChanelsVector();
+    static std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > getHistogramChanels();
 };
 
 #endif // HISTOGRAM_H
