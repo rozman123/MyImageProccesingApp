@@ -222,42 +222,67 @@ void MainWindowQt::on_histogram_clicked()
     Histogram::showHistogram(image);
 
 }
+int getFirstNonZeroPixelFromLeft(QHash<int,int> histChanel)
+{
 
+    for (int i=0;i<=255;++i)
+    {
+        if(0<histChanel.value(i))
+        {
+            return i;
+        }
+    }
+
+    return 0;
+}
+
+int getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
+{
+
+    for (int i=255;i<=0;--i)
+    {
+        if(0<histChanel.value(i))
+        {
+            return i;
+        }
+    }
+
+    return 0;
+}
 
 void MainWindowQt::on_Stretching_clicked()
 {
     QImage imagemap = image;
    std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > temp = Histogram::getHistogramChanels();
 
+
     QHash<int, int> Red =std::get<0>(temp);
     QHash<int, int> Green=std::get<1>(temp);
     QHash<int, int> Blue=std::get<2>(temp);
     QHash<int, int> Lumosity=std::get<3>(temp);
 
-    // for (int i = 0; i < 256; ++i)
-    // {
-    //     int minRed = histChanels[j].
-    //     int minGreen =
-    //     int minBlue =
-    //     int minLum =
-    // }
-    // for (int i = 0; i < 256; ++i)
-    // {
-    //     if
-    //     int maxGreen =
-    //     int maxBlue =
-    //     int maxRed =
-    //     int maxLum =
-    // }
-    //     for (int i = 0; i < imageWidth; ++i)
-    //     {
-    //         for (int j = 0; j < imageHeight; ++j)
-    //         {
-    //             QColor givenPixelColor=imagemap.pixelColor(i,j);
-    //             QColor pixelContrastColor= QColor((255/(maxRed-minRed))*(givenPixelColor.red()-minRed),(255/(minGreen-maxGreen))*(givenPixelColor.green()-minGreen),(255/(minBlue-maxBlue))*(givenPixelColor.blue()-minBlue),(255/(minLum-maxLum))*(givenPixelColor.lightness()-minLum));
-    //             imagemap.setPixelColor(i,j,pixelContrastColor);
-    //         }
-    //     }
+    float minRed = getFirstNonZeroPixelFromLeft(Red);
+    float minGreen =getFirstNonZeroPixelFromLeft(Green);
+    float minBlue =getFirstNonZeroPixelFromLeft(Blue);
+    float minLum =getFirstNonZeroPixelFromLeft(Lumosity);
 
+    float maxRed =getFirstNonZeroPixelFromRignt(Red);
+    float maxGreen =getFirstNonZeroPixelFromRignt(Green);
+    float maxBlue =getFirstNonZeroPixelFromRignt(Blue);
+    float maxLum =getFirstNonZeroPixelFromRignt(Lumosity);
+
+
+        for (int i = 0; i < imageWidth; ++i)
+        {
+            for (int j = 0; j < imageHeight; ++j)
+            {
+                QColor givenPixelColor=imagemap.pixelColor(i,j);
+                QColor pixelContrastColor=givenPixelColor;
+                if ((maxRed!=minRed) && (maxGreen!=minGreen)&&(maxBlue!=minBlue)&&(maxLum!=minLum))
+                    pixelContrastColor= QColor((255.0/(maxRed-minRed))*(givenPixelColor.red()-minRed),(255.0/(maxGreen-minGreen))*(givenPixelColor.green()-minGreen),(255.0/(maxBlue-minBlue))*(givenPixelColor.blue()-minBlue),(255.0/(maxLum-minLum))*(givenPixelColor.lightness()-minLum));
+                imagemap.setPixelColor(i,j,pixelContrastColor);
+            }
+        }
+        loadModifiedImage(imagemap);
 }
 

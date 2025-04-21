@@ -117,3 +117,21 @@ std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > His
     return {Red,Green,Blue,Lumosity};
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
