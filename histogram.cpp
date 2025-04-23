@@ -3,17 +3,8 @@
 #include<QPainter>
 #include <QVBoxLayout>
 
-int Histogram::maxHeigntOfHistogram = 0;
-QDialog *Histogram::histogramWindow;
-QLabel *Histogram::histogramChart;
-QVBoxLayout *Histogram::layout;
-QHash<int, int> Histogram::Red;
-QHash<int, int> Histogram::Green;
-QHash<int, int> Histogram::Blue;
-QHash<int, int> Histogram::Lumosity;
 
-
-Histogram::Histogram()
+Histogram::Histogram(QImage image)
 {
 
     histogramWindow = new QDialog;
@@ -26,6 +17,8 @@ Histogram::Histogram()
 
     maxHeigntOfHistogram = 0;
     resetHistogram();
+    readPixelDataFrom(image);
+    showHistogram(image);
 
 }
 
@@ -57,7 +50,6 @@ void Histogram::resetHistogram()
         Blue.insert(i, 0);
         Lumosity.insert(i, 0);
     }
-
 }
 
 void Histogram::showHistogram(QImage image)
@@ -109,29 +101,3 @@ void Histogram::showHistogram(QImage image)
     histogramWindow->exec();
 
 }
-
-
-std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > Histogram::getHistogramChanels()
-{
-
-    return {Red,Green,Blue,Lumosity};
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

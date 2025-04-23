@@ -24,6 +24,7 @@ private:
     int imageHeight=0;
     Histogram histogram;
 
+
 public:
     MainWindowQt(QWidget *parent = nullptr);
     ~MainWindowQt();

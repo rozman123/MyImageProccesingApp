@@ -1,3 +1,5 @@
+
+
 #include "mainwindowqt.h"
 #include "./ui_mainwindowqt.h"
 #include <QFileDialog>
@@ -218,53 +220,53 @@ void MainWindowQt::on_Gamma_clicked()
 
 void MainWindowQt::on_histogram_clicked()
 {
-
-    Histogram::showHistogram(image);
-
+    histogram = Histogram(image);
 }
-int getFirstNonZeroPixelFromLeft(QHash<int,int> histChanel)
+float getFirstNonZeroPixelFromLeft(QHash<int,int> histChanel)
 {
 
     for (int i=0;i<=255;++i)
     {
-        if(0<histChanel.value(i))
+        //std::cout<<i<<"  "<<histChanel.value(i)<<std::endl;
+        if(histChanel.value(i))
         {
             return i;
         }
     }
 
-    return 0;
+    return 0.0;
 }
 
-int getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
+float getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
 {
 
-    for (int i=255;i<=0;--i)
+    for (int i=255;i>=0;--i)
     {
-        if(0<histChanel.value(i))
+        //std::cout<<i<<"  "<<histChanel.value(255-i)<<std::endl;
+        if(histChanel.value(i))
         {
             return i;
         }
     }
 
-    return 0;
+    return 0.0;
 }
 
 void MainWindowQt::on_Stretching_clicked()
 {
     QImage imagemap = image;
-   std::tuple<QHash<int, int>,QHash<int, int>,QHash<int, int>,QHash<int, int> > temp = Histogram::getHistogramChanels();
 
-
-    QHash<int, int> Red =std::get<0>(temp);
-    QHash<int, int> Green=std::get<1>(temp);
-    QHash<int, int> Blue=std::get<2>(temp);
-    QHash<int, int> Lumosity=std::get<3>(temp);
+    QHash<int, int> Red =histogram.getRedChanel();
+    QHash<int, int> Green=histogram.getGreenChanel();
+    QHash<int, int> Blue=histogram.getBlueChanel();
+    QHash<int, int> Lumosity=histogram.getLumosityChanel();
 
     float minRed = getFirstNonZeroPixelFromLeft(Red);
     float minGreen =getFirstNonZeroPixelFromLeft(Green);
     float minBlue =getFirstNonZeroPixelFromLeft(Blue);
     float minLum =getFirstNonZeroPixelFromLeft(Lumosity);
+
+
 
     float maxRed =getFirstNonZeroPixelFromRignt(Red);
     float maxGreen =getFirstNonZeroPixelFromRignt(Green);
@@ -272,17 +274,24 @@ void MainWindowQt::on_Stretching_clicked()
     float maxLum =getFirstNonZeroPixelFromRignt(Lumosity);
 
 
-        for (int i = 0; i < imageWidth; ++i)
+    // std::cout<<"Red: "<<minRed<<"    "<<maxRed<<std::endl;
+    // std::cout<<"Green: "<<minGreen<<"    "<<maxGreen<<std::endl;
+    // std::cout<<"Blue: "<<minBlue<<"    "<<maxBlue<<std::endl;
+    // std::cout<<"Lum: "<<minLum<<"    "<<maxLum<<std::endl;
+    for (int i = 0; i < imageWidth; ++i)
+    {
+        for (int j = 0; j < imageHeight; ++j)
         {
-            for (int j = 0; j < imageHeight; ++j)
-            {
-                QColor givenPixelColor=imagemap.pixelColor(i,j);
-                QColor pixelContrastColor=givenPixelColor;
-                if ((maxRed!=minRed) && (maxGreen!=minGreen)&&(maxBlue!=minBlue)&&(maxLum!=minLum))
-                    pixelContrastColor= QColor((255.0/(maxRed-minRed))*(givenPixelColor.red()-minRed),(255.0/(maxGreen-minGreen))*(givenPixelColor.green()-minGreen),(255.0/(maxBlue-minBlue))*(givenPixelColor.blue()-minBlue),(255.0/(maxLum-minLum))*(givenPixelColor.lightness()-minLum));
-                imagemap.setPixelColor(i,j,pixelContrastColor);
-            }
+            QColor givenPixelColor=imagemap.pixelColor(i,j);
+            QColor pixelContrastColor=givenPixelColor;
+            if ((maxRed!=minRed) && (maxGreen!=minGreen)&&(maxBlue!=minBlue)&&(maxLum!=minLum))
+                pixelContrastColor= QColor(static_cast<int>(255.0/(maxRed-minRed))*(givenPixelColor.red()-minRed),static_cast<int>(255.0/(maxGreen-minGreen))*(givenPixelColor.green()-minGreen),static_cast<int>(255.0/(maxBlue-minBlue))*(givenPixelColor.blue()-minBlue),static_cast<int>(255.0/(maxLum-minLum))*(givenPixelColor.lightness()-minLum));
+            imagemap.setPixelColor(i,j,pixelContrastColor);
         }
-        loadModifiedImage(imagemap);
+    }
+    loadModifiedImage(imagemap);
 }
+
+
+
 
