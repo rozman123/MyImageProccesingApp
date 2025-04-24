@@ -254,6 +254,7 @@ float getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
 
 void MainWindowQt::on_Stretching_clicked()
 {
+    MainWindowQt::on_histogram_clicked();
     QImage imagemap = image;
 
     QHash<int, int> Red =histogram.getRedChanel();
@@ -290,8 +291,60 @@ void MainWindowQt::on_Stretching_clicked()
         }
     }
     loadModifiedImage(imagemap);
+    MainWindowQt::on_histogram_clicked();
 }
 
 
+// Funkcja pomocnicza do twożenia LUT dla Wyrównywania
+QVector<int> createLUT(const QHash<int, int>& hist,unsigned long pixelCount)
+{
+    QVector<float> prob(256, 0.0f);
+    QVector<int> LUT(256, 0);
+    float cumulative = 0.0f;
 
+    for (int i = 0; i < 256; ++i)
+        prob[i] = static_cast<float>(hist.value(i)) / pixelCount;
+
+    for (int i = 0; i < 256; ++i)
+    {
+        cumulative += prob[i];
+        LUT[i] = std::round(cumulative * 255);
+    }
+    return LUT;
+};
+
+
+void MainWindowQt::on_wyrownanie_clicked()
+{
+    MainWindowQt::on_histogram_clicked();
+    QImage imagemap = image;
+
+    unsigned long allPixels = imageWidth * imageHeight;
+
+    QHash<int, int> Red =histogram.getRedChanel();
+    QHash<int, int> Green=histogram.getGreenChanel();
+    QHash<int, int> Blue=histogram.getBlueChanel();
+    QHash<int, int> Lumosity=histogram.getLumosityChanel();
+
+    // LUT dla kanałów
+    QVector<int> redLUT = createLUT(Red,allPixels);
+    QVector<int> greenLUT = createLUT(Green,allPixels);
+    QVector<int> blueLUT = createLUT(Blue,allPixels);
+    QVector<int> lumLUT = createLUT(Lumosity,allPixels);
+
+    // Przekształcenie obrazu
+    for (int i = 0; i < imageWidth; ++i)
+    {
+        for (int j = 0; j < imageHeight; ++j)
+        {
+            QColor pixel = image.pixelColor(i, j);
+
+            imagemap.setPixelColor(i, j, QColor(redLUT[pixel.red()], greenLUT[pixel.green()], blueLUT[pixel.blue()],lumLUT[pixel.lightness()]));
+
+        }
+    }
+
+    loadModifiedImage(imagemap);
+    MainWindowQt::on_histogram_clicked();
+}
 

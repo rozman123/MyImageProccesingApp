@@ -35,6 +35,7 @@ public:
     QPushButton *Gamma;
     QLineEdit *numberEditor;
     QPushButton *histogram;
+    QPushButton *wyrownanie;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -75,6 +76,9 @@ public:
         histogram = new QPushButton(centralwidget);
         histogram->setObjectName("histogram");
         histogram->setGeometry(QRect(10, 170, 101, 31));
+        wyrownanie = new QPushButton(centralwidget);
+        wyrownanie->setObjectName("wyrownanie");
+        wyrownanie->setGeometry(QRect(10, 270, 101, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
@@ -100,6 +104,7 @@ public:
         Contrast->setText(QCoreApplication::translate("MainWindowQt", "Contrast", nullptr));
         Gamma->setText(QCoreApplication::translate("MainWindowQt", "Gamma", nullptr));
         histogram->setText(QCoreApplication::translate("MainWindowQt", "Histogram", nullptr));
+        wyrownanie->setText(QCoreApplication::translate("MainWindowQt", "Wyr\303\263wnanie", nullptr));
     } // retranslateUi
 
 };

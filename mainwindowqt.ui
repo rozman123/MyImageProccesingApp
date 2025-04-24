@@ -138,6 +138,19 @@
      <string>Histogram</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="wyrownanie">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>270</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Wyrównanie</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
