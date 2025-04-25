@@ -9,6 +9,7 @@
 #include "../../../../mainwindowqt.h"
 #include <QtGui/qtextcursor.h>
 #include <QtCore/qmetatype.h>
+#include <QtCore/QList>
 
 #include <QtCore/qtmochelpers.h>
 
@@ -52,7 +53,30 @@ static constexpr auto qt_meta_stringdata_ZN12MainWindowQtE = QtMocHelpers::strin
     "on_Brightnes_clicked",
     "on_histogram_clicked",
     "on_Stretching_clicked",
-    "on_wyrownanie_clicked"
+    "on_wyrownanie_clicked",
+    "getPixel",
+    "QRgb",
+    "image",
+    "x",
+    "y",
+    "optionsOfPixelsFillingOutsideOfImage",
+    "option",
+    "getWindow",
+    "QList<QList<int>>",
+    "size",
+    "channel",
+    "getMask",
+    "QList<QList<float>>",
+    "join",
+    "a",
+    "b",
+    "sum",
+    "matrix",
+    "reflection",
+    "convolute",
+    "mask",
+    "on_rozmycieRownomierne_clicked",
+    "on_rozmycieGausowskie_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -64,7 +88,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,17 +96,26 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   80,    2, 0x08,    1 /* Private */,
-       3,    1,   81,    2, 0x08,    2 /* Private */,
-       5,    1,   84,    2, 0x08,    4 /* Private */,
-       7,    0,   87,    2, 0x08,    6 /* Private */,
-       8,    0,   88,    2, 0x08,    7 /* Private */,
-       9,    0,   89,    2, 0x08,    8 /* Private */,
-      10,    0,   90,    2, 0x08,    9 /* Private */,
-      11,    0,   91,    2, 0x08,   10 /* Private */,
-      12,    0,   92,    2, 0x08,   11 /* Private */,
-      13,    0,   93,    2, 0x08,   12 /* Private */,
-      14,    0,   94,    2, 0x08,   13 /* Private */,
+       1,    0,  134,    2, 0x08,    1 /* Private */,
+       3,    1,  135,    2, 0x08,    2 /* Private */,
+       5,    1,  138,    2, 0x08,    4 /* Private */,
+       7,    0,  141,    2, 0x08,    6 /* Private */,
+       8,    0,  142,    2, 0x08,    7 /* Private */,
+       9,    0,  143,    2, 0x08,    8 /* Private */,
+      10,    0,  144,    2, 0x08,    9 /* Private */,
+      11,    0,  145,    2, 0x08,   10 /* Private */,
+      12,    0,  146,    2, 0x08,   11 /* Private */,
+      13,    0,  147,    2, 0x08,   12 /* Private */,
+      14,    0,  148,    2, 0x08,   13 /* Private */,
+      15,    4,  149,    2, 0x08,   14 /* Private */,
+      22,    6,  158,    2, 0x08,   19 /* Private */,
+      26,    1,  171,    2, 0x08,   26 /* Private */,
+      28,    2,  174,    2, 0x08,   28 /* Private */,
+      31,    1,  179,    2, 0x08,   31 /* Private */,
+      33,    1,  182,    2, 0x08,   33 /* Private */,
+      34,    4,  185,    2, 0x08,   35 /* Private */,
+      36,    0,  194,    2, 0x08,   40 /* Private */,
+      37,    0,  195,    2, 0x08,   41 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -94,6 +127,15 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    0x80000000 | 16, QMetaType::QImage, QMetaType::Int, QMetaType::Int, 0x80000000 | 20,   17,   18,   19,   21,
+    0x80000000 | 23, QMetaType::QImage, QMetaType::Int, QMetaType::Int, QMetaType::Int, QMetaType::Int, 0x80000000 | 20,   17,   18,   19,   24,   25,   21,
+    0x80000000 | 27, QMetaType::Int,   24,
+    0x80000000 | 27, 0x80000000 | 23, 0x80000000 | 27,   29,   30,
+    QMetaType::Float, 0x80000000 | 27,   32,
+    0x80000000 | 27, 0x80000000 | 27,   32,
+    QMetaType::QImage, QMetaType::QImage, 0x80000000 | 27, QMetaType::Int, 0x80000000 | 20,   17,   35,   25,   21,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -132,6 +174,43 @@ Q_CONSTINIT const QMetaObject MainWindowQt::staticMetaObject = { {
         // method 'on_Stretching_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_wyrownanie_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'getPixel'
+        QtPrivate::TypeAndForceComplete<QRgb, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QImage &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<optionsOfPixelsFillingOutsideOfImage, std::false_type>,
+        // method 'getWindow'
+        QtPrivate::TypeAndForceComplete<QVector<QVector<int> >, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QImage &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<optionsOfPixelsFillingOutsideOfImage, std::false_type>,
+        // method 'getMask'
+        QtPrivate::TypeAndForceComplete<QVector<QVector<float> >, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'join'
+        QtPrivate::TypeAndForceComplete<QVector<QVector<float> >, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVector<QVector<int>> &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVector<QVector<float>> &, std::false_type>,
+        // method 'sum'
+        QtPrivate::TypeAndForceComplete<float, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVector<QVector<float> > &, std::false_type>,
+        // method 'reflection'
+        QtPrivate::TypeAndForceComplete<QVector<QVector<float> >, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVector<QVector<float>> &, std::false_type>,
+        // method 'convolute'
+        QtPrivate::TypeAndForceComplete<QImage, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QImage &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<const QVector<QVector<float>> &, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        QtPrivate::TypeAndForceComplete<optionsOfPixelsFillingOutsideOfImage, std::false_type>,
+        // method 'on_rozmycieRownomierne_clicked'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'on_rozmycieGausowskie_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -153,7 +232,58 @@ void MainWindowQt::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 8: _t->on_histogram_clicked(); break;
         case 9: _t->on_Stretching_clicked(); break;
         case 10: _t->on_wyrownanie_clicked(); break;
+        case 11: { QRgb _r = _t->getPixel((*reinterpret_cast< std::add_pointer_t<QImage>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<optionsOfPixelsFillingOutsideOfImage>>(_a[4])));
+            if (_a[0]) *reinterpret_cast< QRgb*>(_a[0]) = std::move(_r); }  break;
+        case 12: { QList<QList<int>> _r = _t->getWindow((*reinterpret_cast< std::add_pointer_t<QImage>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast< std::add_pointer_t<optionsOfPixelsFillingOutsideOfImage>>(_a[6])));
+            if (_a[0]) *reinterpret_cast< QList<QList<int>>*>(_a[0]) = std::move(_r); }  break;
+        case 13: { QList<QList<float>> _r = _t->getMask((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QList<QList<float>>*>(_a[0]) = std::move(_r); }  break;
+        case 14: { QList<QList<float>> _r = _t->join((*reinterpret_cast< std::add_pointer_t<QList<QList<int>>>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QList<QList<float>>>>(_a[2])));
+            if (_a[0]) *reinterpret_cast< QList<QList<float>>*>(_a[0]) = std::move(_r); }  break;
+        case 15: { float _r = _t->sum((*reinterpret_cast< std::add_pointer_t<QList<QList<float>>>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< float*>(_a[0]) = std::move(_r); }  break;
+        case 16: { QList<QList<float>> _r = _t->reflection((*reinterpret_cast< std::add_pointer_t<QList<QList<float>>>>(_a[1])));
+            if (_a[0]) *reinterpret_cast< QList<QList<float>>*>(_a[0]) = std::move(_r); }  break;
+        case 17: { QImage _r = _t->convolute((*reinterpret_cast< std::add_pointer_t<QImage>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QList<QList<float>>>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<optionsOfPixelsFillingOutsideOfImage>>(_a[4])));
+            if (_a[0]) *reinterpret_cast< QImage*>(_a[0]) = std::move(_r); }  break;
+        case 18: _t->on_rozmycieRownomierne_clicked(); break;
+        case 19: _t->on_rozmycieGausowskie_clicked(); break;
         default: ;
+        }
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        case 14:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 1:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QList<QList<float>> >(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QList<QList<int>> >(); break;
+            }
+            break;
+        case 15:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QList<QList<float>> >(); break;
+            }
+            break;
+        case 16:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QList<QList<float>> >(); break;
+            }
+            break;
+        case 17:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 1:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< QList<QList<float>> >(); break;
+            }
+            break;
         }
     }
 }
@@ -177,14 +307,14 @@ int MainWindowQt::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 20;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
-            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        if (_id < 20)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 20;
     }
     return _id;
 }

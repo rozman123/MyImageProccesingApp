@@ -36,6 +36,11 @@ public:
     QLineEdit *numberEditor;
     QPushButton *histogram;
     QPushButton *wyrownanie;
+    QPushButton *rozmycieRownomierne;
+    QLineEdit *maskSize;
+    QLineEdit *optionOfFillingpixelsOutOfImage;
+    QPushButton *rozmycieGausowskie;
+    QLineEdit *sigma;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -79,6 +84,21 @@ public:
         wyrownanie = new QPushButton(centralwidget);
         wyrownanie->setObjectName("wyrownanie");
         wyrownanie->setGeometry(QRect(10, 270, 101, 31));
+        rozmycieRownomierne = new QPushButton(centralwidget);
+        rozmycieRownomierne->setObjectName("rozmycieRownomierne");
+        rozmycieRownomierne->setGeometry(QRect(10, 350, 261, 31));
+        maskSize = new QLineEdit(centralwidget);
+        maskSize->setObjectName("maskSize");
+        maskSize->setGeometry(QRect(20, 310, 91, 31));
+        optionOfFillingpixelsOutOfImage = new QLineEdit(centralwidget);
+        optionOfFillingpixelsOutOfImage->setObjectName("optionOfFillingpixelsOutOfImage");
+        optionOfFillingpixelsOutOfImage->setGeometry(QRect(150, 310, 101, 31));
+        rozmycieGausowskie = new QPushButton(centralwidget);
+        rozmycieGausowskie->setObjectName("rozmycieGausowskie");
+        rozmycieGausowskie->setGeometry(QRect(10, 430, 261, 31));
+        sigma = new QLineEdit(centralwidget);
+        sigma->setObjectName("sigma");
+        sigma->setGeometry(QRect(10, 390, 261, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
@@ -105,6 +125,10 @@ public:
         Gamma->setText(QCoreApplication::translate("MainWindowQt", "Gamma", nullptr));
         histogram->setText(QCoreApplication::translate("MainWindowQt", "Histogram", nullptr));
         wyrownanie->setText(QCoreApplication::translate("MainWindowQt", "Wyr\303\263wnanie", nullptr));
+        rozmycieRownomierne->setText(QCoreApplication::translate("MainWindowQt", "Rozmycie R\303\263wnomierne", nullptr));
+        optionOfFillingpixelsOutOfImage->setText(QString());
+        rozmycieGausowskie->setText(QCoreApplication::translate("MainWindowQt", "Rozmycie Gausowskie", nullptr));
+        sigma->setText(QString());
     } // retranslateUi
 
 };
