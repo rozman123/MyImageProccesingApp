@@ -610,16 +610,16 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
 
                     switch (channel)
                     {
-                    case 0: original.setRed(blurredColor.red()); break;
-                    case 1: original.setGreen(blurredColor.green()); break;
-                    case 2: original.setBlue(blurredColor.blue()); break;
-                    case 3:
-                    {
-                        QColor hsl = original.toHsl();
-                        hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
-                        original = hsl.toRgb();
-                        break;
-                    }
+                        case 0: original.setRed(blurredColor.red()); break;
+                        case 1: original.setGreen(blurredColor.green()); break;
+                        case 2: original.setBlue(blurredColor.blue()); break;
+                        case 3:
+                        {
+                            QColor hsl = original.toHsl();
+                            hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
+                            original = hsl.toRgb();
+                            break;
+                        }
                     }
 
                     imagemap.setPixelColor(x, y, original);
@@ -633,5 +633,15 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
         QMessageBox::warning(this, "Error", "Please provide valid values for mask size, sigma and pixel fill option.");
     }
 
+}
+
+
+void MainWindowQt::on_exportImage_clicked()
+{
+    if(mkdir(".\\Exported Images")==0)
+    {
+        image.save(".\\Exported Images\\image","ppm");
+
+    }
 }
 

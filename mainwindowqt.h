@@ -5,6 +5,8 @@
 #include <QGraphicsScene>
 #include <QImage>
 #include "histogram.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -50,5 +52,6 @@ private slots:
     QImage convolute(const QImage& image, const QVector<QVector<float>>& mask, int channel, optionsOfPixelsFillingOutsideOfImage option);
     void on_rozmycieRownomierne_clicked();
     void on_rozmycieGausowskie_clicked();
+    void on_exportImage_clicked();
 };
 #endif // MAINWINDOWQT_H

@@ -41,6 +41,7 @@ public:
     QLineEdit *optionOfFillingpixelsOutOfImage;
     QPushButton *rozmycieGausowskie;
     QLineEdit *sigma;
+    QPushButton *exportImage;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -48,7 +49,7 @@ public:
     {
         if (MainWindowQt->objectName().isEmpty())
             MainWindowQt->setObjectName("MainWindowQt");
-        MainWindowQt->resize(1227, 600);
+        MainWindowQt->resize(1231, 619);
         centralwidget = new QWidget(MainWindowQt);
         centralwidget->setObjectName("centralwidget");
         negative = new QPushButton(centralwidget);
@@ -65,7 +66,7 @@ public:
         loadImage->setGeometry(QRect(10, 20, 101, 31));
         imageSlot = new QGraphicsView(centralwidget);
         imageSlot->setObjectName("imageSlot");
-        imageSlot->setGeometry(QRect(295, 11, 921, 531));
+        imageSlot->setGeometry(QRect(285, 11, 931, 451));
         Brightnes = new QPushButton(centralwidget);
         Brightnes->setObjectName("Brightnes");
         Brightnes->setGeometry(QRect(160, 20, 101, 31));
@@ -99,10 +100,13 @@ public:
         sigma = new QLineEdit(centralwidget);
         sigma->setObjectName("sigma");
         sigma->setGeometry(QRect(10, 390, 261, 31));
+        exportImage = new QPushButton(centralwidget);
+        exportImage->setObjectName("exportImage");
+        exportImage->setGeometry(QRect(1110, 530, 111, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1227, 27));
+        menubar->setGeometry(QRect(0, 0, 1231, 27));
         MainWindowQt->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindowQt);
         statusbar->setObjectName("statusbar");
@@ -129,6 +133,7 @@ public:
         optionOfFillingpixelsOutOfImage->setText(QString());
         rozmycieGausowskie->setText(QCoreApplication::translate("MainWindowQt", "Rozmycie Gausowskie", nullptr));
         sigma->setText(QString());
+        exportImage->setText(QCoreApplication::translate("MainWindowQt", "Export Image", nullptr));
     } // retranslateUi
 
 };

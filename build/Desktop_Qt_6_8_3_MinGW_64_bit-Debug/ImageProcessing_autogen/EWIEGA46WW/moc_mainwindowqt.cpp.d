@@ -356,6 +356,7 @@ C:/Users/erazer/Desktop/Przetwarzanie\ Obrazu/ImageProcessing/build/Desktop_Qt_6
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/crtdefs.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/ctype.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/errno.h \
+  D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/io.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/locale.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/process.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread.h \
@@ -372,6 +373,7 @@ C:/Users/erazer/Desktop/Przetwarzanie\ Obrazu/ImageProcessing/build/Desktop_Qt_6
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stdio.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/string.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/swprintf.inl \
+  D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/stat.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/timeb.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/types.h \
   D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h \

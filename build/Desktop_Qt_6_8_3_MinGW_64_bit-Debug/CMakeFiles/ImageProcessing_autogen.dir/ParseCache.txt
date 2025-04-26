@@ -359,6 +359,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/crtdefs.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/ctype.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/errno.h
+ mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/io.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/locale.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/process.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/pthread.h
@@ -375,6 +376,7 @@ C:/Users/erazer/Desktop/Przetwarzanie Obrazu/ImageProcessing/mainwindowqt.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/stdio.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/string.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/swprintf.inl
+ mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/stat.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/timeb.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/sys/types.h
  mdp:D:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/time.h
