@@ -41,7 +41,7 @@ public:
     QLineEdit *optionOfFillingpixelsOutOfImage;
     QPushButton *rozmycieGausowskie;
     QLineEdit *sigma;
-    QPushButton *exportImage;
+    QPushButton *Save_as;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -100,9 +100,9 @@ public:
         sigma = new QLineEdit(centralwidget);
         sigma->setObjectName("sigma");
         sigma->setGeometry(QRect(10, 390, 261, 31));
-        exportImage = new QPushButton(centralwidget);
-        exportImage->setObjectName("exportImage");
-        exportImage->setGeometry(QRect(1110, 530, 111, 31));
+        Save_as = new QPushButton(centralwidget);
+        Save_as->setObjectName("Save_as");
+        Save_as->setGeometry(QRect(1040, 490, 181, 31));
         MainWindowQt->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindowQt);
         menubar->setObjectName("menubar");
@@ -133,7 +133,7 @@ public:
         optionOfFillingpixelsOutOfImage->setText(QString());
         rozmycieGausowskie->setText(QCoreApplication::translate("MainWindowQt", "Rozmycie Gausowskie", nullptr));
         sigma->setText(QString());
-        exportImage->setText(QCoreApplication::translate("MainWindowQt", "Export Image", nullptr));
+        Save_as->setText(QCoreApplication::translate("MainWindowQt", "Save as", nullptr));
     } // retranslateUi
 
 };

@@ -77,7 +77,7 @@ static constexpr auto qt_meta_stringdata_ZN12MainWindowQtE = QtMocHelpers::strin
     "mask",
     "on_rozmycieRownomierne_clicked",
     "on_rozmycieGausowskie_clicked",
-    "on_exportImage_clicked"
+    "on_Save_as_clicked"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -215,7 +215,7 @@ Q_CONSTINIT const QMetaObject MainWindowQt::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_rozmycieGausowskie_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'on_exportImage_clicked'
+        // method 'on_Save_as_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -253,7 +253,7 @@ void MainWindowQt::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             if (_a[0]) *reinterpret_cast< QImage*>(_a[0]) = std::move(_r); }  break;
         case 18: _t->on_rozmycieRownomierne_clicked(); break;
         case 19: _t->on_rozmycieGausowskie_clicked(); break;
-        case 20: _t->on_exportImage_clicked(); break;
+        case 20: _t->on_Save_as_clicked(); break;
         default: ;
         }
     }

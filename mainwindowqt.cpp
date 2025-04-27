@@ -19,7 +19,7 @@ MainWindowQt::~MainWindowQt()
 
 void MainWindowQt::on_loadImage_clicked()
 {
-    QString pathToFile = QFileDialog::getOpenFileName(this,"Load Image","","Images (*.png *.jpeg *.jpg *.bmp)");
+    QString pathToFile = QFileDialog::getOpenFileName(this,"Load Image","","Images (*.png *.jpeg *.jpg *.bmp *.pbm *.pgm *.ppm *)");
 
     if(pathToFile.isEmpty())
     {
@@ -635,13 +635,42 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
 
 }
 
-
-void MainWindowQt::on_exportImage_clicked()
+void MainWindowQt::on_Save_as_clicked()
 {
-    if(mkdir(".\\Exported Images")==0)
+    QString selectedFilter;
+    QString fileName = QFileDialog::getSaveFileName(nullptr,"Save image","","Binary PPM (*.ppm);;ASCII PPM (*.ppm)",&selectedFilter);
+
+    if (fileName.isEmpty())
+        return;
+
+    if (selectedFilter.contains("ASCII PPM"))
     {
-        image.save(".\\Exported Images\\image","ppm");
+
+        std::ofstream fileHandler;
+        fileHandler.open(fileName.toStdString());
+
+        fileHandler << "P3\n";
+        fileHandler << imageWidth << " " << imageHeight << "\n";
+        fileHandler << "255\n";
+
+        for (int i = 0; i < imageHeight; ++i)
+        {
+            for (int j = 0; j < imageWidth; ++j)
+            {
+                QColor pixel=image.pixelColor(j,i);
+                fileHandler<<pixel.red()<<" "<<pixel.green()<<" "<<pixel.blue()<<"\n";
+            }
+
+        }
+
+        fileHandler.close();
 
     }
+    else if(selectedFilter.contains("Binary PPM"))
+    {
+        image.save(fileName.toStdString().c_str(),"ppm");
+    }
+
+
 }
 
