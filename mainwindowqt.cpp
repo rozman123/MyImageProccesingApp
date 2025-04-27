@@ -23,7 +23,7 @@ void MainWindowQt::on_loadImage_clicked()
 
     if(pathToFile.isEmpty())
     {
-        QMessageBox::warning(this,"No File was Given!!","No file was given or given file does not exist","OK");
+        return;
     }
     else
     {
@@ -635,10 +635,35 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
 
 }
 
+QImage MainWindowQt::blackAndWhite()
+{
+    on_greyScale_clicked();
+    QImage imagemap=image;
+    for (int i = 0; i < imageHeight; ++i)
+    {
+        for (int j = 0; j < imageWidth; ++j)
+        {
+
+            QColor pixel=image.pixelColor(j,i);
+            if(pixel.lightness()>=128)
+            {
+                imagemap.setPixelColor(j,i,Qt::black);
+            }
+            else
+            {
+                imagemap.setPixelColor(j,i,Qt::white);
+            }
+
+        }
+
+    }
+    return imagemap;
+}
+
 void MainWindowQt::on_Save_as_clicked()
 {
     QString selectedFilter;
-    QString fileName = QFileDialog::getSaveFileName(nullptr,"Save image","","Binary PPM (*.ppm);;ASCII PPM (*.ppm)",&selectedFilter);
+    QString fileName = QFileDialog::getSaveFileName(nullptr,"Save image","","Binary PPM (*.ppm);;Binary PGM (*.pgm);;Binary PBM (*.pbm);;ASCII PPM (*.ppm);;ASCII PGM (*.pgm);;ASCII PBM (*.pbm)",&selectedFilter);
 
     if (fileName.isEmpty())
         return;
@@ -666,9 +691,61 @@ void MainWindowQt::on_Save_as_clicked()
         fileHandler.close();
 
     }
+    else if(selectedFilter.contains("ASCII PGM"))
+    {
+        on_greyScale_clicked();
+        std::ofstream fileHandler;
+        fileHandler.open(fileName.toStdString());
+
+        fileHandler << "P2\n";
+        fileHandler << imageWidth << " " << imageHeight << "\n";
+        fileHandler << "255\n";
+
+        for (int i = 0; i < imageHeight; ++i)
+        {
+            for (int j = 0; j < imageWidth; ++j)
+            {
+                QColor pixel=image.pixelColor(j,i);
+                fileHandler<<pixel.lightness()<<"\n";
+            }
+
+        }
+
+        fileHandler.close();
+    }
+    else if(selectedFilter.contains("ASCII PBM"))
+    {
+        std::ofstream fileHandler;
+        fileHandler.open(fileName.toStdString());
+
+        fileHandler << "P1\n";
+        fileHandler << imageWidth << " " << imageHeight << "\n";
+
+        QImage imagemap= blackAndWhite();
+        for (int i = 0; i < imageHeight; ++i)
+        {
+            for (int j = 0; j < imageWidth; ++j)
+            {
+                QColor pixel=imagemap.pixelColor(j,i);
+                fileHandler<<pixel.lightness()<<"\n";  // źle jest to zapisywane do pliku bo mają być tylko 1 i 0
+            }
+        }
+
+        fileHandler.close();
+    }
     else if(selectedFilter.contains("Binary PPM"))
     {
         image.save(fileName.toStdString().c_str(),"ppm");
+    }
+    else if(selectedFilter.contains("Binary PGM"))
+    {
+        on_greyScale_clicked();
+        image.save(fileName.toStdString().c_str(),"pgm");
+    }
+    else if(selectedFilter.contains("Binary PBM"))
+    {
+        QImage imagemap= blackAndWhite();
+        imagemap.save(fileName.toStdString().c_str(),"pbm");
     }
 
 

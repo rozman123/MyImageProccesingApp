@@ -77,7 +77,8 @@ static constexpr auto qt_meta_stringdata_ZN12MainWindowQtE = QtMocHelpers::strin
     "mask",
     "on_rozmycieRownomierne_clicked",
     "on_rozmycieGausowskie_clicked",
-    "on_Save_as_clicked"
+    "on_Save_as_clicked",
+    "blackAndWhite"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -89,7 +90,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -97,27 +98,28 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  140,    2, 0x08,    1 /* Private */,
-       3,    1,  141,    2, 0x08,    2 /* Private */,
-       5,    1,  144,    2, 0x08,    4 /* Private */,
-       7,    0,  147,    2, 0x08,    6 /* Private */,
-       8,    0,  148,    2, 0x08,    7 /* Private */,
-       9,    0,  149,    2, 0x08,    8 /* Private */,
-      10,    0,  150,    2, 0x08,    9 /* Private */,
-      11,    0,  151,    2, 0x08,   10 /* Private */,
-      12,    0,  152,    2, 0x08,   11 /* Private */,
-      13,    0,  153,    2, 0x08,   12 /* Private */,
-      14,    0,  154,    2, 0x08,   13 /* Private */,
-      15,    4,  155,    2, 0x08,   14 /* Private */,
-      22,    6,  164,    2, 0x08,   19 /* Private */,
-      26,    1,  177,    2, 0x08,   26 /* Private */,
-      28,    2,  180,    2, 0x08,   28 /* Private */,
-      31,    1,  185,    2, 0x08,   31 /* Private */,
-      33,    1,  188,    2, 0x08,   33 /* Private */,
-      34,    4,  191,    2, 0x08,   35 /* Private */,
-      36,    0,  200,    2, 0x08,   40 /* Private */,
-      37,    0,  201,    2, 0x08,   41 /* Private */,
-      38,    0,  202,    2, 0x08,   42 /* Private */,
+       1,    0,  146,    2, 0x08,    1 /* Private */,
+       3,    1,  147,    2, 0x08,    2 /* Private */,
+       5,    1,  150,    2, 0x08,    4 /* Private */,
+       7,    0,  153,    2, 0x08,    6 /* Private */,
+       8,    0,  154,    2, 0x08,    7 /* Private */,
+       9,    0,  155,    2, 0x08,    8 /* Private */,
+      10,    0,  156,    2, 0x08,    9 /* Private */,
+      11,    0,  157,    2, 0x08,   10 /* Private */,
+      12,    0,  158,    2, 0x08,   11 /* Private */,
+      13,    0,  159,    2, 0x08,   12 /* Private */,
+      14,    0,  160,    2, 0x08,   13 /* Private */,
+      15,    4,  161,    2, 0x08,   14 /* Private */,
+      22,    6,  170,    2, 0x08,   19 /* Private */,
+      26,    1,  183,    2, 0x08,   26 /* Private */,
+      28,    2,  186,    2, 0x08,   28 /* Private */,
+      31,    1,  191,    2, 0x08,   31 /* Private */,
+      33,    1,  194,    2, 0x08,   33 /* Private */,
+      34,    4,  197,    2, 0x08,   35 /* Private */,
+      36,    0,  206,    2, 0x08,   40 /* Private */,
+      37,    0,  207,    2, 0x08,   41 /* Private */,
+      38,    0,  208,    2, 0x08,   42 /* Private */,
+      39,    0,  209,    2, 0x08,   43 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -141,6 +143,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN12MainWindowQtE[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::QImage,
 
        0        // eod
 };
@@ -216,7 +219,9 @@ Q_CONSTINIT const QMetaObject MainWindowQt::staticMetaObject = { {
         // method 'on_rozmycieGausowskie_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_Save_as_clicked'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'blackAndWhite'
+        QtPrivate::TypeAndForceComplete<QImage, std::false_type>
     >,
     nullptr
 } };
@@ -254,6 +259,8 @@ void MainWindowQt::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 18: _t->on_rozmycieRownomierne_clicked(); break;
         case 19: _t->on_rozmycieGausowskie_clicked(); break;
         case 20: _t->on_Save_as_clicked(); break;
+        case 21: { QImage _r = _t->blackAndWhite();
+            if (_a[0]) *reinterpret_cast< QImage*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     }
@@ -313,14 +320,14 @@ int MainWindowQt::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

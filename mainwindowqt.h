@@ -56,5 +56,6 @@ private slots:
     void on_rozmycieRownomierne_clicked();
     void on_rozmycieGausowskie_clicked();
     void on_Save_as_clicked();
+    QImage blackAndWhite();
 };
 #endif // MAINWINDOWQT_H
