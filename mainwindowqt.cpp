@@ -683,9 +683,9 @@ void MainWindowQt::on_Save_as_clicked()
             for (int j = 0; j < imageWidth; ++j)
             {
                 QColor pixel=image.pixelColor(j,i);
-                fileHandler<<pixel.red()<<" "<<pixel.green()<<" "<<pixel.blue()<<"\n";
+                fileHandler<<pixel.red()<<" "<<pixel.green()<<" "<<pixel.blue()<<" ";
             }
-
+            fileHandler<<"\n";
         }
 
         fileHandler.close();
@@ -706,9 +706,9 @@ void MainWindowQt::on_Save_as_clicked()
             for (int j = 0; j < imageWidth; ++j)
             {
                 QColor pixel=image.pixelColor(j,i);
-                fileHandler<<pixel.lightness()<<"\n";
+                fileHandler<<pixel.lightness()<<" ";
             }
-
+            fileHandler<<"\n";
         }
 
         fileHandler.close();
@@ -727,25 +727,29 @@ void MainWindowQt::on_Save_as_clicked()
             for (int j = 0; j < imageWidth; ++j)
             {
                 QColor pixel=imagemap.pixelColor(j,i);
-                fileHandler<<pixel.lightness()<<"\n";  // źle jest to zapisywane do pliku bo mają być tylko 1 i 0
+                if(pixel==Qt::black)
+                    fileHandler<<1<<" ";
+                else
+                    fileHandler<<0<<" ";
             }
+            fileHandler<<"\n";
         }
 
         fileHandler.close();
     }
     else if(selectedFilter.contains("Binary PPM"))
     {
-        image.save(fileName.toStdString().c_str(),"ppm");
+        image.save(fileName,"ppm");
     }
     else if(selectedFilter.contains("Binary PGM"))
     {
         on_greyScale_clicked();
-        image.save(fileName.toStdString().c_str(),"pgm");
+        image.save(fileName,"pgm");
     }
     else if(selectedFilter.contains("Binary PBM"))
     {
         QImage imagemap= blackAndWhite();
-        imagemap.save(fileName.toStdString().c_str(),"pbm");
+        imagemap.save(fileName,"pbm");
     }
 
 
