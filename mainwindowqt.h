@@ -9,7 +9,7 @@
 #include <sys/types.h>
 #include <filesystem>
 #include <fstream>
-
+#include "image.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,13 +22,10 @@ class MainWindowQt : public QMainWindow
     Q_OBJECT
 
 private:
+
+    Image imageHandle;
     Ui::MainWindowQt *ui;
     QGraphicsScene *scene;
-    QImage image;  // stores image data
-    int imageWidth=0;
-    int imageHeight=0;
-    Histogram histogram;
-    enum optionsOfPixelsFillingOutsideOfImage{cyclicPixels,blackPixels,repeatPixels};
 
 public:
     MainWindowQt(QWidget *parent = nullptr);
@@ -36,8 +33,6 @@ public:
 
 private slots:
     void on_loadImage_clicked();
-    void loadImage(QString pathToImage);
-    void loadModifiedImage(QImage image_to_load);
     void on_negative_clicked();
     void on_greyScale_clicked();
     void on_Contrast_clicked();
@@ -46,16 +41,8 @@ private slots:
     void on_histogram_clicked();
     void on_Stretching_clicked();
     void on_wyrownanie_clicked();
-    QRgb getPixel(const QImage& image, int x, int y, optionsOfPixelsFillingOutsideOfImage option);
-    QVector<QVector<int> > getWindow(const QImage& image, int x, int y,int size, int channel, optionsOfPixelsFillingOutsideOfImage option);
-    QVector<QVector<float> > getMask(int size);
-    QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b);
-    float sum(const QVector<QVector<float> >& matrix);
-    QVector<QVector<float> > reflection(const QVector<QVector<float>>& matrix);
-    QImage convolute(const QImage& image, const QVector<QVector<float>>& mask, int channel, optionsOfPixelsFillingOutsideOfImage option);
-    void on_rozmycieRownomierne_clicked();
-    void on_rozmycieGausowskie_clicked();
     void on_Save_as_clicked();
     QImage blackAndWhite();
+
 };
 #endif // MAINWINDOWQT_H

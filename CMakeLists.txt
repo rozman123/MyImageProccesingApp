@@ -25,6 +25,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         histogram.h histogram.cpp
         histogram.h histogram.cpp histogram.ui
+        blur.h blur.cpp
+        image.h image.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ImageProcessing APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
