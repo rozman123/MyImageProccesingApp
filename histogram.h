@@ -17,12 +17,16 @@ private:
     QDialog *histogramWindow;
     QLabel *histogramChart;
     QVBoxLayout* layout;
+
+
 public:
     Histogram(){};
     Histogram(QImage image);
+
     void readPixelDataFrom(QImage image);
     void resetHistogram();
     void showHistogram(QImage image);
+
     inline QHash<int, int> getRedChanel(){return Red;}
     inline QHash<int, int> getGreenChanel(){return Green;}
     inline QHash<int, int> getBlueChanel(){return Blue;}

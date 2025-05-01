@@ -14,7 +14,7 @@ QImage Image::getImage()
     return image;
 }
 
-void Image::loadImage(QString pathToImage)
+void Image::loadImageFromPath(QString pathToImage)
 {
     image.load(pathToImage);
 
@@ -22,12 +22,8 @@ void Image::loadImage(QString pathToImage)
     imageHeight=image.height();
 }
 
-void Image::loadModifiedImage(QImage image_to_load)
+void Image::loadImageFromImage(QImage image_to_load)
 {
-    scene->clear();
-    QPixmap pixmap=QPixmap::fromImage(image_to_load);
-    scene->addPixmap(pixmap);
-    ui->imageSlot->fitInView(scene->itemsBoundingRect(),Qt::KeepAspectRatio);
     image=image_to_load;
 }
 
@@ -38,4 +34,9 @@ int Image::getWidth()
 int Image::getHeight()
 {
     return imageHeight;
+}
+
+Histogram Image::getHistogram()
+{
+    return histogram;
 }

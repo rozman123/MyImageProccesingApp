@@ -12,8 +12,9 @@
 #include "image.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindowQt;
+namespace Ui
+{
+    class MainWindowQt;
 }
 QT_END_NAMESPACE
 
@@ -42,6 +43,7 @@ private slots:
     void on_Stretching_clicked();
     void on_wyrownanie_clicked();
     void on_Save_as_clicked();
+    void load_modified_image(QImage & image_to_load);
     QImage blackAndWhite();
 
 };

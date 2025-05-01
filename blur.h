@@ -1,6 +1,9 @@
 #ifndef BLUR_H
 #define BLUR_H
 
+#include <QImage>
+
+
 class Blur
 {
 private:

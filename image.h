@@ -20,8 +20,9 @@ public:
     Image();
     int getWidth();
     int getHeight();
-    void loadImage(QString pathToImage);
-    void loadModifiedImage(QImage image_to_load);
+    void loadImageFromPath(QString pathToImage);
+    void loadImageFromImage(QImage image_to_load);
+    Histogram getHistogram();
     QImage getImage();
 };
 

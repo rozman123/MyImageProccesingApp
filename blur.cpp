@@ -11,7 +11,9 @@ Blur::Blur() {}
 // pixeli poza obrazem w przypadku maski
 QRgb Blur::getPixel(const QImage& image, int x, int y, optionsOfPixelsFillingOutsideOfImage option)
 {
-    int imageWidth = MainWindowQt::getWidth();
+    int imageWidth = image.getWidth();
+
+
     if(option==0)
     {
         x = (x + imageWidth) % imageWidth;

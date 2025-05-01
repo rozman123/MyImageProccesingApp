@@ -17,6 +17,15 @@ MainWindowQt::~MainWindowQt()
     delete ui;
 }
 
+void MainWindowQt::load_modified_image(QImage & image_to_load)
+{
+    scene->clear();
+    QPixmap pixmap=QPixmap::fromImage(image_to_load);
+    scene->addPixmap(pixmap);
+    ui->imageSlot->fitInView(scene->itemsBoundingRect(),Qt::KeepAspectRatio);
+    imageHandle.loadImageFromImage(image_to_load);
+}
+
 void MainWindowQt::on_loadImage_clicked()
 {
     scene->clear();
@@ -28,7 +37,7 @@ void MainWindowQt::on_loadImage_clicked()
     }
     else
     {
-        imageHandle.loadImage(pathToFile);
+        imageHandle.loadImageFromPath(pathToFile);
         if (!imageHandle.getImage().isNull())
         {
             QPixmap pixmap = QPixmap::fromImage(imageHandle.getImage());
@@ -48,7 +57,10 @@ void MainWindowQt::on_loadImage_clicked()
 void MainWindowQt::on_negative_clicked()
 {
 
-    QImage imagemap = image;
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i=0;i<imageWidth;++i)
     {
         for (int j=0;j<imageHeight;++j)
@@ -62,13 +74,16 @@ void MainWindowQt::on_negative_clicked()
             imagemap.setPixelColor(i,j,negativePixelColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
 }
 
 
 void MainWindowQt::on_greyScale_clicked()
 {
-    QImage imagemap = image;
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i=0;i<imageWidth;++i)
     {
         for (int j=0;j<imageHeight;++j)
@@ -83,10 +98,8 @@ void MainWindowQt::on_greyScale_clicked()
             imagemap.setPixelColor(i,j,graySclePixelColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
 }
-
-
 
 void MainWindowQt::on_Brightnes_clicked()
 {
@@ -110,7 +123,10 @@ void MainWindowQt::on_Brightnes_clicked()
         QMessageBox::warning(this, "Error", "You must give a number for this operation!");
     }
 
-    QImage imagemap = image;
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i=0;i<imageWidth;++i)
     {
         for (int j=0;j<imageHeight;++j)
@@ -122,7 +138,7 @@ void MainWindowQt::on_Brightnes_clicked()
             imagemap.setPixelColor(i,j,pixelBrightnesColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
 
 }
 
@@ -149,7 +165,10 @@ void MainWindowQt::on_Contrast_clicked()
         QMessageBox::warning(this, "Error", "You must give a number for this operation!");
     }
 
-    QImage imagemap = image;
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i=0;i<imageWidth;++i)
     {
         for (int j=0;j<imageHeight;++j)
@@ -161,7 +180,7 @@ void MainWindowQt::on_Contrast_clicked()
             imagemap.setPixelColor(i,j,pixelContrastColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
 
 }
 
@@ -183,7 +202,10 @@ void MainWindowQt::on_Gamma_clicked()
         QMessageBox::warning(this, "Error", "You must give a number for this operation!");
     }
 
-    QImage imagemap = image;
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i=0;i<imageWidth;++i)
     {
         for (int j=0;j<imageHeight;++j)
@@ -195,14 +217,9 @@ void MainWindowQt::on_Gamma_clicked()
             imagemap.setPixelColor(i,j,pixelContrastColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
 }
 
-
-void MainWindowQt::on_histogram_clicked()
-{
-    histogram = Histogram(image);
-}
 float getFirstNonZeroPixelFromLeft(QHash<int,int> histChanel)
 {
 
@@ -236,7 +253,12 @@ float getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
 void MainWindowQt::on_Stretching_clicked()
 {
     MainWindowQt::on_histogram_clicked();
-    QImage imagemap = image;
+
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
+    Histogram histogram = imageHandle.getHistogram();
 
     QHash<int, int> Red =histogram.getRedChanel();
     QHash<int, int> Green=histogram.getGreenChanel();
@@ -260,6 +282,8 @@ void MainWindowQt::on_Stretching_clicked()
     // std::cout<<"Green: "<<minGreen<<"    "<<maxGreen<<std::endl;
     // std::cout<<"Blue: "<<minBlue<<"    "<<maxBlue<<std::endl;
     // std::cout<<"Lum: "<<minLum<<"    "<<maxLum<<std::endl;
+
+
     for (int i = 0; i < imageWidth; ++i)
     {
         for (int j = 0; j < imageHeight; ++j)
@@ -271,7 +295,7 @@ void MainWindowQt::on_Stretching_clicked()
             imagemap.setPixelColor(i,j,pixelContrastColor);
         }
     }
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
     MainWindowQt::on_histogram_clicked();
 }
 
@@ -298,9 +322,16 @@ QVector<int> createLUT(const QHash<int, int>& hist,unsigned long pixelCount)
 void MainWindowQt::on_wyrownanie_clicked()
 {
     MainWindowQt::on_histogram_clicked();
-    QImage imagemap = image;
+
+
+
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
 
     unsigned long allPixels = imageWidth * imageHeight;
+
+    Histogram histogram = imageHandle.getHistogram();
 
     QHash<int, int> Red =histogram.getRedChanel();
     QHash<int, int> Green=histogram.getGreenChanel();
@@ -318,14 +349,14 @@ void MainWindowQt::on_wyrownanie_clicked()
     {
         for (int j = 0; j < imageHeight; ++j)
         {
-            QColor pixel = image.pixelColor(i, j);
+            QColor pixel = imagemap.pixelColor(i, j);
 
             imagemap.setPixelColor(i, j, QColor(redLUT[pixel.red()], greenLUT[pixel.green()], blueLUT[pixel.blue()],lumLUT[pixel.lightness()]));
 
         }
     }
 
-    loadModifiedImage(imagemap);
+    load_modified_image(imagemap);
     MainWindowQt::on_histogram_clicked();
 }
 
@@ -334,13 +365,17 @@ void MainWindowQt::on_wyrownanie_clicked()
 QImage MainWindowQt::blackAndWhite()
 {
     on_greyScale_clicked();
-    QImage imagemap=image;
+
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     for (int i = 0; i < imageHeight; ++i)
     {
         for (int j = 0; j < imageWidth; ++j)
         {
 
-            QColor pixel=image.pixelColor(j,i);
+            QColor pixel=imagemap.pixelColor(j,i);
             if(pixel.lightness()>=128)
             {
                 imagemap.setPixelColor(j,i,Qt::black);
@@ -358,6 +393,10 @@ QImage MainWindowQt::blackAndWhite()
 
 void MainWindowQt::on_Save_as_clicked()
 {
+    QImage imagemap = imageHandle.getImage();
+    int imageWidth=imageHandle.getWidth();
+    int imageHeight=imageHandle.getHeight();
+
     QString selectedFilter;
     QString fileName = QFileDialog::getSaveFileName(nullptr,"Save image","","Binary PPM (*.ppm);;Binary PGM (*.pgm);;Binary PBM (*.pbm);;ASCII PPM (*.ppm);;ASCII PGM (*.pgm);;ASCII PBM (*.pbm)",&selectedFilter);
 
@@ -378,7 +417,7 @@ void MainWindowQt::on_Save_as_clicked()
         {
             for (int j = 0; j < imageWidth; ++j)
             {
-                QColor pixel=image.pixelColor(j,i);
+                QColor pixel=imagemap.pixelColor(j,i);
                 fileHandler<<pixel.red()<<" "<<pixel.green()<<" "<<pixel.blue()<<" ";
             }
             fileHandler<<"\n";
@@ -390,6 +429,11 @@ void MainWindowQt::on_Save_as_clicked()
     else if(selectedFilter.contains("ASCII PGM"))
     {
         on_greyScale_clicked();
+
+        QImage imagemap = imageHandle.getImage();
+        int imageWidth=imageHandle.getWidth();
+        int imageHeight=imageHandle.getHeight();
+
         std::ofstream fileHandler;
         fileHandler.open(fileName.toStdString());
 
@@ -401,7 +445,7 @@ void MainWindowQt::on_Save_as_clicked()
         {
             for (int j = 0; j < imageWidth; ++j)
             {
-                QColor pixel=image.pixelColor(j,i);
+                QColor pixel=imagemap.pixelColor(j,i);
                 fileHandler<<pixel.lightness()<<" ";
             }
             fileHandler<<"\n";
@@ -435,12 +479,14 @@ void MainWindowQt::on_Save_as_clicked()
     }
     else if(selectedFilter.contains("Binary PPM"))
     {
-        image.save(fileName,"ppm");
+        QImage imagemap = imageHandle.getImage();
+        imagemap.save(fileName,"ppm");
     }
     else if(selectedFilter.contains("Binary PGM"))
     {
         on_greyScale_clicked();
-        image.save(fileName,"pgm");
+        QImage imagemap = imageHandle.getImage();
+        imagemap.save(fileName,"pgm");
     }
     else if(selectedFilter.contains("Binary PBM"))
     {
