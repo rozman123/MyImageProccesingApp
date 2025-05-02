@@ -5,63 +5,6 @@
 #include<QMessageBox>
 #include<iostream>
 
-Blur::Blur() {}
-
-// zwraca pixel na danym miejscu, potrzebna do zwracania
-// pixeli poza obrazem w przypadku maski
-QRgb Blur::getPixel(const QImage& image, int x, int y, optionsOfPixelsFillingOutsideOfImage option)
-{
-    int imageWidth = image.getWidth();
-
-
-    if(option==0)
-    {
-        x = (x + imageWidth) % imageWidth;
-        y = (y + imageHeight) % imageHeight;
-        return image.pixel(x, y);
-    }
-    else if(option==1)
-    {
-        if (x < 0 || x >= imageWidth || y < 0 || y >= imageHeight)
-            return qRgb(0, 0, 0);
-        return image.pixel(x, y);
-    }
-    else if(option==2)
-    {
-        x = std::clamp(x, 0, imageWidth - 1);
-        y = std::clamp(y, 0, imageHeight - 1);
-        return image.pixel(x, y);
-    }
-    return qRgb(0, 0, 0);
-}
-
-// zwraca macierz pixeli/ (pixele somsiadujace z danym pikselem) na danym kanale
-QVector<QVector<int>> Blur::getWindow(const QImage& image, int x, int y,int size,int channel, optionsOfPixelsFillingOutsideOfImage option)
-{
-    QVector<QVector<int>> window(size, QVector<int>(size, 0));
-    int offset = size / 2;
-
-    for (int dy = -offset; dy <= offset; ++dy) {
-        for (int dx = -offset; dx <= offset; ++dx) {
-            QRgb pixel = getPixel(image, x + dx, y + dy, option);
-            QColor color(pixel);
-
-            int value = 0;
-            switch (channel)
-            {
-            case 0: value = color.red(); break;
-            case 1: value = color.green(); break;
-            case 2: value = color.blue(); break;
-            default: value = color.lightness(); break;
-            }
-
-            window[dy + offset][dx + offset] = value;
-        }
-    }
-
-    return window;
-}
-
 // zwraca maske/macierz size*size z jedynką w środku
 QVector<QVector<float> > Blur::getMask(int size)
 {
@@ -102,14 +45,14 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
     return result;
 }
 
-QImage Blur::convolute(const QImage& image, const QVector<QVector<float>>& mask, int channel, optionsOfPixelsFillingOutsideOfImage option)
+QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, optionsOfPixelsFillingOutsideOfImage option)
 {
-    int width = image.width();
-    int height = image.height();
+    int width = image.getWidth();
+    int height = image.getHeight();
     int maskSize = mask.size();
     float weight = sum(mask);
 
-    QImage result = image;
+    QImage convolutedImage = image.getImage();
 
     for (int y = 0; y < height; ++y)
     {
@@ -120,7 +63,7 @@ QImage Blur::convolute(const QImage& image, const QVector<QVector<float>>& mask,
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
-            QColor color = result.pixelColor(x, y);
+            QColor color = convolutedImage.pixelColor(x, y);
             switch (channel)
             {
             case 0: color.setRed(finalValue); break;
@@ -128,11 +71,11 @@ QImage Blur::convolute(const QImage& image, const QVector<QVector<float>>& mask,
             case 2: color.setBlue(finalValue); break;
             default: color = QColor(finalValue, finalValue, finalValue); break;
             }
-            result.setPixelColor(x, y, color);
+            convolutedImage.setPixelColor(x, y, color);
         }
     }
 
-    return result;
+    return convolutedImage;
 }
 
 

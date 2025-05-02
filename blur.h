@@ -2,18 +2,17 @@
 #define BLUR_H
 
 #include <QImage>
-
+#include "image.h"
 
 class Blur
 {
 private:
 
-    enum optionsOfPixelsFillingOutsideOfImage{cyclicPixels,blackPixels,repeatPixels};
+    Image image;
 
 public:
-    Blur();
-    QRgb getPixel(const QImage& image, int x, int y, optionsOfPixelsFillingOutsideOfImage option);
-    QVector<QVector<int> > getWindow(const QImage& image, int x, int y,int size, int channel, optionsOfPixelsFillingOutsideOfImage option);
+    Blur(){};
+    Blur(Image image){image=image;};
     QVector<QVector<float> > getMask(int size);
     QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b);
     float sum(const QVector<QVector<float> >& matrix);

@@ -16,6 +16,9 @@ private:
     int imageHeight=0;
     Histogram histogram;
 
+    enum optionsOfPixelsFillingOutsideOfImage{cyclicPixels=0,blackPixels=1,repeatPixels=2};
+
+
 public:
     Image();
     int getWidth();
@@ -24,6 +27,9 @@ public:
     void loadImageFromImage(QImage image_to_load);
     Histogram getHistogram();
     QImage getImage();
+    QRgb getPixel(const Image & image, int x, int y, optionsOfPixelsFillingOutsideOfImage option);
+    QVector<QVector<int> > getWindow(const QImage& image, int x, int y,int size, int channel, optionsOfPixelsFillingOutsideOfImage option);
+
 };
 
 #endif // IMAGE_H
