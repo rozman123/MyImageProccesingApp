@@ -2,8 +2,9 @@
 #include "./ui_mainwindowqt.h"
 #include <QFileDialog>
 #include<QMessageBox>
-#include<iostream>
-
+#include "histogram.h"
+#include <fstream>
+#include "options.h"
 
 MainWindowQt::MainWindowQt(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindowQt)
 {
@@ -52,7 +53,11 @@ void MainWindowQt::on_loadImage_clicked()
     }
 }
 
-
+void MainWindowQt::on_histogram_clicked()
+{
+    imageHandle.setHistogram();
+    imageHandle.showHistogram();
+}
 
 void MainWindowQt::on_negative_clicked()
 {
@@ -252,12 +257,12 @@ float getFirstNonZeroPixelFromRignt(QHash<int,int> histChanel)
 
 void MainWindowQt::on_Stretching_clicked()
 {
-    MainWindowQt::on_histogram_clicked();
 
     QImage imagemap = imageHandle.getImage();
     int imageWidth=imageHandle.getWidth();
     int imageHeight=imageHandle.getHeight();
 
+    imageHandle.setHistogram();
     Histogram histogram = imageHandle.getHistogram();
 
     QHash<int, int> Red =histogram.getRedChanel();
@@ -321,9 +326,6 @@ QVector<int> createLUT(const QHash<int, int>& hist,unsigned long pixelCount)
 
 void MainWindowQt::on_wyrownanie_clicked()
 {
-    MainWindowQt::on_histogram_clicked();
-
-
 
     QImage imagemap = imageHandle.getImage();
     int imageWidth=imageHandle.getWidth();
@@ -331,6 +333,7 @@ void MainWindowQt::on_wyrownanie_clicked()
 
     unsigned long allPixels = imageWidth * imageHeight;
 
+    imageHandle.setHistogram();
     Histogram histogram = imageHandle.getHistogram();
 
     QHash<int, int> Red =histogram.getRedChanel();
@@ -360,7 +363,45 @@ void MainWindowQt::on_wyrownanie_clicked()
     MainWindowQt::on_histogram_clicked();
 }
 
+void MainWindowQt::on_rozmycieRownomierne_clicked()
+{
+    bool ok1=false;
+    bool ok2=false;
+    int sizeOfMask=ui->maskSize->text().toInt(&ok1);
+    int temp=ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok2);
 
+    options::optionsOfPixelsFillingOutsideOfImage option=static_cast<options::optionsOfPixelsFillingOutsideOfImage>(temp);
+
+    if (ok1&&ok2)
+    {
+        blurOperations.blurEven(sizeOfMask,option);
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "You must give a size of mask on left and a number of the filling of pixels outside of image for this operation!");
+    }
+}
+
+void MainWindowQt::on_rozmycieGausowskie_clicked()
+{
+    bool ok1 = false, ok2 = false, ok3 = false;
+    int sizeOfMask = ui->maskSize->text().toInt(&ok1);
+    float sigma = ui->sigma->text().toFloat(&ok2);
+    int temp = ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok3);
+
+    options::optionsOfPixelsFillingOutsideOfImage option=static_cast<options::optionsOfPixelsFillingOutsideOfImage>(temp);
+
+
+    if (ok1 && ok2 && ok3)
+    {
+       blurOperations.blurGauss(sizeOfMask,sigma,option);
+    }
+    else
+    {
+        QMessageBox::warning(this, "Error", "Please provide valid values for mask size, sigma and pixel fill option.");
+    }
+
+}
 
 QImage MainWindowQt::blackAndWhite()
 {

@@ -4,12 +4,11 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
-#include "histogram.h"
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <filesystem>
-#include <fstream>
 #include "image.h"
+#include "blur.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -25,6 +24,7 @@ class MainWindowQt : public QMainWindow
 private:
 
     Image imageHandle;
+    Blur blurOperations;
     Ui::MainWindowQt *ui;
     QGraphicsScene *scene;
 
@@ -44,6 +44,8 @@ private slots:
     void on_wyrownanie_clicked();
     void on_Save_as_clicked();
     void load_modified_image(QImage & image_to_load);
+    void on_rozmycieRownomierne_clicked();
+    void on_rozmycieGausowskie_clicked();
     QImage blackAndWhite();
 
 };

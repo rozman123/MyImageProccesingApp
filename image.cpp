@@ -1,9 +1,6 @@
 #include "image.h"
-#include "mainwindowqt.h"
-#include "./ui_mainwindowqt.h"
 #include <QFileDialog>
 #include<QMessageBox>
-#include<iostream>
 
 
 
@@ -41,9 +38,18 @@ Histogram Image::getHistogram()
     return histogram;
 }
 
+void Image::setHistogram()
+{
+    histogram.resetHistogram();
+    histogram.showHistogram(image);
+}
+void Image::showHistogram()
+{
+    histogram.showHistogram(image);
+}
 // zwraca pixel na danym miejscu, potrzebna do zwracania
 // pixeli poza obrazem w przypadku maski
-QRgb Image::getPixel(int x, int y, optionsOfPixelsFillingOutsideOfImage option)
+QRgb Image::getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     if(option==0)
     {
@@ -67,14 +73,16 @@ QRgb Image::getPixel(int x, int y, optionsOfPixelsFillingOutsideOfImage option)
 }
 
 // zwraca macierz pixeli/ (pixele somsiadujace z danym pikselem) na danym kanale
-QVector<QVector<int> > Image::getWindow(const QImage& image, int x, int y,int size,int channel, optionsOfPixelsFillingOutsideOfImage option)
+QVector<QVector<int> > Image::getWindow(int x, int y,int size,int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     QVector<QVector<int>> window(size, QVector<int>(size, 0));
     int offset = size / 2;
 
-    for (int dy = -offset; dy <= offset; ++dy) {
-        for (int dx = -offset; dx <= offset; ++dx) {
-            QRgb pixel = getPixel(image, x + dx, y + dy, option);
+    for (int dy = -offset; dy <= offset; ++dy)
+    {
+        for (int dx = -offset; dx <= offset; ++dx)
+        {
+            QRgb pixel = getPixel(x + dx, y + dy, option);
             QColor color(pixel);
 
             int value = 0;

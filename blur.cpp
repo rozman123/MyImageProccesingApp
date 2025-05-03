@@ -1,19 +1,15 @@
 #include "blur.h"
-#include "mainwindowqt.h"
-#include "./ui_mainwindowqt.h"
 #include <QFileDialog>
 #include<QMessageBox>
-#include<iostream>
 
 // zwraca maske/macierz size*size z jedynką w środku
-QVector<QVector<float> > Blur::getMask(int size)
+void Blur::setMask(int size)
 {
-    QVector<QVector<float>> mask(size, QVector<float>(size, 0.0f));
+    mask = QVector<QVector<float>> (size, QVector<float>(size, 0.0f));
     int center = size / 2;
     mask[center][center] = 1.0f;
-    return mask;
-}
 
+}
 //wykonuje iloczyn macierzy element po elemencie
 QVector<QVector<float> > Blur::join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b)
 {
@@ -45,7 +41,7 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
     return result;
 }
 
-QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, optionsOfPixelsFillingOutsideOfImage option)
+QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -58,7 +54,7 @@ QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, options
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = getWindow(image, x, y,maskSize, channel, option);
+            auto window = image.getWindow(x, y,maskSize, channel, option);
             auto joined = join(window, mask);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
@@ -80,33 +76,26 @@ QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, options
 
 
 // wykonuje operację splotu na obrazie/uwzględniając konkretny kanał
-void Blur::on_rozmycieRownomierne_clicked()
+void Blur::blurEven(int maskSize, options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
 {
-    bool ok1=false;
-    bool ok2=false;
-    int sizeOfMask=ui->maskSize->text().toInt(&ok1);
-    int option1=ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok2);
+    setMask(maskSize);
+    int imageWidth = image.getWidth();
+    int imageHeight = image.getHeight();
 
-    optionsOfPixelsFillingOutsideOfImage option = cyclicPixels;
+    options::optionsOfPixelsFillingOutsideOfImage option = options::cyclicPixels;
 
-    switch(option1)
+    switch(optionForPixelFilling)
     {
-    case 0: { option = cyclicPixels; break;}
-    case 1: { option = blackPixels; break;}
-    case 2: { option = repeatPixels; break;}
-    default: { option = cyclicPixels; break;}
+        case 0: { option  = options::cyclicPixels; break;}
+        case 1: { option = options::blackPixels; break;}
+        case 2: { option = options::repeatPixels; break;}
+        default: { option = options::cyclicPixels; break;}
     }
-
-
-    if (ok1&&ok2)
-    {
-        QVector<QVector<float>> mask(sizeOfMask, QVector<float>(sizeOfMask, 1.0f / (sizeOfMask * sizeOfMask)));
-
-        QImage imagemap=image;
+        QImage imagemap=image.getImage();
         // przetwarza każdy kanał RGB osobno
         for (int channel = 0; channel < 4; ++channel)
         {
-            QImage blurred = convolute(imagemap, mask, channel, option);
+            QImage blurred = convolute(mask, channel, option);
 
             for (int y = 0; y < imageHeight; ++y)
             {
@@ -134,13 +123,10 @@ void Blur::on_rozmycieRownomierne_clicked()
                 }
             }
         }
-        loadModifiedImage(imagemap);
+        image.loadImageFromImage(imagemap);
 
-    }
-    else
-    {
-        QMessageBox::warning(this, "Error", "You must give a size of mask on left and a number of the filling of pixels outside of image for this operation!");
-    }
+
+
 }
 
 //funkcja z obliczaniem gausa
@@ -180,61 +166,55 @@ QVector<QVector<float>> getGaussianMask(int size, float sigma)
     return mask;
 }
 
-void Blur::on_rozmycieGausowskie_clicked()
+void Blur::blurGauss(int sizeOfMask,float sigma,options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
 {
-    bool ok1 = false, ok2 = false, ok3 = false;
-    int sizeOfMask = ui->maskSize->text().toInt(&ok1);
-    float sigma = ui->sigma->text().toFloat(&ok2);
-    int option1 = ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok3);
+    int imageWidth = image.getWidth();
+    int imageHeight = image.getHeight();
 
-    optionsOfPixelsFillingOutsideOfImage option = cyclicPixels;
-    switch(option1)
+    options::optionsOfPixelsFillingOutsideOfImage option = options::cyclicPixels;
+
+    switch(optionForPixelFilling)
     {
-    case 0: option = cyclicPixels; break;
-    case 1: option = blackPixels; break;
-    case 2: option = repeatPixels; break;
-    default: option = cyclicPixels; break;
+    case 0: option = options::cyclicPixels; break;
+    case 1: option = options::blackPixels; break;
+    case 2: option = options::repeatPixels; break;
+    default: option = options::cyclicPixels; break;
     }
 
-    if (ok1 && ok2 && ok3)
+    QVector<QVector<float>> mask = getGaussianMask(sizeOfMask, sigma);
+
+    QImage imagemap = image.getImage();
+
+    for (int channel = 0; channel < 4; ++channel)
     {
-        QVector<QVector<float>> mask = getGaussianMask(sizeOfMask, sigma);
+        QImage blurred = convolute( mask, channel, option);
 
-        QImage imagemap = image;
-        for (int channel = 0; channel < 4; ++channel)
+        for (int y = 0; y < imageHeight; ++y)
         {
-            QImage blurred = convolute(imagemap, mask, channel, option);
-
-            for (int y = 0; y < imageHeight; ++y)
+            for (int x = 0; x < imageWidth; ++x)
             {
-                for (int x = 0; x < imageWidth; ++x)
+                QColor original = imagemap.pixelColor(x, y);
+                QColor blurredColor = blurred.pixelColor(x, y);
+
+                switch (channel)
                 {
-                    QColor original = imagemap.pixelColor(x, y);
-                    QColor blurredColor = blurred.pixelColor(x, y);
-
-                    switch (channel)
-                    {
-                    case 0: original.setRed(blurredColor.red()); break;
-                    case 1: original.setGreen(blurredColor.green()); break;
-                    case 2: original.setBlue(blurredColor.blue()); break;
-                    case 3:
-                    {
-                        QColor hsl = original.toHsl();
-                        hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
-                        original = hsl.toRgb();
-                        break;
-                    }
-                    }
-
-                    imagemap.setPixelColor(x, y, original);
+                case 0: original.setRed(blurredColor.red()); break;
+                case 1: original.setGreen(blurredColor.green()); break;
+                case 2: original.setBlue(blurredColor.blue()); break;
+                case 3:
+                {
+                    QColor hsl = original.toHsl();
+                    hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
+                    original = hsl.toRgb();
+                    break;
                 }
+                }
+
+                imagemap.setPixelColor(x, y, original);
             }
         }
-        loadModifiedImage(imagemap);
     }
-    else
-    {
-        QMessageBox::warning(this, "Error", "Please provide valid values for mask size, sigma and pixel fill option.");
-    }
+    image.loadImageFromImage(imagemap);
+
 
 }

@@ -1,6 +1,5 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
-#include <algorithm>
 #include <qhash.h>
 #include <qimage.h>
 #include <QLabel>
