@@ -15,6 +15,8 @@ void Image::loadImageFromPath(QString pathToImage)
 {
     image.load(pathToImage);
 
+    histogram = Histogram(image);
+
     imageWidth=image.width();
     imageHeight=image.height();
 }
@@ -40,12 +42,11 @@ Histogram Image::getHistogram()
 
 void Image::setHistogram()
 {
-    histogram.resetHistogram();
-    histogram.showHistogram(image);
+    histogram.generateHistogram(image);
 }
 void Image::showHistogram()
 {
-    histogram.showHistogram(image);
+    histogram.showHistogram();
 }
 // zwraca pixel na danym miejscu, potrzebna do zwracania
 // pixeli poza obrazem w przypadku maski

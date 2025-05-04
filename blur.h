@@ -13,7 +13,6 @@ private:
     Image image;
     QVector<QVector<float>> mask;
 
-
 public:
     Blur(){};
     Blur(Image image){image=image;};

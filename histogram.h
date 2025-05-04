@@ -12,6 +12,9 @@ private:
     QHash<int, int> Green;
     QHash<int, int> Blue;
     QHash<int, int> Lumosity;
+
+    QPixmap histChart;
+
     int maxHeigntOfHistogram;
     QDialog *histogramWindow;
     QLabel *histogramChart;
@@ -24,7 +27,8 @@ public:
 
     void readPixelDataFrom(QImage image);
     void resetHistogram();
-    void showHistogram(QImage image);
+    void generateHistogram(QImage image);
+    void showHistogram();
 
     inline QHash<int, int> getRedChanel(){return Red;}
     inline QHash<int, int> getGreenChanel(){return Green;}

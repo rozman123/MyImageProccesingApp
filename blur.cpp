@@ -216,5 +216,4 @@ void Blur::blurGauss(int sizeOfMask,float sigma,options::optionsOfPixelsFillingO
     }
     image.loadImageFromImage(imagemap);
 
-
 }

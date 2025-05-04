@@ -2,10 +2,11 @@
 #include <qdialog.h>
 #include<QPainter>
 #include <QVBoxLayout>
-
+#include <iostream>
 
 Histogram::Histogram(QImage image)
 {
+    histChart = QPixmap(255, 256);
 
     histogramWindow = new QDialog;
     histogramWindow->setWindowTitle("Histogram");
@@ -18,8 +19,6 @@ Histogram::Histogram(QImage image)
     maxHeigntOfHistogram = 0;
     resetHistogram();
     readPixelDataFrom(image);
-    showHistogram(image);
-
 }
 
 void Histogram::readPixelDataFrom(QImage image)
@@ -51,8 +50,16 @@ void Histogram::resetHistogram()
         Lumosity.insert(i, 0);
     }
 }
+void Histogram::showHistogram()
+{
 
-void Histogram::showHistogram(QImage image)
+    histogramChart->setPixmap(histChart);
+
+    layout->addWidget(histogramChart);
+
+    histogramWindow->exec();
+}
+void Histogram::generateHistogram(QImage image)
 {
     readPixelDataFrom(image);
     unsigned int red = std::max_element(Red.begin(), Red.end()).value();
@@ -62,10 +69,10 @@ void Histogram::showHistogram(QImage image)
 
     maxHeigntOfHistogram = std::max({red,green,blue,lumosity});
 
-    QPixmap histChart = QPixmap(255, 256);
+
 
     histChart.fill(QColor(255,255,255));
-
+    std::cout<<"TUTAJ DOJECHAŁO\n";
 
     QPainter painter= QPainter(&histChart);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -93,11 +100,5 @@ void Histogram::showHistogram(QImage image)
 
     }
 
-
-    histogramChart->setPixmap(histChart);
-
-    layout->addWidget(histogramChart);
-
-    histogramWindow->exec();
 
 }
