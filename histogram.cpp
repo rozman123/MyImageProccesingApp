@@ -1,7 +1,4 @@
 #include "histogram.h"
-#include <qdialog.h>
-#include<QPainter>
-#include <QVBoxLayout>
 #include <iostream>
 
 Histogram::Histogram(QImage image)

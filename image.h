@@ -1,11 +1,13 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#include "blur.h"
 #include <QImage>
 #include "histogram.h"
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "options.h"
+
 
 class Image
 {
@@ -25,7 +27,7 @@ public:
     Histogram getHistogram();
     void setHistogram();
     void showHistogram();
-    QImage getImage();
+    QImage& getImage();
     QRgb getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option);
     QVector<QVector<int> > getWindow(int x, int y,int size, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
 

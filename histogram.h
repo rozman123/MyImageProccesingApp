@@ -1,9 +1,13 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
+
 #include <qhash.h>
 #include <qimage.h>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <qdialog.h>
+#include <QPainter>
+
 class Histogram
 {
 

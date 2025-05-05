@@ -374,7 +374,9 @@ void MainWindowQt::on_rozmycieRownomierne_clicked()
 
     if (ok1&&ok2)
     {
-        blurOperations.blurEven(sizeOfMask,option);
+        Blur blurOperations= Blur();
+        blurOperations.blurEven(imageHandle,sizeOfMask,option);
+        load_modified_image(imageHandle.getImage());
     }
     else
     {
@@ -394,7 +396,9 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
 
     if (ok1 && ok2 && ok3)
     {
-       blurOperations.blurGauss(sizeOfMask,sigma,option);
+        Blur blurOperations= Blur();
+        blurOperations.blurGauss(imageHandle,sizeOfMask,sigma,option);
+        load_modified_image(imageHandle.getImage());
     }
     else
     {

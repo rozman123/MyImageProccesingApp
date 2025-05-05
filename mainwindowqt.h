@@ -7,7 +7,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "image.h"
-#include "blur.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -24,7 +23,6 @@ class MainWindowQt : public QMainWindow
 private:
 
     Image imageHandle;
-    Blur blurOperations;
     Ui::MainWindowQt *ui;
     QGraphicsScene *scene;
 

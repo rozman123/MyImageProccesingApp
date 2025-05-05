@@ -1,6 +1,5 @@
 #include "blur.h"
-#include <QFileDialog>
-#include<QMessageBox>
+#include "image.h"
 
 // zwraca maske/macierz size*size z jedynką w środku
 void Blur::setMask(int size)
@@ -41,7 +40,7 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
     return result;
 }
 
-QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
+QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -76,7 +75,7 @@ QImage Blur::convolute(const QVector<QVector<float>>& mask, int channel, options
 
 
 // wykonuje operację splotu na obrazie/uwzględniając konkretny kanał
-void Blur::blurEven(int maskSize, options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
+void Blur::blurEven(Image& image,int maskSize, options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
 {
     setMask(maskSize);
     int imageWidth = image.getWidth();
@@ -95,7 +94,7 @@ void Blur::blurEven(int maskSize, options::optionsOfPixelsFillingOutsideOfImage 
         // przetwarza każdy kanał RGB osobno
         for (int channel = 0; channel < 4; ++channel)
         {
-            QImage blurred = convolute(mask, channel, option);
+            QImage blurred = convolute(image,mask, channel, option);
 
             for (int y = 0; y < imageHeight; ++y)
             {
@@ -166,7 +165,7 @@ QVector<QVector<float>> getGaussianMask(int size, float sigma)
     return mask;
 }
 
-void Blur::blurGauss(int sizeOfMask,float sigma,options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
+void Blur::blurGauss(Image& image,int sizeOfMask,float sigma,options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
 {
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();
@@ -187,7 +186,7 @@ void Blur::blurGauss(int sizeOfMask,float sigma,options::optionsOfPixelsFillingO
 
     for (int channel = 0; channel < 4; ++channel)
     {
-        QImage blurred = convolute( mask, channel, option);
+        QImage blurred = convolute(image, mask, channel, option);
 
         for (int y = 0; y < imageHeight; ++y)
         {

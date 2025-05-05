@@ -6,7 +6,7 @@
 
 Image::Image() {}
 
-QImage Image::getImage()
+QImage& Image::getImage()
 {
     return image;
 }
