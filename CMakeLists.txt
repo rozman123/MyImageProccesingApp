@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         blur.h blur.cpp
         image.h image.cpp
         options.h
+        edgegradient.h edgegradient.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ImageProcessing APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
