@@ -18,16 +18,20 @@ private:
     Histogram histogram;
 
 
+
 public:
-    Image();
+    inline Image(){};
+
     int getWidth();
     int getHeight();
+
     void loadImageFromPath(QString pathToImage);
     void loadImageFromImage(QImage image_to_load);
+
     Histogram getHistogram();
     void setHistogram();
     void showHistogram();
-    QImage& getImage();
+    inline QImage& getImage(){return image;};
     QRgb getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option);
     QVector<QVector<int> > getWindow(int x, int y,int size, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
 

@@ -4,13 +4,6 @@
 
 
 
-Image::Image() {}
-
-QImage& Image::getImage()
-{
-    return image;
-}
-
 void Image::loadImageFromPath(QString pathToImage)
 {
     image.load(pathToImage);
@@ -24,6 +17,9 @@ void Image::loadImageFromPath(QString pathToImage)
 void Image::loadImageFromImage(QImage image_to_load)
 {
     image=image_to_load;
+
+    imageWidth=image_to_load.width();
+    imageHeight=image_to_load.height();
 }
 
 int Image::getWidth()

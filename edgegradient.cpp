@@ -1,5 +1,29 @@
 #include "edgegradient.h"
 
+
+//wykonuje iloczyn macierzy element po elemencie
+QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b)// ta metoda jest powielona w blur może umieść gdzieś indziej.
+{
+    int rows = a.size();
+    int cols = a[0].size();
+    QVector<QVector<float>> result(rows, QVector<float>(cols));
+    for (int i = 0; i < rows; ++i)
+        for (int j = 0; j < cols; ++j)
+            result[i][j] = a[i][j] * b[i][j];
+    return result;
+}
+//sumuje wszystkie wartości w macierzy
+float sum(const QVector<QVector<float> >& matrix)  // ta metoda jest powielona w blur może umieść gdzieś indziej.
+{
+    float total = 0.0f;
+    for (const auto& row : matrix)
+        for (float val : row)
+            total += val;
+    return total;
+}
+
+
+// neesds to be reimplemented
 QImage EdgeGradient::horizontalDetection(Image& image, const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     int width = image.getWidth();
