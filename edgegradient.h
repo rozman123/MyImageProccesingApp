@@ -5,41 +5,45 @@
 #include "options.h"
 #include "image.h"
 
-class EdgeGradient
+namespace EdgeGradient
 {
-
-    struct RobertsMask
+    // struct AbstractMask
+    // {
+    //     const QVector<QVector<float>>* horizontalDetection;
+    //     const QVector<QVector<float>>* verticalDetection;
+    //     const unsigned short* size;
+    // };
+    struct RobertsMask //: AbstractMask
     {
-        QVector<QVector<float>> horizontalDetection={{1,0},{0,-1}};
-        QVector<QVector<float>> verticalDetection={{0,-1},{1,0}};
+        const QVector<QVector<float>> horizontalDetection={{1,0},{0,-1}};
+        const QVector<QVector<float>> verticalDetection={{0,-1},{1,0}};
+        const unsigned short size = 2;
     };
-    struct PrewittMask
+    struct PrewittMask //: AbstractMask
     {
-        QVector<QVector<float>> horizontalDetection={{-1,-1,-1},{0,0,0},{1,1,1}};
-        QVector<QVector<float>> verticalDetection={{-1,0,1},{-1,0,1},{-1,0,1}};
+        const QVector<QVector<float>> horizontalDetection={{-1,-1,-1},{0,0,0},{1,1,1}};
+        const QVector<QVector<float>> verticalDetection={{-1,0,1},{-1,0,1},{-1,0,1}};
+        const unsigned short size = 3;
     };
-    struct SobelMask
+    struct SobelMask //: AbstractMask
     {
-        QVector<QVector<float>> horizontalDetection={{-1,-2,-1},{0,0,0},{1,2,1}};
-        QVector<QVector<float>> verticalDetection={{-1,0,1},{-2,0,2},{-1,0,1}};
+        const QVector<QVector<float>> horizontalDetection={{-1,-2,-1},{0,0,0},{1,2,1}};
+        const QVector<QVector<float>> verticalDetection={{-1,0,1},{-2,0,2},{-1,0,1}};
+        const unsigned short size = 3;
     };
 
-    static RobertsMask robertsMask;
-    static PrewittMask prewittMask;
-    static SobelMask sobelMask;
+
+    const static RobertsMask robertsMask;
+    const static PrewittMask prewittMask;
+    const static SobelMask sobelMask;
 
 
+    const static inline RobertsMask& getRobertsMask(){return robertsMask;};
+    const static inline PrewittMask& getPrewittMask(){return prewittMask;};
+    const static inline SobelMask& getSobelMask(){return sobelMask;};
 
-
-public:
-    inline EdgeGradient(){};
-
-    static inline RobertsMask getRobertsMask(){return robertsMask;};
-    static inline PrewittMask getPrewittMask(){return prewittMask;};
-    static inline SobelMask getSobelMask(){return sobelMask;};
-
-    QImage horizontalDetection(Image& image, const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option); // może zamienić tak by pojedyńcze pixele po konvolucji były zwracane a nie cały obraz (trzeba by zmienić convolute z image)
-    QImage verticalDetection(Image& image, const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);// może zamienić tak by pojedyńcze pixele po konvolucji były zwracane a nie cały obraz (trzeba by zmienić convolute z image)
+    QImage horizontalDetection(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
+    QImage verticalDetection(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);// może zamienić tak by pojedyńcze pixele po konvolucji były zwracane a nie cały obraz (trzeba by zmienić convolute z image)
 };
 
 #endif // EDGEGRADIENT_H

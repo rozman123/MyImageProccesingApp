@@ -374,8 +374,7 @@ void MainWindowQt::on_rozmycieRownomierne_clicked()
 
     if (ok1&&ok2)
     {
-        Blur blurOperations= Blur();
-        blurOperations.blurEven(imageHandle,sizeOfMask,option);
+        Blur::blurEven(imageHandle,sizeOfMask,option);
         load_modified_image(imageHandle.getImage());
     }
     else
@@ -396,8 +395,7 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
 
     if (ok1 && ok2 && ok3)
     {
-        Blur blurOperations= Blur();
-        blurOperations.blurGauss(imageHandle,sizeOfMask,sigma,option);
+        Blur::blurGauss(imageHandle,sizeOfMask,sigma,option);
         load_modified_image(imageHandle.getImage());
     }
     else
@@ -539,6 +537,12 @@ void MainWindowQt::on_Save_as_clicked()
         imagemap.save(fileName,"pbm");
     }
 
+
+}
+
+
+void MainWindowQt::on_pushButton_clicked()
+{
 
 }
 

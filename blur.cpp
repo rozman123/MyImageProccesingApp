@@ -2,11 +2,12 @@
 #include "image.h"
 
 // zwraca maske/macierz size*size z jedynką w środku
-void Blur::setMask(int size)
+QVector<QVector<float>> Blur::getMask(int size)
 {
-    mask = QVector<QVector<float>> (size, QVector<float>(size, 0.0f));
+    QVector<QVector<float>> mask = QVector<QVector<float>> (size, QVector<float>(size, 0.0f));
     int center = size / 2;
     mask[center][center] = 1.0f;
+    return mask;
 
 }
 //wykonuje iloczyn macierzy element po elemencie
@@ -64,6 +65,13 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int ch
             case 0: color.setRed(finalValue); break;
             case 1: color.setGreen(finalValue); break;
             case 2: color.setBlue(finalValue); break;
+            case 3:
+            {
+                QColor hsl = color.toHsl();
+                hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                color = hsl.toRgb();
+                break;
+            }
             default: color = QColor(finalValue, finalValue, finalValue); break;
             }
             convolutedImage.setPixelColor(x, y, color);
@@ -77,7 +85,7 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int ch
 // wykonuje operację splotu na obrazie/uwzględniając konkretny kanał
 void Blur::blurEven(Image& image,int maskSize, options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
 {
-    setMask(maskSize);
+    QVector<QVector<float>> mask=getMask(maskSize);
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();
 

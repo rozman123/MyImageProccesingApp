@@ -9,16 +9,10 @@
 
 class Image;
 
-class Blur
+namespace Blur
 {
-private:
 
-    QVector<QVector<float>> mask;
-
-public:
-    Blur(){};
-    QVector<QVector<float> > getMask(){return mask;};
-    void setMask(int size);
+    QVector<QVector<float>> getMask(int size);
     QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b);
     float sum(const QVector<QVector<float> >& matrix);
     QVector<QVector<float> > reflection(const QVector<QVector<float>>& matrix);
