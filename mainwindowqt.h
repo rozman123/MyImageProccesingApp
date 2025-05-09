@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "image.h"
-
+#include "edgegradient.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui

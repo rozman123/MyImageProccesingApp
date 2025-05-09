@@ -42,8 +42,9 @@ namespace EdgeGradient
     const static inline PrewittMask& getPrewittMask(){return prewittMask;};
     const static inline SobelMask& getSobelMask(){return sobelMask;};
 
-    QImage horizontalDetection(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
-    QImage verticalDetection(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);// może zamienić tak by pojedyńcze pixele po konvolucji były zwracane a nie cały obraz (trzeba by zmienić convolute z image)
+    QImage horizontalDetectionOnChanel(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
+    QImage verticalDetectionOnChanel(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option);// może zamienić tak by pojedyńcze pixele po konvolucji były zwracane a nie cały obraz (trzeba by zmienić convolute z image)
+    QImage transform(Image& image, options::optionsOfPixelsFillingOutsideOfImage option);
 };
 
 #endif // EDGEGRADIENT_H

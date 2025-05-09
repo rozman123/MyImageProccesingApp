@@ -543,6 +543,7 @@ void MainWindowQt::on_Save_as_clicked()
 
 void MainWindowQt::on_pushButton_clicked()
 {
-
+    QImage imagemap = EdgeGradient::transform(imageHandle,options::cyclicPixels);
+    load_modified_image(imagemap);
 }
 
