@@ -34,7 +34,6 @@ public:
     inline QImage& getImage(){return image;};
     QRgb getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option);
     QVector<QVector<int> > getWindow(int x, int y,int size, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
-
 };
 
 #endif // IMAGE_H

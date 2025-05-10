@@ -24,7 +24,7 @@ float sum(const QVector<QVector<float> >& matrix)  // ta metoda jest powielona w
 
 
 // neesds to be reimplemented
-QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
+QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const RobertsMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -64,7 +64,7 @@ QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const SobelMask& 
     return convolutedImage;
 }
 
-QImage EdgeGradient::verticalDetectionOnChanel(Image& image, const SobelMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
+QImage EdgeGradient::verticalDetectionOnChanel(Image& image, const RobertsMask& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -114,8 +114,8 @@ QImage EdgeGradient::transform(Image& image, options::optionsOfPixelsFillingOuts
 
     for (int i=0; i<4;++i)
     {
-        QImage verticalEdges = verticalDetectionOnChanel(image,sobelMask,i,option);
-        QImage horizontalEdges = horizontalDetectionOnChanel(image,sobelMask,i,option);
+        QImage verticalEdges = verticalDetectionOnChanel(image,robertsMask,i,option);
+        QImage horizontalEdges = horizontalDetectionOnChanel(image,robertsMask,i,option);
 
         for (int y = 0; y < imageHeight; ++y)
         {
