@@ -32,8 +32,8 @@ public:
     void setHistogram();
     void showHistogram();
     inline QImage& getImage(){return image;};
-    QRgb getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option);
-    QVector<QVector<int> > getWindow(int x, int y,int size, int channel, options::optionsOfPixelsFillingOutsideOfImage option);
+    QRgb getPixel(int x, int y, options::outOfImagePixelFilling option);
+    QVector<QVector<QColor> > getWindow(int x, int y,int size, options::outOfImagePixelFilling option);
 };
 
 #endif // IMAGE_H

@@ -370,7 +370,7 @@ void MainWindowQt::on_rozmycieRownomierne_clicked()
     int sizeOfMask=ui->maskSize->text().toInt(&ok1);
     int temp=ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok2);
 
-    options::optionsOfPixelsFillingOutsideOfImage option=static_cast<options::optionsOfPixelsFillingOutsideOfImage>(temp);
+    options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
     if (ok1&&ok2)
     {
@@ -390,7 +390,7 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
     float sigma = ui->sigma->text().toFloat(&ok2);
     int temp = ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok3);
 
-    options::optionsOfPixelsFillingOutsideOfImage option=static_cast<options::optionsOfPixelsFillingOutsideOfImage>(temp);
+    options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
 
     if (ok1 && ok2 && ok3)
@@ -541,9 +541,13 @@ void MainWindowQt::on_Save_as_clicked()
 }
 
 
-void MainWindowQt::on_pushButton_clicked()
+void MainWindowQt::on_EdgeDetection_clicked()
 {
-    QImage imagemap = EdgeGradient::transform(imageHandle,options::cyclicPixels);
+    int edgeDetectionOptionIndex = ui->EdgeOptions->currentIndex();
+
+    options::edgeDetectionOptions edgeDetectionOption = static_cast<options::edgeDetectionOptions>(edgeDetectionOptionIndex);
+
+    QImage imagemap = EdgeGradient::transform(imageHandle,edgeDetectionOption,options::cyclicPixels);
     load_modified_image(imagemap);
 }
 

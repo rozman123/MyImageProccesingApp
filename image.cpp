@@ -46,7 +46,7 @@ void Image::showHistogram()
 }
 // zwraca pixel na danym miejscu, potrzebna do zwracania
 // pixeli poza obrazem w przypadku maski
-QRgb Image::getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage option)
+QRgb Image::getPixel(int x, int y, options::outOfImagePixelFilling option)
 {
     if(option==0)
     {
@@ -70,10 +70,10 @@ QRgb Image::getPixel(int x, int y, options::optionsOfPixelsFillingOutsideOfImage
 }
 
 // zwraca macierz pixeli/ (pixele somsiadujace z danym pikselem) na danym kanale
-QVector<QVector<int>> Image::getWindow(int x, int y, int size, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
+QVector<QVector<QColor>> Image::getWindow(int x, int y, int size, options::outOfImagePixelFilling option)
 {
 
-    QVector<QVector<int>> window(size, QVector<int>(size, 0));
+    QVector<QVector<QColor>> window(size, QVector<QColor>(size, QColor(0,0,0,0)));
 
 
     int half = size / 2;
@@ -87,18 +87,9 @@ QVector<QVector<int>> Image::getWindow(int x, int y, int size, int channel, opti
             QRgb pixel = getPixel(x + dx, y + dy, option);
             QColor color(pixel);
 
-            int value = 0;
-            switch (channel)
-            {
-            case 0: value = color.red(); break;
-            case 1: value = color.green(); break;
-            case 2: value = color.blue(); break;
-            default: value = color.lightness(); break;
-            }
-
             int row = dy - offset_start;
             int col = dx - offset_start;
-            window[row][col] = value;
+            window[row][col] = color;
         }
     }
 

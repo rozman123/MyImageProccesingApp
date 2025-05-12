@@ -41,7 +41,7 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
     return result;
 }
 
-QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int channel, options::optionsOfPixelsFillingOutsideOfImage option)
+QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, options::outOfImagePixelFilling option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -54,26 +54,20 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int ch
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize, channel, option);
+            auto window = image.getWindow(x, y,maskSize, option);
             auto joined = join(window, mask);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
             QColor color = convolutedImage.pixelColor(x, y);
-            switch (channel)
-            {
-            case 0: color.setRed(finalValue); break;
-            case 1: color.setGreen(finalValue); break;
-            case 2: color.setBlue(finalValue); break;
-            case 3:
-            {
-                QColor hsl = color.toHsl();
-                hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-                color = hsl.toRgb();
-                break;
-            }
-            default: color = QColor(finalValue, finalValue, finalValue); break;
-            }
+
+            color.setRed(finalValue);
+            color.setGreen(finalValue);
+            color.setBlue(finalValue);
+            QColor hsl = color.toHsl();
+            hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+            color = hsl.toRgb();
+
             convolutedImage.setPixelColor(x, y, color);
         }
     }
@@ -83,13 +77,13 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, int ch
 
 
 // wykonuje operację splotu na obrazie/uwzględniając konkretny kanał
-void Blur::blurEven(Image& image,int maskSize, options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
+void Blur::blurEven(Image& image,int maskSize, options::outOfImagePixelFilling optionForPixelFilling)
 {
     QVector<QVector<float>> mask=getMask(maskSize);
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();
 
-    options::optionsOfPixelsFillingOutsideOfImage option = options::cyclicPixels;
+    options::outOfImagePixelFilling option = options::cyclicPixels;
 
     switch(optionForPixelFilling)
     {
@@ -173,12 +167,12 @@ QVector<QVector<float>> getGaussianMask(int size, float sigma)
     return mask;
 }
 
-void Blur::blurGauss(Image& image,int sizeOfMask,float sigma,options::optionsOfPixelsFillingOutsideOfImage optionForPixelFilling)
+void Blur::blurGauss(Image& image,int sizeOfMask,float sigma,options::outOfImagePixelFilling optionForPixelFilling)
 {
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();
 
-    options::optionsOfPixelsFillingOutsideOfImage option = options::cyclicPixels;
+    options::outOfImagePixelFilling option = options::cyclicPixels;
 
     switch(optionForPixelFilling)
     {
