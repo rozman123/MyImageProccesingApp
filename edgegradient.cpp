@@ -35,11 +35,12 @@ QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const AbstractMas
 
     QImage convolutedImage = image.getImage();
 
+    for (int chanel = 0; chanel < 4; ++chanel)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize, option);
+            auto window = image.getWindow(x, y,maskSize,chanel, option);
             auto joined = join(window, mask.horizontalDetection);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
@@ -68,19 +69,19 @@ QImage EdgeGradient::verticalDetectionOnChanel(Image& image, const AbstractMaskI
     int maskSize = mask.size;
     float weight = sum(mask.verticalDetection);
 
+
     QImage convolutedImage = image.getImage();
 
+    for (int chanel = 0; chanel < 4; ++chanel)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize, option);
-            ////////////////////////////////////////Tutaj musi być to wwpakowane do nowej funkcji i zwracac pixel QColor
+            auto window = image.getWindow(x, y,maskSize,chanel, option);
             auto joined = join(window, mask.verticalDetection);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
-            ///////////////////////////////////////
             QColor color = convolutedImage.pixelColor(x, y);
 
             color.setRed(finalValue);

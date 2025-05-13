@@ -70,10 +70,10 @@ QRgb Image::getPixel(int x, int y, options::outOfImagePixelFilling option)
 }
 
 // zwraca macierz pixeli/ (pixele somsiadujace z danym pikselem) na danym kanale
-QVector<QVector<QColor>> Image::getWindow(int x, int y, int size, options::outOfImagePixelFilling option)
+QVector<QVector<float>> Image::getWindow(int x, int y, int size,int chanel, options::outOfImagePixelFilling option)
 {
 
-    QVector<QVector<QColor>> window(size, QVector<QColor>(size, QColor(0,0,0,0)));
+    QVector<QVector<float>> window(size, QVector<float>(size, 0));
 
 
     int half = size / 2;
@@ -85,7 +85,13 @@ QVector<QVector<QColor>> Image::getWindow(int x, int y, int size, options::outOf
         for (int dx = offset_start; dx <= offset_end; ++dx)
         {
             QRgb pixel = getPixel(x + dx, y + dy, option);
-            QColor color(pixel);
+            int color = 0;
+            switch(chanel)
+            {
+            case 0: color=pixel.red();
+
+            }
+
 
             int row = dy - offset_start;
             int col = dx - offset_start;
