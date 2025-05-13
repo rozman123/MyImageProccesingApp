@@ -35,12 +35,12 @@ QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const AbstractMas
 
     QImage convolutedImage = image.getImage();
 
-    for (int chanel = 0; chanel < 4; ++chanel)
+    for (int channel = 0; channel < 4; ++channel)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize,chanel, option);
+            auto window = image.getWindow(x, y,maskSize,channel, option);
             auto joined = join(window, mask.horizontalDetection);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
