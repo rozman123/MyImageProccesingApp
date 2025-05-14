@@ -41,7 +41,7 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
     return result;
 }
 
-QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, options::outOfImagePixelFilling option)
+QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int channel, options::outOfImagePixelFilling option)
 {
     int width = image.getWidth();
     int height = image.getHeight();
@@ -50,23 +50,33 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask, option
 
     QImage convolutedImage = image.getImage();
 
+    for (int channel = 0; channel < 4; ++channel)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize, option);
+            auto window = image.getWindow(x, y,maskSize,channel, option);
             auto joined = join(window, mask);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
             QColor color = convolutedImage.pixelColor(x, y);
 
-            color.setRed(finalValue);
-            color.setGreen(finalValue);
-            color.setBlue(finalValue);
-            QColor hsl = color.toHsl();
-            hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-            color = hsl.toRgb();
+            switch(channel)
+            {
+
+            case 0: color.setRed(finalValue);break;
+            case 1: color.setGreen(finalValue);break;
+            case 2: color.setBlue(finalValue);break;
+            case 3:
+            {
+                QColor hsl = color.toHsl();
+                hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                color = hsl.toRgb();
+                break;
+            }
+            }
+
 
             convolutedImage.setPixelColor(x, y, color);
         }

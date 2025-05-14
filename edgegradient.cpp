@@ -47,13 +47,20 @@ QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const AbstractMas
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
             QColor color = convolutedImage.pixelColor(x, y);
 
-            color.setRed(finalValue);
-            color.setGreen(finalValue);
-            color.setBlue(finalValue);
-            QColor hsl = color.toHsl();
-            hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-            color = hsl.toRgb();
+            switch(channel)
+            {
 
+                case 0: color.setRed(finalValue);break;
+                case 1: color.setGreen(finalValue);break;
+                case 2: color.setBlue(finalValue);break;
+                case 3:
+                {
+                    QColor hsl = color.toHsl();
+                    hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                    color = hsl.toRgb();
+                    break;
+                }
+            }
 
             convolutedImage.setPixelColor(x, y, color);
         }
@@ -72,24 +79,33 @@ QImage EdgeGradient::verticalDetectionOnChanel(Image& image, const AbstractMaskI
 
     QImage convolutedImage = image.getImage();
 
-    for (int chanel = 0; chanel < 4; ++chanel)
+    for (int channel = 0; channel < 4; ++channel)
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
-            auto window = image.getWindow(x, y,maskSize,chanel, option);
+            auto window = image.getWindow(x, y,maskSize,channel, option);
             auto joined = join(window, mask.verticalDetection);
             float accumulator = sum(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
             QColor color = convolutedImage.pixelColor(x, y);
 
-            color.setRed(finalValue);
-            color.setGreen(finalValue);
-            color.setBlue(finalValue);
-            QColor hsl = color.toHsl();
-            hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-            color = hsl.toRgb();
+            switch(channel)
+            {
+
+                case 0: color.setRed(finalValue);break;
+                case 1: color.setGreen(finalValue);break;
+                case 2: color.setBlue(finalValue);break;
+                case 3:
+                {
+                    QColor hsl = color.toHsl();
+                    hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                    color = hsl.toRgb();
+                    break;
+                }
+            }
+
 
             convolutedImage.setPixelColor(x, y, color);
         }
@@ -118,17 +134,14 @@ QImage EdgeGradient::transform(Image& image,options::edgeDetectionOptions edgeDe
 
     AbstractMaskInterface mask = maskLoad(edgeDetectionOption);
 
-
-    std::cout<<mask.size;
-
     QImage imagemap = image.getImage();
 
     short imageHeight=image.getHeight();
     short imageWidth=image.getWidth();
 
 
-        QImage verticalEdges = verticalDetectionOnChanel(image,mask,option);
-        QImage horizontalEdges = horizontalDetectionOnChanel(image,mask,option);
+    QImage verticalEdges = verticalDetectionOnChanel(image,mask,option);
+    QImage horizontalEdges = horizontalDetectionOnChanel(image,mask,option);
 
     for (int y = 0; y < imageHeight; ++y)
     {
@@ -158,8 +171,6 @@ QImage EdgeGradient::transform(Image& image,options::edgeDetectionOptions edgeDe
             imagemap.setPixelColor(x, y, original);
         }
     }
-
-
 
 
 
