@@ -32,9 +32,12 @@ namespace EdgeGradient
     };
 
 
+
     const static inline RobertsMask& getRobertsMask(){const static RobertsMask robertsMask; return robertsMask;};
     const static inline PrewittMask& getPrewittMask(){const static PrewittMask prewittMask; return prewittMask;};
     const static inline SobelMask& getSobelMask(){const static SobelMask sobelMask; return sobelMask;};
+
+
 
 
 

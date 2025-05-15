@@ -174,19 +174,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="optionOfFillingpixelsOutOfImage">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>310</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="rozmycieGausowskie">
     <property name="geometry">
      <rect>
@@ -203,9 +190,9 @@
    <widget class="QLineEdit" name="sigma">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>390</y>
-      <width>261</width>
+      <width>91</width>
       <height>31</height>
      </rect>
     </property>
@@ -265,7 +252,32 @@
     </item>
     <item>
      <property name="text">
-      <string>Lapsjan</string>
+      <string>Laplasjan</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="optionOfFillingpixelsOutOfImage">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>310</y>
+      <width>141</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Cyclic Pixels</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Black Pixels</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Border Pixels</string>
      </property>
     </item>
    </widget>

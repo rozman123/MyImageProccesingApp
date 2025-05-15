@@ -368,7 +368,7 @@ void MainWindowQt::on_rozmycieRownomierne_clicked()
     bool ok1=false;
     bool ok2=false;
     int sizeOfMask=ui->maskSize->text().toInt(&ok1);
-    int temp=ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok2);
+    int temp=ui->optionOfFillingpixelsOutOfImage->currentIndex();
 
     options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
@@ -388,7 +388,7 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
     bool ok1 = false, ok2 = false, ok3 = false;
     int sizeOfMask = ui->maskSize->text().toInt(&ok1);
     float sigma = ui->sigma->text().toFloat(&ok2);
-    int temp = ui->optionOfFillingpixelsOutOfImage->text().toInt(&ok3);
+    int temp=ui->optionOfFillingpixelsOutOfImage->currentIndex();
 
     options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
