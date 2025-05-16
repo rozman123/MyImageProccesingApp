@@ -366,13 +366,13 @@ void MainWindowQt::on_wyrownanie_clicked()
 void MainWindowQt::on_rozmycieRownomierne_clicked()
 {
     bool ok1=false;
-    bool ok2=false;
+
     int sizeOfMask=ui->maskSize->text().toInt(&ok1);
     int temp=ui->optionOfFillingpixelsOutOfImage->currentIndex();
 
     options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
-    if (ok1&&ok2)
+    if (ok1)
     {
         Blur::blurEven(imageHandle,sizeOfMask,option);
         load_modified_image(imageHandle.getImage());
@@ -385,7 +385,7 @@ void MainWindowQt::on_rozmycieRownomierne_clicked()
 
 void MainWindowQt::on_rozmycieGausowskie_clicked()
 {
-    bool ok1 = false, ok2 = false, ok3 = false;
+    bool ok1 = false, ok2 = false;
     int sizeOfMask = ui->maskSize->text().toInt(&ok1);
     float sigma = ui->sigma->text().toFloat(&ok2);
     int temp=ui->optionOfFillingpixelsOutOfImage->currentIndex();
@@ -393,7 +393,7 @@ void MainWindowQt::on_rozmycieGausowskie_clicked()
     options::outOfImagePixelFilling option=static_cast<options::outOfImagePixelFilling>(temp);
 
 
-    if (ok1 && ok2 && ok3)
+    if (ok1 && ok2)
     {
         Blur::blurGauss(imageHandle,sizeOfMask,sigma,option);
         load_modified_image(imageHandle.getImage());
@@ -544,10 +544,25 @@ void MainWindowQt::on_Save_as_clicked()
 void MainWindowQt::on_EdgeDetection_clicked()
 {
     int edgeDetectionOptionIndex = ui->EdgeOptions->currentIndex();
+    int fillingOfPixels = ui->optionOfFillingpixelsOutOfImage->currentIndex();
 
+    bool maskSizeGiven = false;
+
+    int maskSzie = ui->maskSize->text().toInt(&maskSizeGiven);
+
+    options::outOfImagePixelFilling pixelsFillingOption = static_cast<options::outOfImagePixelFilling>(fillingOfPixels);
     options::edgeDetectionOptions edgeDetectionOption = static_cast<options::edgeDetectionOptions>(edgeDetectionOptionIndex);
 
-    QImage imagemap = EdgeGradient::transform(imageHandle,edgeDetectionOption,options::cyclicPixels);
-    load_modified_image(imagemap);
+    if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
+    {
+        QImage imagemap = Laplasjan::transformLaplasjan(imageHandle,maskSzie,pixelsFillingOption);
+        load_modified_image(imagemap);
+    }
+    else if (edgeDetectionOption!=options::Lapsjan)
+    {
+        QImage imagemap = EdgeGradient::transform(imageHandle,edgeDetectionOption,pixelsFillingOption);
+        load_modified_image(imagemap);
+    }
+
 }
 

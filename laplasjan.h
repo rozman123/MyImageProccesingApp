@@ -2,18 +2,19 @@
 #define LAPLASJAN_H
 
 #include <QVector>
+#include "image.h"
+#include "blur.h"
+
+
 
 namespace Laplasjan
 {
-    static inline QVector<QVector<float>>& getLaplasjanMask(unsigned int& size)
-    {
-        static QVector<QVector<float>> laplasjanMask(size,QVector<float>(-1));
-        unsigned short center=size/2+1;
-        laplasjanMask[center][center]=size*size-1;
-        return laplasjanMask;
-    };
+    QVector<QVector<float>> getLaplasjanMask(unsigned int size);
 
+    //void EdgeDetectionLaplasjan(Image& image,unsigned int maskSize,options::outOfImagePixelFilling option);
 
+    QImage LaplasjanConvolute(Image& image,unsigned int maskSize,options::outOfImagePixelFilling option);
+    QImage transformLaplasjan(Image& image,int maskSize, options::outOfImagePixelFilling option);
 
 };
 
