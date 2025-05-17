@@ -31,16 +31,16 @@ QImage Laplasjan::LaplasjanConvolute(Image& image,unsigned int maskSize,options:
                 // Ustawiamy tylko rozmyty kanał, pozostałe zostają bez zmian
                 switch (channel)
                 {
-                case 0: original.setRed(EdgeDetectionColor.red()); break;
-                case 1: original.setGreen(EdgeDetectionColor.green()); break;
-                case 2: original.setBlue(EdgeDetectionColor.blue()); break;
-                case 3:
-                {
-                    QColor hsl = original.toHsl();
-                    hsl.setHsl(hsl.hue(), hsl.saturation(), EdgeDetectionColor.lightness());
-                    original = hsl.toRgb();
-                    break;
-                }
+                    case 0: original.setRed(EdgeDetectionColor.red()); break;
+                    case 1: original.setGreen(EdgeDetectionColor.green()); break;
+                    case 2: original.setBlue(EdgeDetectionColor.blue()); break;
+                    case 3:
+                    {
+                        QColor hsl = original.toHsl();
+                        hsl.setHsl(hsl.hue(), hsl.saturation(), EdgeDetectionColor.lightness());
+                        original = hsl.toRgb();
+                        break;
+                    }
                 }
 
                 imagemap.setPixelColor(x, y, original);
@@ -52,50 +52,51 @@ QImage Laplasjan::LaplasjanConvolute(Image& image,unsigned int maskSize,options:
 
 }
 
-QImage Laplasjan::transformLaplasjan(Image& image,int maskSize, options::outOfImagePixelFilling option)
-{
+
+// QImage Laplasjan::transformLaplasjan(Image& image,int maskSize, options::outOfImagePixelFilling option)
+// {
 
 
-    QImage imagemap = image.getImage();
+//     QImage imagemap = image.getImage();
 
-    short imageHeight=image.getHeight();
-    short imageWidth=image.getWidth();
-
-
-    QImage verticalEdges = LaplasjanConvolute(image,maskSize,option);
-    QImage horizontalEdges = LaplasjanConvolute(image,maskSize,option);
-
-    for (int y = 0; y < imageHeight; ++y)
-    {
-        for (int x = 0; x < imageWidth; ++x)
-        {
-            QColor original = imagemap.pixelColor(x, y);
-
-            QColor edgeColorX = horizontalEdges.pixelColor(x, y);
-            QColor edgeColorY = verticalEdges.pixelColor(x, y);
+//     short imageHeight=image.getHeight();
+//     short imageWidth=image.getWidth();
 
 
-            QColor newColor = sqrt(pow(edgeColorX.red(),2)+pow(edgeColorY.red(),2));
-            original.setRed(newColor.red());
+//     QImage verticalEdges = LaplasjanConvolute(image,maskSize,option);
+//     QImage horizontalEdges = LaplasjanConvolute(image,maskSize,option);
 
-            newColor = sqrt(pow(edgeColorX.green(),2)+pow(edgeColorY.green(),2));
-            original.setGreen(newColor.green());
+//     for (int y = 0; y < imageHeight; ++y)
+//     {
+//         for (int x = 0; x < imageWidth; ++x)
+//         {
+//             QColor original = imagemap.pixelColor(x, y);
 
-            newColor = sqrt(pow(edgeColorX.blue(),2)+pow(edgeColorY.blue(),2));
-            original.setBlue(newColor.blue());
-
-            newColor = sqrt(pow(edgeColorX.lightness(),2)+pow(edgeColorY.lightness(),2));
-            QColor hsl = original.toHsl();
-            hsl.setHsl(hsl.hue(), hsl.saturation(), newColor.lightness());
-            original = hsl.toRgb();
+//             QColor edgeColorX = horizontalEdges.pixelColor(x, y);
+//             QColor edgeColorY = verticalEdges.pixelColor(x, y);
 
 
-            imagemap.setPixelColor(x, y, original);
-        }
-    }
+//             QColor newColor = sqrt(pow(edgeColorX.red(),2)+pow(edgeColorY.red(),2));
+//             original.setRed(newColor.red());
+
+//             newColor = sqrt(pow(edgeColorX.green(),2)+pow(edgeColorY.green(),2));
+//             original.setGreen(newColor.green());
+
+//             newColor = sqrt(pow(edgeColorX.blue(),2)+pow(edgeColorY.blue(),2));
+//             original.setBlue(newColor.blue());
+
+//             newColor = sqrt(pow(edgeColorX.lightness(),2)+pow(edgeColorY.lightness(),2));
+//             QColor hsl = original.toHsl();
+//             hsl.setHsl(hsl.hue(), hsl.saturation(), newColor.lightness());
+//             original = hsl.toRgb();
+
+
+//             imagemap.setPixelColor(x, y, original);
+//         }
+//     }
 
 
 
-    return imagemap;
+//     return imagemap;
 
-}
+// }

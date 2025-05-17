@@ -11,10 +11,8 @@ namespace Laplasjan
 {
     QVector<QVector<float>> getLaplasjanMask(unsigned int size);
 
-    //void EdgeDetectionLaplasjan(Image& image,unsigned int maskSize,options::outOfImagePixelFilling option);
-
     QImage LaplasjanConvolute(Image& image,unsigned int maskSize,options::outOfImagePixelFilling option);
-    QImage transformLaplasjan(Image& image,int maskSize, options::outOfImagePixelFilling option);
+    //QImage transformLaplasjan(Image& image,int maskSize, options::outOfImagePixelFilling option);
 
 };
 

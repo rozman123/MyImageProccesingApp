@@ -555,7 +555,7 @@ void MainWindowQt::on_EdgeDetection_clicked()
 
     if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
     {
-        QImage imagemap = Laplasjan::transformLaplasjan(imageHandle,maskSzie,pixelsFillingOption);
+        QImage imagemap = Laplasjan::LaplasjanConvolute(imageHandle,maskSzie,pixelsFillingOption);
         load_modified_image(imagemap);
     }
     else if (edgeDetectionOption!=options::Lapsjan)
