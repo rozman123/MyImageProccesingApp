@@ -566,3 +566,10 @@ void MainWindowQt::on_EdgeDetection_clicked()
 
 }
 
+
+void MainWindowQt::on_reset_image_button_clicked()
+{
+    QImage orginal_image = imageHandle.getOrginalImage();
+    load_modified_image(orginal_image);
+}
+

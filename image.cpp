@@ -8,6 +8,8 @@ void Image::loadImageFromPath(QString pathToImage)
 {
     image.load(pathToImage);
 
+    orginalImage = image;
+
     histogram = Histogram(image);
 
     imageWidth=image.width();

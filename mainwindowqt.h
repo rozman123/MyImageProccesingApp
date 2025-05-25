@@ -49,5 +49,6 @@ private slots:
     QImage blackAndWhite();
 
     void on_EdgeDetection_clicked();
+    void on_reset_image_button_clicked();
 };
 #endif // MAINWINDOWQT_H

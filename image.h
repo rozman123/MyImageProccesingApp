@@ -13,6 +13,7 @@ class Image
 {
 private:
     QImage image;  // stores image data
+    QImage orginalImage;  // stores orginal image for quick reset
     int imageWidth=0;
     int imageHeight=0;
     Histogram histogram;
@@ -32,6 +33,7 @@ public:
     void setHistogram();
     void showHistogram();
     inline QImage& getImage(){return image;};
+    inline QImage& getOrginalImage(){return orginalImage;};
     QRgb getPixel(int x, int y, options::outOfImagePixelFilling option);
     QVector<QVector<int>> getWindow(int x, int y, int size,int channel, options::outOfImagePixelFilling option);
    };
