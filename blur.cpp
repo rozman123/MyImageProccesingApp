@@ -1,15 +1,8 @@
 #include "blur.h"
 #include "image.h"
+#include "convolution.h"
 
-// zwraca maske/macierz size*size z jedynką w środku
-QVector<QVector<float>> Blur::getMask(int size)
-{
-    QVector<QVector<float>> mask = QVector<QVector<float>> (size, QVector<float>(size, 0.0f));
-    int center = size / 2;
-    mask[center][center] = 1.0f;
-    return mask;
 
-}
 //wykonuje iloczyn macierzy element po elemencie
 QVector<QVector<float> > Blur::join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b)
 {
@@ -89,7 +82,7 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int cha
 // wykonuje operację splotu na obrazie/uwzględniając konkretny kanał
 void Blur::blurEven(Image& image,int maskSize, options::outOfImagePixelFilling optionForPixelFilling)
 {
-    QVector<QVector<float>> mask=getMask(maskSize);
+    QVector<QVector<float>> mask=Convolution::getMask(maskSize);
     int imageWidth = image.getWidth();
     int imageHeight = image.getHeight();
 

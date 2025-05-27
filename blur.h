@@ -11,8 +11,6 @@ class Image;
 
 namespace Blur
 {
-
-    QVector<QVector<float>> getMask(int size);
     QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b);
     float sum(const QVector<QVector<float> >& matrix);
     QVector<QVector<float> > reflection(const QVector<QVector<float>>& matrix);
