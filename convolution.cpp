@@ -10,9 +10,27 @@ QVector<QVector<float>> Convolution::getMask(unsigned int size)
     return mask;
 }
 
+//wykonuje iloczyn macierzy element po elemencie
+QVector<QVector<float>> Convolution::join(QVector<QVector<int>> matrixA, QVector<QVector<float>> matrixB)
+{
+    unsigned int size = matrixA.size();
+    QVector<QVector<float>> AxB(size,QVector<float>(size,0));
 
+    for(unsigned int i = 0;i<size;++i)
+        for(unsigned int j = 0;j<size;++j)
+            AxB[i][j]+=matrixA[i][j]*matrixB[j][i];
 
-
-
+    return AxB;
+}
+//sumuje wszystkie wartości w macierzy
+float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
+{
+    float sum = 0.0f;
+    unsigned int size=matrix.size();
+    for(unsigned int i = 0;i<size;++i)
+        for(unsigned int j = 0;j<size;++j)
+            sum+=matrix[i][j];
+    return sum;
+}
 
 

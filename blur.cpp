@@ -3,27 +3,6 @@
 #include "convolution.h"
 
 
-//wykonuje iloczyn macierzy element po elemencie
-QVector<QVector<float> > Blur::join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b)
-{
-    int rows = a.size();
-    int cols = a[0].size();
-    QVector<QVector<float>> result(rows, QVector<float>(cols));
-    for (int i = 0; i < rows; ++i)
-        for (int j = 0; j < cols; ++j)
-            result[i][j] = a[i][j] * b[i][j];
-    return result;
-}
-//sumuje wszystkie wartości w macierzy
-float Blur::sum(const QVector<QVector<float> >& matrix)
-{
-    float total = 0.0f;
-    for (const auto& row : matrix)
-        for (float val : row)
-            total += val;
-    return total;
-}
-
 //zwraca lustrzane odbicie maski
 QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix) {
     int size = matrix.size();
@@ -39,7 +18,7 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int cha
     int width = image.getWidth();
     int height = image.getHeight();
     int maskSize = mask.size();
-    float weight = sum(mask);
+    float weight = Convolution::sumMatrix(mask);
 
     QImage convolutedImage = image.getImage();
 
@@ -49,8 +28,8 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int cha
         for (int x = 0; x < width; ++x)
         {
             auto window = image.getWindow(x, y,maskSize,channel, option);
-            auto joined = join(window, mask);
-            float accumulator = sum(joined);
+            auto joined = Convolution::join(window, mask);
+            float accumulator = Convolution::sumMatrix(joined);
             if (weight != 0) accumulator /= weight;
             int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
             QColor color = convolutedImage.pixelColor(x, y);
