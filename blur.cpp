@@ -12,7 +12,7 @@ QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix)
             result[i][j] = matrix[size - 1 - i][size - 1 - j];
     return result;
 }
-
+// this needs to be changed it cannot be chalel wise
 QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int channel, options::outOfImagePixelFilling option)
 {
     int width = image.getWidth();
