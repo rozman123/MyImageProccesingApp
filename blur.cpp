@@ -3,15 +3,8 @@
 #include "convolution.h"
 
 
-//zwraca lustrzane odbicie maski
-QVector<QVector<float> > Blur::reflection(const QVector<QVector<float>>& matrix) {
-    int size = matrix.size();
-    QVector<QVector<float>> result(size, QVector<float>(size));
-    for (int i = 0; i < size; ++i)
-        for (int j = 0; j < size; ++j)
-            result[i][j] = matrix[size - 1 - i][size - 1 - j];
-    return result;
-}
+
+
 // this needs to be changed it cannot be chalel wise
 QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int channel, options::outOfImagePixelFilling option)
 {

@@ -22,6 +22,22 @@ QVector<QVector<float>> Convolution::join(QVector<QVector<int>> matrixA, QVector
 
     return AxB;
 }
+
+//zwraca lustrzane odbicie maski
+QVector<QVector<float>> Convolution::reflectionMatrix(const QVector<QVector<float> >& matrix)
+{
+    unsigned int size=matrix.size();
+    QVector<QVector<float>>  reflectedMatrix(size,QVector<float>(size,0));
+
+    for( int i=0;i<size;++i)
+        for(int j=0;j<size;++j)
+            reflectedMatrix[size-i][size-j]=matrix[i][j];
+
+    return reflectedMatrix;
+}
+
+
+
 //sumuje wszystkie wartości w macierzy
 float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
 {
@@ -32,5 +48,9 @@ float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
             sum+=matrix[i][j];
     return sum;
 }
+
+
+
+
 
 
