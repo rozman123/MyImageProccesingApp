@@ -3,8 +3,6 @@
 #include "convolution.h"
 
 
-
-
 // this needs to be changed it cannot be chalel wise
 QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int channel, options::outOfImagePixelFilling option)
 {
