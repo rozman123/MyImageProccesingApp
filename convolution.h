@@ -17,7 +17,7 @@ namespace Convolution
 
     QImage& convloute(const QVector<QVector<float> >& mask,Image& image, options::outOfImagePixelFilling pixelOption);
 
-
+    QVector<QVector<QRgb>> accumaulate(QVector<QVector<QRgb>> matrixA, QVector<QVector<float>> matrixB);
 }
 
 #endif // CONVOLUTION_H

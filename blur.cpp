@@ -28,16 +28,16 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int cha
             switch(channel)
             {
 
-            case 0: color.setRed(finalValue);break;
-            case 1: color.setGreen(finalValue);break;
-            case 2: color.setBlue(finalValue);break;
-            case 3:
-            {
-                QColor hsl = color.toHsl();
-                hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-                color = hsl.toRgb();
-                break;
-            }
+                case 0: color.setRed(finalValue);break;
+                case 1: color.setGreen(finalValue);break;
+                case 2: color.setBlue(finalValue);break;
+                case 3:
+                {
+                    QColor hsl = color.toHsl();
+                    hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                    color = hsl.toRgb();
+                    break;
+                }
             }
 
 

@@ -78,7 +78,7 @@ QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& imag
             for(int height_pos=0;height_pos<height;++height_pos)
             {
                 QVector<QVector<QColor>> window=image.getWindow(width_pos,height_pos,maskSize,pixelOption);
-                //QVector<int> acumulator_vectior =
+                //QVector<int> joined_vector_of_matrixes = accumaulate(window,mask);
 
 
 
