@@ -10,6 +10,8 @@ namespace options
 
     enum {chanelsNumber=4};
 
+    enum chanel {RED=0,GREEN=1,BLUE=2,LUMINOSITY=3};
+
 }
 
 

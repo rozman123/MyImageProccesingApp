@@ -51,49 +51,49 @@ float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
 }
 
 
-// QVector<QVector<float>> Convolution::accumaulate(QVector<QVector<QColor>> matrixA, QVector<QVector<float>> matrixB)
-// {
-//     unsigned int size = matrixA.size();
-//     QVector<QVector<QVector<float>>> AxB(options::chanelsNumber,QVector<QVector<float>>(size,QVector<float>(size,0.0f)));
+std::array<QVector<QVector<float>>,options::chanelsNumber> Convolution::accumaulate(QVector<QVector<QColor>> matrixA, QVector<QVector<float>> matrixB)
+{
+    unsigned int size = matrixA.size();
+    std::array<QVector<QVector<float>>,options::chanelsNumber> AxB={QVector<QVector<float>>(size,QVector<float>(size,0.0f)),QVector<QVector<float>>(size,QVector<float>(size,0.0f)),QVector<QVector<float>>(size,QVector<float>(size,0.0f)),QVector<QVector<float>>(size,QVector<float>(size,0.0f))};
 
-//         for(unsigned int i = 0;i<size;++i)
-//             for(unsigned int j = 0;j<size;++j)
-//             {
+        for(unsigned int i = 0;i<size;++i)
+            for(unsigned int j = 0;j<size;++j)
+            {
 
-//                 AxB[i][j]+=matrixA[i][j].red()*matrixB[j][i];
-//                 AxB[i][j]+=matrixA[i][j].green()*matrixB[j][i];
-//                 AxB[i][j]+=matrixA[i][j].blue()*matrixB[j][i];
-
-//                 AxB[i][j]+=matrixA[i][j].red()*matrixB[j][i];
-//             }
-
-
-//     return AxB;
-// }
+                AxB[options::chanel::RED][i][j]+=matrixA[i][j].red()*matrixB[j][i];
+                AxB[options::chanel::GREEN][i][j]+=matrixA[i][j].green()*matrixB[j][i];
+                AxB[options::chanel::BLUE][i][j]+=matrixA[i][j].blue()*matrixB[j][i];
+                //needs to be change with that hls i forgot how to do it
+                AxB[options::chanel::LUMINOSITY][i][j]+=matrixA[i][j].red()*matrixB[j][i];
+            }
 
 
-// QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& image, options::outOfImagePixelFilling pixelOption)
-// {
-//     QImage& convoluted_image=image.getImage();
-
-//     int maskWeight= sumMatrix(mask);
-//     const int maskSize=mask.size();
-//     const unsigned int height=image.getHeight();
-//     const unsigned int width=image.getWidth();
-
-//     //for (short chanel=0;chanel<options::chanelsNumber;++chanel)
-//         for(int width_pos=0;width_pos<width;++width_pos)
-//             for(int height_pos=0;height_pos<height;++height_pos)
-//             {
-//                 QVector<QVector<QColor>> window=image.getWindow(width_pos,height_pos,maskSize,pixelOption);
-//                 QVector<QVector<float>> joined_vector_of_matrixes = accumaulate(window,mask);
+    return AxB;
+}
 
 
+QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& image, options::outOfImagePixelFilling pixelOption)
+{
+    QImage& convoluted_image=image.getImage();
 
-//             }
+    int maskWeight= sumMatrix(mask);
+    const int maskSize=mask.size();
+    const unsigned int height=image.getHeight();
+    const unsigned int width=image.getWidth();
 
-//     return convoluted_image;
-// }
+    //for (short chanel=0;chanel<options::chanelsNumber;++chanel)
+        for(int width_pos=0;width_pos<width;++width_pos)
+            for(int height_pos=0;height_pos<height;++height_pos)
+            {
+                QVector<QVector<QColor>> window=image.getWindow(width_pos,height_pos,maskSize,pixelOption);
+                std::array<QVector<QVector<float>>,options::chanelsNumber> joined_vector_of_matrixes = accumaulate(window,mask);
+
+
+
+            }
+
+    return convoluted_image;
+}
 
 
 
