@@ -50,7 +50,17 @@ float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
     return sum;
 }
 
-
+//sumuje wszystkie wartości w macierzy w danych kanałach
+QVector<float> Convolution::sumMatrix(std::array<const QVector<QVector<float>>,options::chanelsNumber>& matrix)
+{
+    QVector<float> sum(options::chanelsNumber,0.0f);
+    unsigned int size=matrix.size();
+    for(short chanel =0;chanel<options::chanelsNumber;++chanel)
+        for(unsigned int i = 0;i<size;++i)
+            for(unsigned int j = 0;j<size;++j)
+                sum[chanel]+=matrix[chanel][i][j];
+    return sum;
+}
 std::array<QVector<QVector<float>>,options::chanelsNumber> Convolution::accumaulate(QVector<QVector<QColor>> matrixA, QVector<QVector<float>> matrixB)
 {
     unsigned int size = matrixA.size();
