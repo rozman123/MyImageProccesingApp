@@ -99,7 +99,7 @@ QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& imag
                 std::array<QVector<QVector<float>>,options::chanelsNumber> joined_vector_of_matrixes = accumaulate(window,mask);
 
 
-
+// need to add more soon 
             }
 
     return convoluted_image;
