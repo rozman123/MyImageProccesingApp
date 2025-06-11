@@ -73,10 +73,11 @@ std::array<QVector<QVector<float>>,options::chanelsNumber> Convolution::accumaul
                 AxB[options::chanel::RED][i][j]+=matrixA[i][j].red()*matrixB[j][i];
                 AxB[options::chanel::GREEN][i][j]+=matrixA[i][j].green()*matrixB[j][i];
                 AxB[options::chanel::BLUE][i][j]+=matrixA[i][j].blue()*matrixB[j][i];
-                //needs to be change with that hls i forgot how to do it
-                AxB[options::chanel::LUMINOSITY][i][j]+=matrixA[i][j].red()*matrixB[j][i];
-            }
 
+                QColor hsl = matrixA[i][j].toHsl();
+                AxB[options::chanel::LUMINOSITY][i][j] += hsl.lightness()*matrixB[j][i];
+
+            }
 
     return AxB;
 }
