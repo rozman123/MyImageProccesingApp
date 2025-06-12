@@ -51,7 +51,7 @@ float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
 }
 
 //sumuje wszystkie wartości w macierzy w danych kanałach
-QVector<float> Convolution::sumMatrix(std::array<const QVector<QVector<float>>,options::chanelsNumber>& matrix)
+QVector<float> Convolution::sumMatrix(std::array<QVector<QVector<float>>,options::chanelsNumber>& matrix)
 {
     QVector<float> sum(options::chanelsNumber,0.0f);
     unsigned int size=matrix.size();
@@ -92,15 +92,15 @@ QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& imag
     const unsigned int height=image.getHeight();
     const unsigned int width=image.getWidth();
 
-    //for (short chanel=0;chanel<options::chanelsNumber;++chanel)
+
         for(int width_pos=0;width_pos<width;++width_pos)
             for(int height_pos=0;height_pos<height;++height_pos)
             {
                 QVector<QVector<QColor>> window=image.getWindow(width_pos,height_pos,maskSize,pixelOption);
                 std::array<QVector<QVector<float>>,options::chanelsNumber> joined_vector_of_matrixes = accumaulate(window,mask);
+                QVector<float> sumedMatrixes = sumMatrix(joined_vector_of_matrixes);
 
 
-// need to add more soon 
             }
 
     return convoluted_image;

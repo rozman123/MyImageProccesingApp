@@ -19,6 +19,9 @@ namespace Convolution
     QImage& convloute(const QVector<QVector<float> >& mask,Image& image, options::outOfImagePixelFilling pixelOption);
 
     std::array<QVector<QVector<float>>,options::chanelsNumber> accumaulate(QVector<QVector<QColor>> matrixA, QVector<QVector<float>> matrixB);
+    QVector<float> sumMatrix(std::array<QVector<QVector<float>>,options::chanelsNumber>& matrix);
+
+
 }
 
 #endif // CONVOLUTION_H
