@@ -1,4 +1,5 @@
 #include "laplasjan.h"
+#include "convolution.h"
 
 QVector<QVector<float>> Laplasjan::getLaplasjanMask(unsigned int size)
 {
@@ -10,45 +11,52 @@ QVector<QVector<float>> Laplasjan::getLaplasjanMask(unsigned int size)
 
 QImage Laplasjan::LaplasjanConvolute(Image& image,unsigned int maskSize,options::outOfImagePixelFilling option)
 {
-    QVector<QVector<float>> mask=getLaplasjanMask(maskSize);
-    int imageWidth = image.getWidth();
-    int imageHeight = image.getHeight();
 
+    int width = image.getWidth();
+    int height = image.getHeight();
+    auto laplasjanMask = getLaplasjanMask(maskSize);
 
-    QImage imagemap;
+    QImage resultImage = image.getImage();
+
     for (int channel = 0; channel < 4; ++channel)
     {
-        imagemap=Blur::convolute(image,mask,channel,option);
-
-
-        for (int y = 0; y < imageHeight; ++y)
+        for (int y = 0; y < height; ++y)
         {
-            for (int x = 0; x < imageWidth; ++x)
+            for (int x = 0; x < width; ++x)
             {
-                QColor original = image.getImage().pixelColor(x, y);
-                QColor EdgeDetectionColor = imagemap.pixelColor(x, y);
+                auto window = image.getWindow(x, y, maskSize, channel, option);
+                auto joined = Convolution::join(window, laplasjanMask);
+                float accumulator = Convolution::sumMatrix(joined);
 
-                // Ustawiamy tylko rozmyty kanał, pozostałe zostają bez zmian
+                int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
+                QColor color = resultImage.pixelColor(x, y);
+
                 switch (channel)
                 {
-                    case 0: original.setRed(EdgeDetectionColor.red()); break;
-                    case 1: original.setGreen(EdgeDetectionColor.green()); break;
-                    case 2: original.setBlue(EdgeDetectionColor.blue()); break;
-                    case 3:
-                    {
-                        QColor hsl = original.toHsl();
-                        hsl.setHsl(hsl.hue(), hsl.saturation(), EdgeDetectionColor.lightness());
-                        original = hsl.toRgb();
-                        break;
-                    }
+                case options::chanel::RED:
+                    color.setRed(finalValue);
+                    break;
+                case options::chanel::GREEN:
+                    color.setGreen(finalValue);
+                    break;
+                case options::chanel::BLUE:
+                    color.setBlue(finalValue);
+                    break;
+                case options::chanel::LUMINOSITY:
+                {
+                    QColor hsl = color.toHsl();
+                    hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
+                    color = hsl.toRgb();
+                    break;
+                }
                 }
 
-                imagemap.setPixelColor(x, y, original);
+                resultImage.setPixelColor(x, y, color);
             }
         }
     }
 
-    return imagemap;
+    return resultImage;
 
 }
 

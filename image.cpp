@@ -72,10 +72,10 @@ QRgb Image::getPixel(int x, int y, options::outOfImagePixelFilling option)
 }
 
 
-QVector<QVector<int>> Image::getWindow(int x, int y, int size,int channel, options::outOfImagePixelFilling option)
+QVector<QVector<float>> Image::getWindow(int x, int y, int size,int channel, options::outOfImagePixelFilling option)
 {
 
-    QVector<QVector<int>> window(size, QVector<int>(size, 0));
+    QVector<QVector<float>> window(size, QVector<float>(size, 0));
 
 
     int half = size / 2;

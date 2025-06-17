@@ -35,7 +35,7 @@ public:
     inline QImage& getImage(){return image;};
     inline QImage& getOrginalImage(){return orginalImage;};
     QRgb getPixel(int x, int y, options::outOfImagePixelFilling option);
-    QVector<QVector<int>> getWindow(int x, int y, int size,int channel, options::outOfImagePixelFilling option);
+    QVector<QVector<float>> getWindow(int x, int y, int size,int channel, options::outOfImagePixelFilling option);
     QVector<QVector<QColor>> getWindow(const int& x_ofCenter,const int& y_ofCenter,const int& size, options::outOfImagePixelFilling option);
 
 };

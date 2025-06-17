@@ -50,5 +50,6 @@ private slots:
 
     void on_EdgeDetection_clicked();
     void on_reset_image_button_clicked();
+    void on_EdgeOptions_editTextChanged(const QString &arg1);
 };
 #endif // MAINWINDOWQT_H

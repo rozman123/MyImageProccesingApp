@@ -1,117 +1,63 @@
 #include "edgegradient.h"
+#include <QColor>
 #include <math.h>
-#include <iostream>
+#include <algorithm>
+#include "convolution.h"
 
 
-//wykonuje iloczyn macierzy element po elemencie
-QVector<QVector<float> > join(const QVector<QVector<int>>& a, const QVector<QVector<float>>& b)// ta metoda jest powielona w blur może umieść gdzieś indziej.
-{
-    int rows = a.size();
-    int cols = a[0].size();
-    QVector<QVector<float>> result(rows, QVector<float>(cols));
-    for (int i = 0; i < rows; ++i)
-        for (int j = 0; j < cols; ++j)
-            result[i][j] = a[i][j] * b[i][j];
-    return result;
-}
-//sumuje wszystkie wartości w macierzy
-float sum(const QVector<QVector<float> >& matrix)  // ta metoda jest powielona w blur może umieść gdzieś indziej.
-{
-    float total = 0.0f;
-    for (const auto& row : matrix)
-        for (float val : row)
-            total += val;
-    return total;
-}
-
-
-// neesds to be reimplemented
-QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const AbstractMaskInterface& mask, options::outOfImagePixelFilling option)
+// konvloucja dla pojedyńczego kierunku (horizontal/vertical)
+QImage EdgeGradient::applyDetection(Image& image, const QVector<QVector<float>>& maskMatrix,options::outOfImagePixelFilling option, bool horizontal)
 {
     int width = image.getWidth();
     int height = image.getHeight();
-    int maskSize = mask.size;
-    float weight = sum(mask.horizontalDetection);
+    int maskSize = maskMatrix.size();
 
-    QImage convolutedImage = image.getImage();
+    QImage resultImage = image.getImage();
 
     for (int channel = 0; channel < 4; ++channel)
-    for (int y = 0; y < height; ++y)
     {
-        for (int x = 0; x < width; ++x)
+        for (int y = 0; y < height; ++y)
         {
-            auto window = image.getWindow(x, y,maskSize,channel, option);
-            auto joined = join(window, mask.horizontalDetection);
-            float accumulator = sum(joined);
-            if (weight != 0) accumulator /= weight;
-            int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
-            QColor color = convolutedImage.pixelColor(x, y);
-
-            switch(channel)
+            for (int x = 0; x < width; ++x)
             {
+                auto window = image.getWindow(x, y, maskSize, channel, option);
+                auto joined = Convolution::join(window, maskMatrix);
+                float accumulator = Convolution::sumMatrix(joined);
 
-                case 0: color.setRed(finalValue);break;
-                case 1: color.setGreen(finalValue);break;
-                case 2: color.setBlue(finalValue);break;
-                case 3:
+
+                int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
+                QColor color = resultImage.pixelColor(x, y);
+
+                switch (channel)
+                {
+                case options::chanel::RED: color.setRed(finalValue); break;
+                case options::chanel::GREEN: color.setGreen(finalValue); break;
+                case options::chanel::BLUE: color.setBlue(finalValue); break;
+                case options::chanel::LUMINOSITY:
                 {
                     QColor hsl = color.toHsl();
                     hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
                     color = hsl.toRgb();
                     break;
                 }
-            }
+                }
 
-            convolutedImage.setPixelColor(x, y, color);
+                resultImage.setPixelColor(x, y, color);
+            }
         }
     }
 
-    return convolutedImage;
+    return resultImage;
+}
+
+QImage EdgeGradient::horizontalDetectionOnChanel(Image& image, const AbstractMaskInterface& mask, options::outOfImagePixelFilling option)
+{
+    return applyDetection(image, mask.horizontalDetection, option, true);
 }
 
 QImage EdgeGradient::verticalDetectionOnChanel(Image& image, const AbstractMaskInterface& mask, options::outOfImagePixelFilling option)
 {
-    int width = image.getWidth();
-    int height = image.getHeight();
-    int maskSize = mask.size;
-    float weight = sum(mask.verticalDetection);
-
-
-    QImage convolutedImage = image.getImage();
-
-    for (int channel = 0; channel < 4; ++channel)
-    for (int y = 0; y < height; ++y)
-    {
-        for (int x = 0; x < width; ++x)
-        {
-            auto window = image.getWindow(x, y,maskSize,channel, option);
-            auto joined = join(window, mask.verticalDetection);
-            float accumulator = sum(joined);
-            if (weight != 0) accumulator /= weight;
-            int finalValue = std::clamp(static_cast<int>(accumulator), 0, 255);
-            QColor color = convolutedImage.pixelColor(x, y);
-
-            switch(channel)
-            {
-
-                case 0: color.setRed(finalValue);break;
-                case 1: color.setGreen(finalValue);break;
-                case 2: color.setBlue(finalValue);break;
-                case 3:
-                {
-                    QColor hsl = color.toHsl();
-                    hsl.setHsl(hsl.hue(), hsl.saturation(), finalValue);
-                    color = hsl.toRgb();
-                    break;
-                }
-            }
-
-
-            convolutedImage.setPixelColor(x, y, color);
-        }
-    }
-
-    return convolutedImage;
+    return applyDetection(image, mask.verticalDetection, option, false);
 }
 
 const EdgeGradient::AbstractMaskInterface& EdgeGradient::maskLoad(options::edgeDetectionOptions edgeDetectionOption)
@@ -123,59 +69,55 @@ const EdgeGradient::AbstractMaskInterface& EdgeGradient::maskLoad(options::edgeD
     else if (edgeDetectionOption==options::Sobel)
         return getSobelMask();
     //else if (edgeDetectionOption==options::Lapsjan)
-        //return getLapsjanMask();
+    //return getLapsjanMask();
 
 
     return getRobertsMask();
 }
 
-QImage EdgeGradient::transform(Image& image,options::edgeDetectionOptions edgeDetectionOption, options::outOfImagePixelFilling option)
+QImage EdgeGradient::transform(Image& image, options::edgeDetectionOptions edgeDetectionOption, options::outOfImagePixelFilling option)
 {
+    const AbstractMaskInterface& mask = maskLoad(edgeDetectionOption);
 
-    AbstractMaskInterface mask = maskLoad(edgeDetectionOption);
+    QImage pixmap = image.getImage();
+    QImage verticalEdges = verticalDetectionOnChanel(image, mask, option);
+    QImage horizontalEdges = horizontalDetectionOnChanel(image, mask, option);
 
-    QImage imagemap = image.getImage();
+    int width = image.getWidth();
+    int height = image.getHeight();
 
-    short imageHeight=image.getHeight();
-    short imageWidth=image.getWidth();
-
-
-    QImage verticalEdges = verticalDetectionOnChanel(image,mask,option);
-    QImage horizontalEdges = horizontalDetectionOnChanel(image,mask,option);
-
-    for (int y = 0; y < imageHeight; ++y)
+    for (int y = 0; y < height; ++y)
     {
-        for (int x = 0; x < imageWidth; ++x)
+        for (int x = 0; x < width; ++x)
         {
-            QColor original = imagemap.pixelColor(x, y);
+            QColor vx = verticalEdges.pixelColor(x, y);
+            QColor hx = horizontalEdges.pixelColor(x, y);
+            QColor base = pixmap.pixelColor(x, y);
 
-            QColor edgeColorX = horizontalEdges.pixelColor(x, y);
-            QColor edgeColorY = verticalEdges.pixelColor(x, y);
+            int red = std::clamp(static_cast<int>(std::sqrt(hx.red() * hx.red() + vx.red() * vx.red())), 0, 255);
+            int green = std::clamp(static_cast<int>(std::sqrt(hx.green() * hx.green() + vx.green() * vx.green())), 0, 255);
+            int blue = std::clamp(static_cast<int>(std::sqrt(hx.blue() * hx.blue() + vx.blue() * vx.blue())), 0, 255);
+            int light = std::clamp(static_cast<int>(std::sqrt(hx.lightness() * hx.lightness() + vx.lightness() * vx.lightness())), 0, 255);
 
+            base.setRed(red);
+            base.setGreen(green);
+            base.setBlue(blue);
 
-            QColor newColor = sqrt(pow(edgeColorX.red(),2)+pow(edgeColorY.red(),2));
-            original.setRed(newColor.red());
+            QColor hsl = base.toHsl();
+            hsl.setHsl(hsl.hue(), hsl.saturation(), light);
+            base = hsl.toRgb();
 
-            newColor = sqrt(pow(edgeColorX.green(),2)+pow(edgeColorY.green(),2));
-            original.setGreen(newColor.green());
-
-            newColor = sqrt(pow(edgeColorX.blue(),2)+pow(edgeColorY.blue(),2));
-            original.setBlue(newColor.blue());
-
-            newColor = sqrt(pow(edgeColorX.lightness(),2)+pow(edgeColorY.lightness(),2));
-            QColor hsl = original.toHsl();
-            hsl.setHsl(hsl.hue(), hsl.saturation(), newColor.lightness());
-            original = hsl.toRgb();
-
-
-            imagemap.setPixelColor(x, y, original);
+            pixmap.setPixelColor(x, y, base);
         }
     }
 
-
-
-    return imagemap;
-
+    return pixmap;
 }
+
+
+
+
+
+
 
 

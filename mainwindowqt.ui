@@ -255,6 +255,11 @@
       <string>Laplasjan</string>
      </property>
     </item>
+    <item>
+     <property name="text">
+      <string>LoG</string>
+     </property>
+    </item>
    </widget>
    <widget class="QComboBox" name="optionOfFillingpixelsOutOfImage">
     <property name="geometry">
@@ -292,6 +297,16 @@
     </property>
     <property name="text">
      <string>Reset Image</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="silencing_margin">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>480</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
     </property>
    </widget>
   </widget>

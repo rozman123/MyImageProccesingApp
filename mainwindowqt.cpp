@@ -5,7 +5,7 @@
 #include "histogram.h"
 #include <fstream>
 #include "options.h"
-
+#include "EdgeLaplaceOfGauss.h"
 MainWindowQt::MainWindowQt(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindowQt)
 {
     scene = new QGraphicsScene(this);
@@ -543,8 +543,12 @@ void MainWindowQt::on_Save_as_clicked()
 
 void MainWindowQt::on_EdgeDetection_clicked()
 {
+
+    bool ok1 = false, ok2 = false;
+    float sigma = ui->sigma->text().toFloat(&ok2);
     int edgeDetectionOptionIndex = ui->EdgeOptions->currentIndex();
     int fillingOfPixels = ui->optionOfFillingpixelsOutOfImage->currentIndex();
+    int t = ui->silencing_margin->text().toDouble(&ok1);
 
     bool maskSizeGiven = false;
 
@@ -553,7 +557,13 @@ void MainWindowQt::on_EdgeDetection_clicked()
     options::outOfImagePixelFilling pixelsFillingOption = static_cast<options::outOfImagePixelFilling>(fillingOfPixels);
     options::edgeDetectionOptions edgeDetectionOption = static_cast<options::edgeDetectionOptions>(edgeDetectionOptionIndex);
 
-    if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
+    if (edgeDetectionOption==options::LoG&&maskSizeGiven&&ok1&&ok2)
+    {
+        on_greyScale_clicked();
+        QImage imagemap = EdgeLaplaceOfGauss::LaplacjanOfGauss(imageHandle,maskSzie,sigma,t,pixelsFillingOption);
+        load_modified_image(imagemap);
+    }
+    else if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
     {
         QImage imagemap = Laplasjan::LaplasjanConvolute(imageHandle,maskSzie,pixelsFillingOption);
         load_modified_image(imagemap);
@@ -571,5 +581,11 @@ void MainWindowQt::on_reset_image_button_clicked()
 {
     QImage orginal_image = imageHandle.getOrginalImage();
     load_modified_image(orginal_image);
+}
+
+
+void MainWindowQt::on_EdgeOptions_editTextChanged(const QString &arg1)
+{
+
 }
 

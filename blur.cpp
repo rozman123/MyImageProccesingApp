@@ -53,8 +53,6 @@ QImage Blur::convolute(Image& image, const QVector<QVector<float>>& mask,int cha
 void Blur::blurEven(Image& image,int maskSize, options::outOfImagePixelFilling optionForPixelFilling)
 {
     QVector<QVector<float>> mask=Convolution::getMask(maskSize);
-    int imageWidth = image.getWidth();
-    int imageHeight = image.getHeight();
 
     options::outOfImagePixelFilling option = options::cyclicPixels;
 
@@ -65,46 +63,14 @@ void Blur::blurEven(Image& image,int maskSize, options::outOfImagePixelFilling o
         case 2: { option = options::repeatPixels; break;}
         default: { option = options::cyclicPixels; break;}
     }
-        QImage imagemap=image.getImage();
-        // przetwarza każdy kanał RGB osobno
-        for (int channel = 0; channel < 4; ++channel)
-        {
-            QImage blurred = convolute(image,mask, channel, option);
 
-            for (int y = 0; y < imageHeight; ++y)
-            {
-                for (int x = 0; x < imageWidth; ++x)
-                {
-                    QColor original = imagemap.pixelColor(x, y);
-                    QColor blurredColor = blurred.pixelColor(x, y);
-
-                    // Ustawiamy tylko rozmyty kanał, pozostałe zostają bez zmian
-                    switch (channel)
-                    {
-                    case 0: original.setRed(blurredColor.red()); break;
-                    case 1: original.setGreen(blurredColor.green()); break;
-                    case 2: original.setBlue(blurredColor.blue()); break;
-                    case 3:
-                    {
-                        QColor hsl = original.toHsl();
-                        hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
-                        original = hsl.toRgb();
-                        break;
-                    }
-                    }
-
-                    imagemap.setPixelColor(x, y, original);
-                }
-            }
-        }
-        image.loadImageFromImage(imagemap);
-
-
+    QImage blurred = Convolution::convolute(mask,image, option);
+    image.loadImageFromImage(blurred);
 
 }
 
 //funkcja z obliczaniem gausa
-float gaussFunction(float x, float y, float sigma)
+float Blur::gaussFunction(float x, float y, float sigma)
 {
     float coefficient = 1.0f / (2.0f * M_PI * sigma * sigma);
     float exponent = -(x * x + y * y) / (2.0f * sigma * sigma);
@@ -112,7 +78,7 @@ float gaussFunction(float x, float y, float sigma)
 }
 
 //tworzy maske gausa
-QVector<QVector<float>> getGaussianMask(int size, float sigma)
+QVector<QVector<float>> Blur::getGaussianMask(int size, float sigma)
 {
     QVector<QVector<float>> mask(size, QVector<float>(size));
     int center = size / 2;
@@ -142,9 +108,6 @@ QVector<QVector<float>> getGaussianMask(int size, float sigma)
 
 void Blur::blurGauss(Image& image,int sizeOfMask,float sigma,options::outOfImagePixelFilling optionForPixelFilling)
 {
-    int imageWidth = image.getWidth();
-    int imageHeight = image.getHeight();
-
     options::outOfImagePixelFilling option = options::cyclicPixels;
 
     switch(optionForPixelFilling)
@@ -157,37 +120,7 @@ void Blur::blurGauss(Image& image,int sizeOfMask,float sigma,options::outOfImage
 
     QVector<QVector<float>> mask = getGaussianMask(sizeOfMask, sigma);
 
-    QImage imagemap = image.getImage();
-
-    for (int channel = 0; channel < 4; ++channel)
-    {
-        QImage blurred = convolute(image, mask, channel, option);
-
-        for (int y = 0; y < imageHeight; ++y)
-        {
-            for (int x = 0; x < imageWidth; ++x)
-            {
-                QColor original = imagemap.pixelColor(x, y);
-                QColor blurredColor = blurred.pixelColor(x, y);
-
-                switch (channel)
-                {
-                case 0: original.setRed(blurredColor.red()); break;
-                case 1: original.setGreen(blurredColor.green()); break;
-                case 2: original.setBlue(blurredColor.blue()); break;
-                case 3:
-                {
-                    QColor hsl = original.toHsl();
-                    hsl.setHsl(hsl.hue(), hsl.saturation(), blurredColor.lightness());
-                    original = hsl.toRgb();
-                    break;
-                }
-                }
-
-                imagemap.setPixelColor(x, y, original);
-            }
-        }
-    }
-    image.loadImageFromImage(imagemap);
+    QImage blurred = Convolution::convolute(mask, image,option);
+    image.loadImageFromImage(blurred);
 
 }

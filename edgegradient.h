@@ -47,6 +47,8 @@ namespace EdgeGradient
 
     const AbstractMaskInterface& maskLoad(options::edgeDetectionOptions edgeDetectionOption);
 
+    QImage applyDetection(Image& image, const QVector<QVector<float>>& maskMatrix,options::outOfImagePixelFilling option, bool horizontal);
+
 
 };
 

@@ -11,7 +11,7 @@ QVector<QVector<float>> Convolution::getMask(unsigned int size)
 }
 
 //wykonuje iloczyn macierzy element po elemencie
-QVector<QVector<float>> Convolution::join(QVector<QVector<int>> matrixA, QVector<QVector<float>> matrixB)
+QVector<QVector<float>> Convolution::join(QVector<QVector<float>> matrixA, QVector<QVector<float>> matrixB)
 {
     unsigned int size = matrixA.size();
     QVector<QVector<float>> AxB(size,QVector<float>(size,0));
@@ -54,7 +54,7 @@ float Convolution::sumMatrix(const QVector<QVector<float> >& matrix)
 QVector<float> Convolution::sumMatrix(std::array<QVector<QVector<float>>,options::chanelsNumber>& matrix)
 {
     QVector<float> sum(options::chanelsNumber,0.0f);
-    unsigned int size=matrix.size();
+    unsigned int size=matrix[0].size();
     for(short chanel =0;chanel<options::chanelsNumber;++chanel)
         for(unsigned int i = 0;i<size;++i)
             for(unsigned int j = 0;j<size;++j)
@@ -83,7 +83,7 @@ std::array<QVector<QVector<float>>,options::chanelsNumber> Convolution::accumaul
 }
 
 
-QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& image, options::outOfImagePixelFilling pixelOption)
+QImage& Convolution::convolute(const QVector<QVector<float> >& mask, Image& image, options::outOfImagePixelFilling pixelOption)
 {
     QImage& convoluted_image=image.getImage();
 
@@ -96,7 +96,7 @@ QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& imag
         for(int width_pos=0;width_pos<width;++width_pos)
             for(int height_pos=0;height_pos<height;++height_pos)
             {
-                QVector<QVector<QColor>> window=image.getWindow(width_pos,height_pos,maskSize,pixelOption);
+                QVector<QVector<QColor>> window=image.getWindow(height_pos,width_pos,maskSize,pixelOption);
                 std::array<QVector<QVector<float>>,options::chanelsNumber> joined_vector_of_matrixes = accumaulate(window,mask);
                 QVector<float> sumedMatrixes = sumMatrix(joined_vector_of_matrixes);
 
@@ -106,12 +106,12 @@ QImage& Convolution::convloute(const QVector<QVector<float> >& mask, Image& imag
 
                 QColor pixelColor;
 
-                pixelColor.setRed(sumedMatrixes[options::chanel::RED]);
-                pixelColor.setGreen(sumedMatrixes[options::chanel::GREEN]);
-                pixelColor.setBlue(sumedMatrixes[options::chanel::BLUE]);
+                pixelColor.setRed(std::clamp(static_cast<int>(sumedMatrixes[options::chanel::RED]), 0, 255));
+                pixelColor.setGreen(std::clamp(static_cast<int>(sumedMatrixes[options::chanel::GREEN]), 0, 255));
+                pixelColor.setBlue(std::clamp(static_cast<int>(sumedMatrixes[options::chanel::BLUE]), 0, 255));
 
                 QColor hsl = pixelColor.toHsl();
-                hsl.setHsl(hsl.hue(), hsl.saturation(), sumedMatrixes[options::chanel::LUMINOSITY]);
+                hsl.setHsl(hsl.hue(), hsl.saturation(), std::clamp(static_cast<int>(sumedMatrixes[options::chanel::LUMINOSITY]), 0, 255));
                 pixelColor = hsl.toRgb();
 
                 convoluted_image.setPixelColor(height_pos,width_pos,pixelColor);
