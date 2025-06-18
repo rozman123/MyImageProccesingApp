@@ -9,7 +9,7 @@
 #include "image.h"
 #include "edgegradient.h"
 #include "laplasjan.h"
-
+#include "binarization.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -51,5 +51,6 @@ private slots:
     void on_EdgeDetection_clicked();
     void on_reset_image_button_clicked();
     void on_EdgeOptions_editTextChanged(const QString &arg1);
+    void on_binarization_clicked();
 };
 #endif // MAINWINDOWQT_H

@@ -5,7 +5,9 @@
 float EdgeLaplaceOfGauss::getLoG(int x, int y, float sigma)
 {
     float s2 = sigma * sigma;
-    return ((x * x + y * y - 2) / s2) * Blur::gaussFunction(x, y, sigma);
+    float s4 = s2 * s2;
+    float r2 = x * x + y * y;
+    return ((r2 - 2 * s2) / s4) * exp(-r2 / (2 * s2));
 }
 
 
@@ -21,7 +23,7 @@ QVector<QVector<float>> EdgeLaplaceOfGauss::getMask(int size, float sigma)
             // wspórzendne 0,0 to inaczje środek dla getLaplacjanOfGauss
             int x = j - center;
             int y = i - center;
-            mask[i][j] = getLoG(x, y, sigma);
+            mask[i][j] = getLoG(y, x, sigma);
         }
     }
 
@@ -43,18 +45,19 @@ QVector<QVector<float>> EdgeLaplaceOfGauss::convoluteLoG(const QVector<QVector<f
             QVector<QVector<QColor>> window = image.getWindow(y, x, maskSize, pixelOption);
             auto joined = Convolution::accumaulate(window, mask);
             QVector<float> result = Convolution::sumMatrix(joined);
-            output[y][x] = result[options::chanel::LUMINOSITY];
+            output[x][y] = result[options::chanel::LUMINOSITY];
         }
     }
 
     return output;
 }
 
-QImage EdgeLaplaceOfGauss::zeroCrossing(const QVector<QVector<float>>& rawLoG, int t)
+QImage EdgeLaplaceOfGauss::zeroCrossing(const QVector<QVector<float>>& rawLoG, double t)
 {
     int height = rawLoG.size();
     int width = rawLoG[0].size();
     QImage output(width, height, QImage::Format_RGB32);
+
 
     for (int y = 1; y < height - 1; ++y)
     {
@@ -72,11 +75,11 @@ QImage EdgeLaplaceOfGauss::zeroCrossing(const QVector<QVector<float>>& rawLoG, i
                     maxVal = std::max(maxVal, val);
                 }
             }
-
-            if ((minVal < - t) && (maxVal >  t))
-                output.setPixel(x, y, qRgb(0, 0, 0));  // edge (black)
+            //qDebug() << "LoG min:" << minVal << "max:" << maxVal;
+            if ((minVal < - t) && (maxVal > t))
+                output.setPixel(x, y, qRgb(255, 255, 255));  //
             else
-                output.setPixel(x, y, qRgb(255, 255, 255)); // non-edge (white)
+                output.setPixel(x, y, qRgb(0, 0, 0)); // no edge (black)
         }
     }
 
@@ -84,10 +87,17 @@ QImage EdgeLaplaceOfGauss::zeroCrossing(const QVector<QVector<float>>& rawLoG, i
 }
 
 
-QImage EdgeLaplaceOfGauss::LaplacjanOfGauss(Image& image, int maskSize, double sigma, int t, options::outOfImagePixelFilling options)
+QImage EdgeLaplaceOfGauss::LaplacjanOfGauss(Image& image, int maskSize, double sigma, double t, options::outOfImagePixelFilling options)
 {
     auto mask = EdgeLaplaceOfGauss::getMask(maskSize, sigma);
-
+    qDebug() << "LoG mask:";
+    for (int i = 0; i < maskSize; ++i) {
+        QString row;
+        for (int j = 0; j < maskSize; ++j) {
+            row += QString::number(mask[i][j], 'f', 2) + " ";
+        }
+        qDebug().noquote() << row;
+    }
     auto rawLoG = convoluteLoG(mask, image, options);
 
     QImage result = zeroCrossing(rawLoG, t);

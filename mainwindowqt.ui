@@ -173,6 +173,9 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="text">
+     <string>Mask Size</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="rozmycieGausowskie">
     <property name="geometry">
@@ -197,7 +200,7 @@
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Gauss</string>
     </property>
    </widget>
    <widget class="QPushButton" name="Save_as">
@@ -307,6 +310,35 @@
       <width>113</width>
       <height>27</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>t for LoG</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="binarization">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>480</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Binarization</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="threshold">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Threshold</string>
     </property>
    </widget>
   </widget>

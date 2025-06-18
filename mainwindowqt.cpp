@@ -548,7 +548,7 @@ void MainWindowQt::on_EdgeDetection_clicked()
     float sigma = ui->sigma->text().toFloat(&ok2);
     int edgeDetectionOptionIndex = ui->EdgeOptions->currentIndex();
     int fillingOfPixels = ui->optionOfFillingpixelsOutOfImage->currentIndex();
-    int t = ui->silencing_margin->text().toDouble(&ok1);
+    double t = ui->silencing_margin->text().toDouble(&ok1);
 
     bool maskSizeGiven = false;
 
@@ -559,7 +559,7 @@ void MainWindowQt::on_EdgeDetection_clicked()
 
     if (edgeDetectionOption==options::LoG&&maskSizeGiven&&ok1&&ok2)
     {
-        on_greyScale_clicked();
+        //on_greyScale_clicked();
         QImage imagemap = EdgeLaplaceOfGauss::LaplacjanOfGauss(imageHandle,maskSzie,sigma,t,pixelsFillingOption);
         load_modified_image(imagemap);
     }
@@ -586,6 +586,31 @@ void MainWindowQt::on_reset_image_button_clicked()
 
 void MainWindowQt::on_EdgeOptions_editTextChanged(const QString &arg1)
 {
+
+}
+
+
+void MainWindowQt::on_binarization_clicked()
+{
+    bool ok1 = false;
+    int threshold = ui->threshold->text().toInt(&ok1);
+
+    if (ok1)
+    {
+        //on_greyScale_clicked();
+        QImage imagemap = Binariztion::manual_binarization(imageHandle,threshold);
+        load_modified_image(imagemap);
+    }
+    // else if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
+    // {
+    //     QImage imagemap = Laplasjan::LaplasjanConvolute(imageHandle,maskSzie,pixelsFillingOption);
+    //     load_modified_image(imagemap);
+    // }
+    // else if (edgeDetectionOption!=options::Lapsjan)
+    // {
+    //     QImage imagemap = EdgeGradient::transform(imageHandle,edgeDetectionOption,pixelsFillingOption);
+    //     load_modified_image(imagemap);
+    // }
 
 }
 

@@ -12,8 +12,8 @@ namespace EdgeLaplaceOfGauss
     float getLoG(int x, int y, float sigma);
     QVector<QVector<float>> getMask(int size, float sigma);
 
-    QImage LaplacjanOfGauss(Image& image, int maskSize, double sigma, int t, options::outOfImagePixelFilling options);
-    QImage zeroCrossing(const QVector<QVector<float>>& rawLoG, int t);
+    QImage LaplacjanOfGauss(Image& image, int maskSize, double sigma, double t, options::outOfImagePixelFilling options);
+    QImage zeroCrossing(const QVector<QVector<float>>& rawLoG, double t);
     QVector<QVector<float>> convoluteLoG(const QVector<QVector<float>>& mask, Image& image, options::outOfImagePixelFilling pixelOption);
 
 }
