@@ -333,12 +333,55 @@
      <rect>
       <x>10</x>
       <y>520</y>
-      <width>113</width>
+      <width>121</width>
       <height>27</height>
      </rect>
     </property>
     <property name="text">
      <string>Threshold</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Binarization_option">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>520</y>
+      <width>121</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Auto</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bimodal</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Otsu</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Niblack</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="alpha_for_Niblack">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>520</y>
+      <width>121</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>alpha Niblack</string>
     </property>
    </widget>
   </widget>

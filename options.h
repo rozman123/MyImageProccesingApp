@@ -12,6 +12,7 @@ namespace options
 
     enum chanel {RED=0,GREEN=1,BLUE=2,LUMINOSITY=3};
 
+    enum binariztion {Auto=0,Bimodal=1,Otsu=2,Niblack=3};
 }
 
 

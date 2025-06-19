@@ -593,7 +593,16 @@ void MainWindowQt::on_EdgeOptions_editTextChanged(const QString &arg1)
 void MainWindowQt::on_binarization_clicked()
 {
     bool ok1 = false;
+    bool ok2 = false;
+    int binariztion = ui->Binarization_option->currentIndex();
     int threshold = ui->threshold->text().toInt(&ok1);
+    double alpha_for_Niblack = ui->alpha_for_Niblack->text().toDouble(&ok2);
+    int fillingOfPixels = ui->optionOfFillingpixelsOutOfImage->currentIndex();
+    options::outOfImagePixelFilling option=options::outOfImagePixelFilling::cyclicPixels;
+    bool maskSizeGiven = false;
+
+    int maskSzie = ui->maskSize->text().toInt(&maskSizeGiven);
+
 
     if (ok1)
     {
@@ -601,16 +610,34 @@ void MainWindowQt::on_binarization_clicked()
         QImage imagemap = Binariztion::manual_binarization(imageHandle,threshold);
         load_modified_image(imagemap);
     }
-    // else if (edgeDetectionOption==options::Lapsjan&&maskSizeGiven)
-    // {
-    //     QImage imagemap = Laplasjan::LaplasjanConvolute(imageHandle,maskSzie,pixelsFillingOption);
-    //     load_modified_image(imagemap);
-    // }
-    // else if (edgeDetectionOption!=options::Lapsjan)
-    // {
-    //     QImage imagemap = EdgeGradient::transform(imageHandle,edgeDetectionOption,pixelsFillingOption);
-    //     load_modified_image(imagemap);
-    // }
+    else if (binariztion==options::binariztion::Auto)
+    {
+        QImage imagemap = Binariztion::auto_binarization(imageHandle);
+        load_modified_image(imagemap);
+    }
+    else if (binariztion==options::binariztion::Bimodal)
+    {
+        QImage imagemap = Binariztion::bimodal_binarization(imageHandle);
+        load_modified_image(imagemap);
+    }
+    else if (binariztion==options::binariztion::Otsu)
+    {
+        MainWindowQt::on_wyrownanie_clicked();
+        QImage imagemap = Binariztion::otsu_binarization(imageHandle);
+        load_modified_image(imagemap);
+    }
+    else if (binariztion==options::binariztion::Niblack&&maskSizeGiven&&ok2)
+    {
+        switch(fillingOfPixels)
+        {
+        case 0: { option  = options::cyclicPixels; break;}
+        case 1: { option = options::blackPixels; break;}
+        case 2: { option = options::repeatPixels; break;}
+        default: { option = options::cyclicPixels; break;}
+        }
 
+        QImage imagemap = Binariztion::niblack_binarization(imageHandle,maskSzie,alpha_for_Niblack,option);
+        load_modified_image(imagemap);
+    }
 }
 
